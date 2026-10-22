@@ -1,0 +1,107 @@
+{
+  "base_hazard": 0.3333333333333333,
+  "base_n": 3,
+  "ref_bits": 8,
+  "curves": {
+    "system": {
+      "phase": "system",
+      "s": 0.0,
+      "log2_slope": null,
+      "table": {
+        "4": {
+          "rate": 0.0,
+          "reference_rate": 0.0,
+          "delta": 0.0,
+          "lo": -0.8339942075755347,
+          "hi": 0.8339942075755347,
+          "n": 1,
+          "failures": 0,
+          "ci_method": "matched-stratum Bonferroni-Wilson (conditional contexts)"
+        }
+      }
+    },
+    "think": {
+      "phase": "think",
+      "s": 0.0,
+      "log2_slope": null,
+      "table": {
+        "4": {
+          "rate": 0.3333333333333333,
+          "reference_rate": 0.3333333333333333,
+          "delta": 0.0,
+          "lo": -0.8743781946921858,
+          "hi": 0.8743781946921858,
+          "n": 3,
+          "failures": 1,
+          "ci_method": "matched-stratum Bonferroni-Wilson (conditional contexts)"
+        }
+      }
+    },
+    "act": {
+      "phase": "act",
+      "s": 0.0,
+      "log2_slope": null,
+      "table": {
+        "4": {
+          "rate": 0.0,
+          "reference_rate": 0.0,
+          "delta": 0.0,
+          "lo": -0.861850453653968,
+          "hi": 0.861850453653968,
+          "n": 2,
+          "failures": 0,
+          "ci_method": "matched-stratum Bonferroni-Wilson (conditional contexts)"
+        }
+      }
+    },
+    "read": {
+      "phase": "read",
+      "s": 0.0,
+      "log2_slope": null,
+      "table": {
+        "4": {
+          "rate": 0.5,
+          "reference_rate": 0.5,
+          "delta": 0.0,
+          "lo": -0.861850453653968,
+          "hi": 0.861850453653968,
+          "n": 2,
+          "failures": 1,
+          "ci_method": "matched-stratum Bonferroni-Wilson (conditional contexts)"
+        }
+      }
+    },
+    "stop": {
+      "phase": "stop",
+      "s": 0.0,
+      "log2_slope": null,
+      "table": {
+        "4": {
+          "rate": 1.0,
+          "reference_rate": 1.0,
+          "delta": 0.0,
+          "lo": -0.8339942075755347,
+          "hi": 0.8339942075755347,
+          "n": 1,
+          "failures": 1,
+          "ci_method": "matched-stratum Bonferroni-Wilson (conditional contexts)"
+        }
+      }
+    }
+  },
+  "tokens": {
+    "system": 225.0,
+    "think": 1.0,
+    "act": 29.5,
+    "read": 61.0,
+    "stop": 22.0
+  },
+  "freq_per_hop": {
+    "system": 1.0,
+    "think": 3.0,
+    "act": 2.0,
+    "read": 2.0,
+    "stop": 1.0
+  },
+  "n_tasks": 1
+}

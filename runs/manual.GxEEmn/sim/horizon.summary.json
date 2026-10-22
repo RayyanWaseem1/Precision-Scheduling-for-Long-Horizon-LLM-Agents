@@ -1,0 +1,84 @@
+{
+  "rows": [
+    {
+      "pred_log_ratio": 0.039861790286328115,
+      "hops": 2,
+      "n": 1500,
+      "S_adaptive": 0.954,
+      "S_uniform": 0.9153333333333333,
+      "log_ratio": 0.04136061900284121,
+      "abs_gain": 0.03866666666666663,
+      "avg_bits_adaptive": 3.976955673155258,
+      "avg_bits_uniform": 4.0
+    },
+    {
+      "pred_log_ratio": 0.0872560017729698,
+      "hops": 8,
+      "n": 1500,
+      "S_adaptive": 0.8726666666666667,
+      "S_uniform": 0.8,
+      "log_ratio": 0.08690724828645865,
+      "abs_gain": 0.07266666666666666,
+      "avg_bits_adaptive": 3.957823060687453,
+      "avg_bits_uniform": 4.0
+    },
+    {
+      "pred_log_ratio": 0.14873805952451868,
+      "hops": 16,
+      "n": 1500,
+      "S_adaptive": 0.7593333333333333,
+      "S_uniform": 0.6426666666666667,
+      "log_ratio": 0.16673501633995513,
+      "abs_gain": 0.11666666666666659,
+      "avg_bits_adaptive": 4.0978672555617806,
+      "avg_bits_uniform": 4.0
+    },
+    {
+      "pred_log_ratio": 0.2705873260084266,
+      "hops": 32,
+      "n": 1500,
+      "S_adaptive": 0.5786666666666667,
+      "S_uniform": 0.43333333333333335,
+      "log_ratio": 0.2890262877285996,
+      "abs_gain": 0.14533333333333331,
+      "avg_bits_adaptive": 4.028176628026433,
+      "avg_bits_uniform": 4.0
+    },
+    {
+      "pred_log_ratio": 0.3924365924923343,
+      "hops": 48,
+      "n": 1500,
+      "S_adaptive": 0.44466666666666665,
+      "S_uniform": 0.302,
+      "log_ratio": 0.3865441207192132,
+      "abs_gain": 0.14266666666666666,
+      "avg_bits_adaptive": 4.009613073567888,
+      "avg_bits_uniform": 4.0
+    },
+    {
+      "pred_log_ratio": 0.5142858589762425,
+      "hops": 64,
+      "n": 1500,
+      "S_adaptive": 0.332,
+      "S_uniform": 0.19466666666666665,
+      "log_ratio": 0.5331389227299819,
+      "abs_gain": 0.13733333333333336,
+      "avg_bits_adaptive": 4.00221758411726,
+      "avg_bits_uniform": 4.0
+    }
+  ],
+  "fit": {
+    "intercept": 0.0305851727390965,
+    "slope_per_hop": 0.0077658892845439455,
+    "slope_ci95": [
+      0.006654934601339572,
+      0.00897597013300276
+    ]
+  },
+  "empirical_peak_gain_hops": 32,
+  "prediction": {
+    "slope_per_hop": 0.007639731715990457,
+    "h_star_hops": 46.16638333920705,
+    "slope_inside_ci": true
+  }
+}

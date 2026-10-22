@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hazprec"
+version = "0.1.0"
+description = "Hazard-optimal precision scheduling for long-horizon LLM agents"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+# Apple Silicon (MacBook) backend
+mlx = ["mlx>=0.18", "mlx-lm>=0.20"]
+# NVIDIA backend (Colab A100/H100); also runs on CPU for tiny models
+cuda = ["torch>=2.2", "transformers>=4.51", "accelerate>=0.30"]
+dev = ["pytest>=7"]
+
+[project.scripts]
+hazprec = "hazprec.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["slow: end-to-end tests that take more than a few seconds"]

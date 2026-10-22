@@ -1,0 +1,12 @@
+[gate] backend=mlx; checking every precision
+[gate] 8 bits, 1 hops: {'episodes': 30, 'success': 0.0, 'success_ci95': [0.0, 0.113517091390478], 'turns': 89, 'turn_failures': 30, 'turn_hazard': 0.33707865168539325, 'turn_hazard_ci95': [0.24742688328112894, 0.44021314015664026], 'parse_rate': 0.9887640449438202, 'failure_kinds': {'wrong_tool': 29, 'unparseable': 1}, 'sec_per_turn': 0.5923428010441405, 'decode_tok_per_sec': 48.237327536518755, 'tokens_per_turn': 143.8426966292135}
+[gate] 3 bits, 1 hops: {'episodes': 30, 'success': 0.0, 'success_ci95': [0.0, 0.113517091390478], 'turns': 34, 'turn_failures': 30, 'turn_hazard': 0.8823529411764706, 'turn_hazard_ci95': [0.7337882520370121, 0.9532862902656388], 'parse_rate': 0.6470588235294117, 'failure_kinds': {'wrong_tool': 16, 'missing:record_id': 2, 'unparseable': 12}, 'sec_per_turn': 1.3627772940569283, 'decode_tok_per_sec': 96.23513643458966, 'tokens_per_turn': 340.1764705882353}
+[gate] 8 bits, 5 hops: {'episodes': 30, 'success': 0.9666666666666667, 'success_ci95': [0.8332924860304112, 0.9940915620051425], 'turns': 321, 'turn_failures': 1, 'turn_hazard': 0.003115264797507788, 'turn_hazard_ci95': [0.000550118408750886, 0.017432800035192254], 'parse_rate': 0.9968847352024922, 'failure_kinds': {'unparseable': 1}, 'sec_per_turn': 0.5815451294147465, 'decode_tok_per_sec': 50.51533501804533, 'tokens_per_turn': 105.53582554517133}
+[gate] 3 bits, 5 hops: {'episodes': 30, 'success': 0.0, 'success_ci95': [0.0, 0.113517091390478], 'turns': 34, 'turn_failures': 30, 'turn_hazard': 0.8823529411764706, 'turn_hazard_ci95': [0.7337882520370121, 0.9532862902656388], 'parse_rate': 0.5882352941176471, 'failure_kinds': {'unparseable': 14, 'wrong_tool': 16}, 'sec_per_turn': 1.395849736445063, 'decode_tok_per_sec': 94.83997416392872, 'tokens_per_turn': 340.05882352941177}
+[gate] timing actual atlas replay
+[PASS] format: 0.9951219512195122
+[PASS] reliable: 0.9666666666666667
+[PASS] signal: {'low_ci': [0.7337882520370121, 0.9532862902656388], 'reference_ci': [0.000550118408750886, 0.017432800035192254]}
+[PASS] cache: {'observations_checked': 363}
+[PASS] cost: {'measured_seconds': 89.31192837504204, 'measured_probe_samples': 140, 'calibration_tasks': 1, 'calibration_samples': 2, 'coverage_scale': 1.0, 'hours_total': 0.9923547597226894, 'method': 'timed replay; conservatively scaled to full reference-path coverage'}
+Phase 2 ready: True

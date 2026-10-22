@@ -1,0 +1,80 @@
+== 1/3 measuring the sensitivity atlas (simulated backend) ==
+[atlas] task 1/30 (seed 0) done
+[atlas] task 2/30 (seed 1) done
+[atlas] task 3/30 (seed 2) done
+[atlas] task 4/30 (seed 3) done
+[atlas] task 5/30 (seed 4) done
+[atlas] task 6/30 (seed 5) done
+[atlas] task 7/30 (seed 6) done
+[atlas] task 8/30 (seed 7) done
+[atlas] task 9/30 (seed 8) done
+[atlas] task 10/30 (seed 9) done
+[atlas] task 11/30 (seed 10) done
+[atlas] task 12/30 (seed 11) done
+[atlas] task 13/30 (seed 12) done
+[atlas] task 14/30 (seed 13) done
+[atlas] task 15/30 (seed 14) done
+[atlas] task 16/30 (seed 15) done
+[atlas] task 17/30 (seed 16) done
+[atlas] task 18/30 (seed 17) done
+[atlas] task 19/30 (seed 18) done
+[atlas] task 20/30 (seed 19) done
+[atlas] task 21/30 (seed 20) done
+[atlas] task 22/30 (seed 21) done
+[atlas] task 23/30 (seed 22) done
+[atlas] task 24/30 (seed 23) done
+[atlas] task 25/30 (seed 24) done
+[atlas] task 26/30 (seed 25) done
+[atlas] task 27/30 (seed 26) done
+[atlas] task 28/30 (seed 27) done
+[atlas] task 29/30 (seed 28) done
+[atlas] task 30/30 (seed 29) done
+wrote 3436 records to /Users/rayyanwaseem/Desktop/Projects/Precision-Scheduling-for-Long-Horizon-LLM-Agents/runs/manual.GxEEmn/sim/atlas.jsonl
+
+== 2/3 fitting curves and pre-registering predictions ==
+Reference (8-bits) per-turn failure rate: 0.0026 (n=10480), tasks=30
+phase            s  log2 slope excess hazard by bits [95% CI]
+act          1.790   -1.784237 3b:+0.0280[-0.273,+0.314] 4b:+0.0068[-0.276,+0.286] 5b:+0.0024[-0.276,+0.280] 6b:-0.0005[-0.277,+0.276]
+read         0.236   -4.209453 3b:+0.0040[-0.276,+0.282] 4b:+0.0002[-0.277,+0.277] 5b:-0.0013[-0.277,+0.275] 6b:-0.0017[-0.277,+0.274]
+stop         6.252   -1.687718 3b:+0.0983[-0.194,+0.348] 4b:+0.0224[-0.216,+0.251] 5b:+0.0043[-0.218,+0.225] 6b:+0.0034[-0.218,+0.224]
+system       0.580   -0.955075 3b:+0.0083[-0.217,+0.230] 4b:+0.0050[-0.218,+0.226] 5b:+0.0008[-0.218,+0.219] 6b:+0.0017[-0.218,+0.221]
+think        0.414   -2.522197 3b:+0.0063[-0.279,+0.288] 4b:+0.0024[-0.279,+0.282] 5b:+0.0002[-0.279,+0.279] 6b:-0.0006[-0.279,+0.278]
+tokens/segment: act = 24.0, read = 77.0, stop = 24.0, system = 206.0, think = 40.0
+segments/hop: act = 1.94, read = 1.93, stop = 0.24, system = 0.25, think = 2.18
+
+adaptive table: {'system': 5, 'read': 3, 'act': 6, 'stop': 8, 'think': 4}  (avg 3.94 bits at 8 hops; uniform = 4)
+  hops=  2: table {'system': 4, 'read': 3, 'act': 6, 'stop': 8, 'think': 4} avg 3.98 bits, predicted log ratio 0.0399
+  hops=  8: table {'system': 5, 'read': 3, 'act': 6, 'stop': 8, 'think': 4} avg 3.94 bits, predicted log ratio 0.0873
+  hops= 16: table {'system': 8, 'read': 3, 'act': 6, 'stop': 8, 'think': 4} avg 4.00 bits, predicted log ratio 0.1487
+  hops= 32: table {'system': 8, 'read': 3, 'act': 6, 'stop': 8, 'think': 4} avg 3.90 bits, predicted log ratio 0.2706
+  hops= 48: table {'system': 8, 'read': 3, 'act': 6, 'stop': 8, 'think': 4} avg 3.87 bits, predicted log ratio 0.3924
+  hops= 64: table {'system': 8, 'read': 3, 'act': 6, 'stop': 8, 'think': 4} avg 3.85 bits, predicted log ratio 0.5143
+continuous water-filling excess hazard / uniform (Prop. 1 quantity): 0.391
+pre-registered log-ratio slope per hop: 0.0076; peak absolute gain H* = 46.2 hops
+written to /Users/rayyanwaseem/Desktop/Projects/Precision-Scheduling-for-Long-Horizon-LLM-Agents/runs/manual.GxEEmn/sim/prereg.json (sha256 a583d5b0cdd5...)
+
+== 3/3 horizon sweep: adaptive vs uniform on paired seeds ==
+[horizon] hops = 2 policy = uniform done
+[horizon] hops = 2 policy = adaptive done
+[horizon] hops = 8 policy = uniform done
+[horizon] hops = 8 policy = adaptive done
+[horizon] hops = 16 policy = uniform done
+[horizon] hops = 16 policy = adaptive done
+[horizon] hops = 32 policy = uniform done
+[horizon] hops = 32 policy = adaptive done
+[horizon] hops = 48 policy = uniform done
+[horizon] hops = 48 policy = adaptive done
+[horizon] hops = 64 policy = uniform done
+[horizon] hops = 64 policy = adaptive done
+ hops     n   S_adapt    S_unif  log_ratio  predicted    gain     bits a/u
+    2  1500     0.954     0.915      0.041      0.040   0.039   3.98/4.00
+    8  1500     0.873     0.800      0.087      0.087   0.073   3.96/4.00
+   16  1500     0.759     0.643      0.167      0.149   0.117   4.10/4.00
+   32  1500     0.579     0.433      0.289      0.271   0.145   4.03/4.00
+   48  1500     0.445     0.302      0.387      0.392   0.143   4.01/4.00
+   64  1500     0.332     0.195      0.533      0.514   0.137   4.00/4.00
+slope of log ratio per hop: 0.0078 95% CI [0.0067, 0.0090]
+largest absolute gain at hops = 32
+pre-registered slope: 0.0076 -> INSIDE the CI;  predicted peak-gain horizon H* = 46.2 hops
+
+per-turn hazard and logistic hazard model are available via hazprec.eval.survival

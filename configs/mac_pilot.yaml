@@ -1,0 +1,22 @@
+# MacBook Pro M3 Pro (18 GB) pilot: MLX, one resident copy per bit-width,  8-bit as the
+# refernce. Qwen3-1.7B is the fast development model; switch to configs/mac_pilot_3b.yaml
+# for the pilot atlas 
+
+seed: 0
+backend:
+  kind: mlx 
+  levels: [3, 4, 6, 8]
+  ref_bits: 8
+  mlx:
+    model: Qwen/Qwen3-1.7B
+    group_size: 64
+    cache_dir: ~/.cache/hazprec/mlx
+    temperature: 0.7
+    # Qwen "thinking" adds long <think> blocks; turn it off to keep turns short
+    chat_template_kwargs: {enable_thinking: false}
+    tool_role: tool 
+env: {n_hops: 3, n_fields: 2, filler_lines: 3, error_mode: fatal}
+agent: {think: true, max_think_tokens: 128, max_act_tokens: 80}
+atlas: {n_tasks: 20, n_samples: 4, seed0: 0, max_turns: 7}
+theory: {bbar: 4, alloc_hops: 8, curve_mode: parametric}
+horizon: {hops: [2, 4, 6, 8], n_episodes: 100, seed0: 100000}

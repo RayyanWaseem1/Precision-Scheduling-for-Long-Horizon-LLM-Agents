@@ -1,0 +1,38 @@
+== 1/3 measuring the sensitivity atlas (simulated backend) ==
+wrote 3436 records to runs/demo/atlas.jsonl
+
+== 2/3 fitting curves and pre-registering predictions ==
+Reference (8-bit) per-turn failure rate: 0.0026 (n=10480), tasks=30
+phase            s  log2 slope   excess hazard by bits [95% CI]
+act          1.807       -1.73   3b:+0.0282[+0.025,+0.032]  4b:+0.0070[+0.005,+0.009]  5b:+0.0026[+0.001,+0.004]  6b:-0.0003[-0.001,+0.001]
+read         0.267       -2.98   3b:+0.0043[+0.003,+0.006]  4b:+0.0005[-0.000,+0.002]  5b:-0.0010[-0.002,+0.000]  6b:-0.0014[-0.002,-0.000]
+stop         6.116       -2.04   3b:+0.0966[+0.081,+0.115]  4b:+0.0207[+0.013,+0.031]  5b:+0.0026[-0.000,+0.009]  6b:+0.0017[-0.001,+0.007]
+system       0.382       -1.25   3b:+0.0058[+0.002,+0.013]  4b:+0.0024[-0.000,+0.008]  5b:-0.0017[-0.002,+0.002]  6b:-0.0009[-0.002,+0.003]
+think        0.414       -2.52   3b:+0.0063[+0.005,+0.008]  4b:+0.0024[+0.001,+0.004]  5b:+0.0002[-0.001,+0.001]  6b:-0.0006[-0.001,+0.000]
+tokens/segment: act=24.0, read=77.0, stop=24.0, system=205.0, think=40.0
+segments/hop:   act=1.94, read=1.93, stop=0.24, system=0.25, think=2.18
+
+adaptive table: {'system': 5, 'read': 3, 'act': 6, 'stop': 8, 'think': 4}  (avg 3.94 bits at 8 hops; uniform = 4)
+  hops=  2: table {'system': 3, 'read': 4, 'act': 5, 'stop': 8, 'think': 4} avg 3.98 bits, predicted log ratio 0.0409
+  hops=  8: table {'system': 5, 'read': 3, 'act': 6, 'stop': 8, 'think': 4} avg 3.94 bits, predicted log ratio 0.0812
+  hops= 16: table {'system': 8, 'read': 3, 'act': 6, 'stop': 8, 'think': 4} avg 4.00 bits, predicted log ratio 0.1376
+  hops= 32: table {'system': 8, 'read': 3, 'act': 6, 'stop': 8, 'think': 4} avg 3.90 bits, predicted log ratio 0.2497
+  hops= 48: table {'system': 8, 'read': 3, 'act': 6, 'stop': 8, 'think': 4} avg 3.86 bits, predicted log ratio 0.3617
+  hops= 64: table {'system': 8, 'read': 3, 'act': 6, 'stop': 8, 'think': 4} avg 3.85 bits, predicted log ratio 0.4737
+continuous water-filling excess hazard / uniform (Prop. 1 quantity): 0.398
+pre-registered log-ratio slope per hop: 0.0070; peak absolute gain H* = 44.3 hops
+written to runs/demo/prereg.json (sha256 c5f5cb76603e...)
+
+== 3/3 horizon sweep: adaptive vs uniform on paired seeds ==
+ hops     n   S_adapt    S_unif  log ratio  predicted    gain     bits a/u
+    2  1500     0.959     0.915      0.046      0.041   0.043   3.97/4.00
+    8  1500     0.873     0.800      0.087      0.081   0.073   3.96/4.00
+   16  1500     0.759     0.643      0.167      0.138   0.117   4.10/4.00
+   32  1500     0.579     0.433      0.289      0.250   0.145   4.03/4.00
+   48  1500     0.445     0.302      0.387      0.362   0.143   4.01/4.00
+   64  1500     0.332     0.195      0.533      0.474   0.137   4.00/4.00
+slope of log ratio per hop: 0.0077  95% CI [0.0066, 0.0089]
+largest absolute gain at hops = 32
+pre-registered slope: 0.0070 -> INSIDE the CI; predicted peak-gain horizon H* = 44.3 hops
+
+per-turn hazard and logistic hazard model are available via hazprec.eval.survival

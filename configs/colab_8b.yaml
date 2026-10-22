@@ -1,0 +1,25 @@
+# Colab A100 80 GB or H100: headline numbers with a BF16 reference
+# Memory: BF16 weights (16 GB) + master copy (16 GB) + one uint8 code tensor per low-bit
+# level (~8 GB each). Five low-bit levels + 16 = about 72 GB. On an A100 40 GB use a 4B
+# model or drop levels.
+
+seed: 0
+backend:
+  kind: hf
+  levels: [3, 4, 5, 6, 8, 16]
+  ref_bits: 16
+  hf:
+    model: Qwen/Qwen3-8B
+    dtype: bfloat16
+    device: cuda 
+    group_size: 128
+    temperature: 0.7
+    chat_template_kwargs: {enable_thinking: false}
+    tool_role: tool 
+env: {n_hops: 6, n_fields: 2, filler_lines: 4, error_mode: fatal}
+agent: {think: true, max_think_tokens: 160, max_act_tokens: 96}
+
+# Start with 100 tasks, check throughput, then raise n_tasks toward the proposal's 500
+atlas: {n_tasks: 100, n_samples: 8, seed0: 0, max_turns: 13}
+theory: {bbar: 4, alloc_hops: 12, curve_mode: parametric}
+horizon: {hops: [2, 4, 8, 12, 16], n_episodes: 300, seed0: 100000}

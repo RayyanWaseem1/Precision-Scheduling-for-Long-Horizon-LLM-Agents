@@ -1,0 +1,19 @@
+# Simulated oracle agent with a known hazard model. Runs anywhere in seconds; used to 
+# validate the measurement pipeline and the theory before spending GPU time
+
+seed: 0
+backend:
+  kind: sim 
+  levels: [3, 4, 5, 6, 8]
+  ref_bits: 8
+  sim: 
+    # excess hazard per turn at b bits = sensitivity * 2^(-2b)
+    sensitivity: {system: 0.3, read: 0.3, think: 0.5, act: 2.0, stop: 6.0}
+    base_hazard: 0.002
+    think_tokens: 40
+    act_tokens: 24
+env: {n_hops: 4, n_fields: 2, filler_lines: 4, error_mode: fatal}
+agent: {think: true, max_think_tokens: 160, max_act_tokens: 96}
+atlas: {n_tasks: 30, n_samples: 40, seed0: 0}
+theory: {bbar: 4, alloc_hops: 8, curve_mode: parametric}
+horizon: {hops: [2, 8, 16, 32, 48, 64], n_episodes: 1500, seed0: 100000}

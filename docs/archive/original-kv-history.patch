@@ -1,0 +1,970 @@
+From a9d8cdbfe95002c69e7094a37a9ca20df0f03f29 Mon Sep 17 00:00:00 2001
+From: Rayyan <rayyanwas02@gmail.com>
+Date: Tue, 20 Oct 2026 21:18:41 -0400
+Subject: [PATCH] Append-only KV history, precision provenance, and the Phase 1
+ gate
+
+The token backends re-rendered the whole conversation each turn and kept the
+longest common prefix with the cache. The harness rewrites assistant text
+(strip, inserted newline) and chat templates such as Qwen3's drop the empty
+think block from history, so the previous assistant message diverged and was
+re-prefilled at READ precision. That recomputed tool-call KV at the wrong
+bits and billed those tokens as READ cost, which would have contaminated the
+READ-sensitivity estimates in the Phase 2 atlas.
+
+- TokenBackend keeps generated tokens verbatim and appends only the chat
+  template's tail (found by rendering with a sentinel assistant message)
+- cached_bits records the precision of every cached token; restore re-feeds
+  missing tokens at their original precision
+- replay restores a backend snapshot taken before each turn's observation
+  instead of truncating by re-rendering
+- reference trajectories in the atlas now keep their text
+- scripts/phase1_gate.py: format, reliability, low-bit signal, cache and
+  atlas-cost checks with an atlas wall-clock estimate
+- docs/PHASE1_RUNBOOK.md and a gate cell in the Colab notebook
+- tests: provenance invariant, exact template tail, restore fast-forward,
+  gate loop on the token backend (38 tests)
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01GovCNooRZJe6owB9eszMEi
+---
+ README.md                                  |  16 +-
+ colab/hazprec_colab.ipynb                  |  12 +
+ docs/PHASE1_RUNBOOK.md                     | 119 ++++++++++
+ reports/.gitkeep                           |   0
+ scripts/phase1_gate.py                     | 256 +++++++++++++++++++++
+ src/hazprec/quant/backends/base.py         | 151 ++++++++----
+ src/hazprec/quant/backends/hf_fakequant.py |   6 +
+ src/hazprec/quant/backends/mlx_backend.py  |  21 +-
+ src/hazprec/quant/backends/simulated.py    |   3 -
+ src/hazprec/sensitivity/replay.py          |  15 +-
+ tests/test_hf_backend.py                   |  89 ++++++-
+ 11 files changed, 622 insertions(+), 66 deletions(-)
+ create mode 100644 docs/PHASE1_RUNBOOK.md
+ create mode 100644 reports/.gitkeep
+ create mode 100644 scripts/phase1_gate.py
+
+diff --git a/README.md b/README.md
+index 8028f51..688dd3c 100644
+--- a/README.md
++++ b/README.md
+@@ -15,7 +15,7 @@ compute (and pre-register) before running the experiment.
+ | --- | --- | --- |
+ | HorizonGym: controllable-horizon tool world with step-level verification | `src/hazprec/envs/horizongym/` | tested |
+ | Agent harness with per-segment precision (READ / THINK / ACT / STOP) | `src/hazprec/agent/harness.py` | tested |
+-| `PrecisionBackend` interface + shared token-level logic (LCP prefill, stop strings, snapshot/trim) | `src/hazprec/quant/backends/base.py` | tested |
++| `PrecisionBackend` interface + shared token-level logic (append-only history, per-token precision provenance, snapshot/restore) | `src/hazprec/quant/backends/base.py` | tested |
+ | Simulated oracle backend with a known hazard model | `quant/backends/simulated.py` | tested |
+ | PyTorch/transformers backend with fake-quantized weights (Colab GPU, or CPU) | `quant/backends/hf_fakequant.py` | tested on a tiny random Llama |
+ | MLX backend (MacBook): one resident copy per bit-width, shared KV cache | `quant/backends/mlx_backend.py` | **written, not yet run** — see "First run on the Mac" |
+@@ -25,9 +25,11 @@ compute (and pre-register) before running the experiment.
+ | Replay-based sensitivity atlas (resumable JSONL) | `src/hazprec/sensitivity/` | tested |
+ | Survival model, bootstrap, paired horizon analysis | `src/hazprec/eval/` | tested |
+ | Policies P0 uniform, P1 phase table, P2 paced, P3 oracle phase | `src/hazprec/scheduler/policies.py` | P0/P1 tested; P2 implemented |
++| Phase 1 gate: reliability, signal, cache and atlas-cost checks | `scripts/phase1_gate.py` | tested |
+ | CLI, configs, Colab notebook | `src/hazprec/cli.py`, `configs/`, `colab/` | |
+ 
+-The test suite (`pytest`) has 35 tests. The pipeline was validated end to end on the
++The test suite (`pytest`) has 38 tests. **To run Phase 1 on real models, follow
++[`docs/PHASE1_RUNBOOK.md`](docs/PHASE1_RUNBOOK.md).** The pipeline was validated end to end on the
+ simulated backend: the pre-registered slope landed inside the measured 95% CI
+ (see `docs/demo_output.txt`).
+ 
+@@ -119,9 +121,15 @@ the same cell and completed work is skipped.
+   The adaptive schedule is allocated per horizon so its expected average never exceeds the
+   uniform b̄. Realized averages can drift by about ±0.1 bit because failed episodes end early;
+   the analysis reports them for every horizon.
++- **Append-only history.** The cache keeps exactly the tokens the model generated, at the
++  precision it generated them. Each new observation is appended using the chat template's
++  tail (found by rendering with a sentinel in place of the assistant message), so assistant
++  text is never re-tokenized or re-prefilled at READ precision. `cached_bits` records the
++  precision of every cached token.
+ - **Replay protocol.** Only turns on the reference trajectory's correct prefix are replayed.
+-  Before each sample the backend cache is cut back to before the last observation, so the READ
+-  segment is always re-prefilled at the intended precision.
++  Each sample restores a backend snapshot taken before that turn's observation was
++  prefilled; `restore` re-feeds any missing tokens at their original precision, so the READ
++  segment is re-prefilled at the probe precision and everything before it is unchanged.
+ - **Phase hinter.** Policies see whether the next call will end the episode through a
+   deployable hinter that uses only the agent's own observations, never the oracle.
+   `OraclePhasePolicy` (P3) gets the true phase and is an upper bound only.
+diff --git a/colab/hazprec_colab.ipynb b/colab/hazprec_colab.ipynb
+index 9e6f1f3..4839fe3 100644
+--- a/colab/hazprec_colab.ipynb
++++ b/colab/hazprec_colab.ipynb
+@@ -38,6 +38,18 @@
+    "outputs": [],
+    "source": "!python -m pytest -q tests\n!hazprec smoke -c configs/colab_8b.yaml --hops 1"
+   },
++  {
++   "cell_type": "markdown",
++   "metadata": {},
++   "source": "## 1b. Phase 1 gate\nChecks format, reliability, low-bit signal, cache behaviour and atlas cost. With the default config, expect `cost` to fail (batch-size-1 atlas on 8B); every other check must pass. See `docs/PHASE1_RUNBOOK.md`."
++  },
++  {
++   "cell_type": "code",
++   "metadata": {},
++   "execution_count": null,
++   "outputs": [],
++   "source": "!python scripts/phase1_gate.py -c configs/colab_8b.yaml --n 20 --out $RUNS/gate_colab_qwen3-8b.json | tee $RUNS/gate_colab_qwen3-8b.txt"
++  },
+   {
+    "cell_type": "markdown",
+    "metadata": {},
+diff --git a/docs/PHASE1_RUNBOOK.md b/docs/PHASE1_RUNBOOK.md
+new file mode 100644
+index 0000000..816e0af
+--- /dev/null
++++ b/docs/PHASE1_RUNBOOK.md
+@@ -0,0 +1,119 @@
++# Phase 1 runbook: from a built repo to the Phase 2 start line
++
++Phase 1 is finished when the **gate passes on a real model**: the reference-precision
++agent solves 5-hop HorizonGym tasks (11 dependent actions) reliably, every bit-width
++loads and runs, the lowest bit-width shows a measurable hazard, the KV cache is
++append-only, and the Phase 2 atlas fits your compute budget.
++
++Order: Mac first (free, fast iteration), then one Colab session to confirm the 8B
++headline model. Commit the gate reports and tag the repo before starting Phase 2.
++
++## 0. Sanity check (any machine, ~2 minutes)
++
++```bash
++pip install -e ".[mlx,dev]"          # Mac; on Colab: ".[cuda,dev]"
++pytest -q                            # HF backend tests skip if torch is not installed
++hazprec demo --out runs/demo         # simulated pipeline; compare with docs/demo_output.txt
++```
++
++## 1. Mac: Qwen3-1.7B (development model)
++
++```bash
++# 1a. Every bit-width converts, loads and plays one 1-hop episode (first run converts: ~5-10 min)
++hazprec smoke -c configs/mac_pilot.yaml --hops 1
++
++# 1b. Watch one episode turn by turn
++hazprec play -c configs/mac_pilot.yaml --policy uniform:8 -v
++
++# 1c. Quick gate: 10 episodes at 1 hop, 8 and 3 bits (~5 min)
++python scripts/phase1_gate.py -c configs/mac_pilot.yaml --quick
++
++# 1d. Full gate: 30 episodes at 1 and 5 hops, 8 and 3 bits (~30-60 min)
++mkdir -p reports
++caffeinate -i python scripts/phase1_gate.py -c configs/mac_pilot.yaml \
++    --out reports/gate_mac_qwen3-1.7b.json | tee reports/gate_mac_qwen3-1.7b.txt
++```
++
++`caffeinate -i` keeps the Mac awake for the run. Keep Activity Monitor's memory
++pressure in the green; four copies of a 1.7B model use about 5 GB.
++
++### Reading the gate
++
++| Check | Passes when | If it fails |
++| --- | --- | --- |
++| format | ≥ 98% of turns at 8 bits parse as a tool call | `--set agent.think=false`; look at `play -v` output; try another model |
++| reliable | 8-bit success at 5 hops ≥ 0.80 | go to step 2 (3B); or `--set env.n_fields=1`, `--set env.filler_lines=2` |
++| signal | 3-bit per-turn hazard CI sits above the 8-bit CI | add a 2-bit level: `--set "backend.levels=[2,3,4,6,8]"`; or `--set env.n_fields=3` |
++| cache | no full re-render after turn 0; ≤ 48 template tokens around each observation | send me the output; the chat template needs a special case |
++| cost | the atlas in the config fits `--atlas-budget-hours` (24 h) | lower `atlas.n_tasks`, `n_samples`, `max_turns`, or drop a bit-width |
++
++Any config value can be changed on the command line with `--set`, and the same
++`--set` values must then be used for `hazprec atlas`.
++
++**What "good" looks like.** All five checks pass. The 3-bit failures should be mostly
++`wrong:ack`, `wrong:seq`, `wrong:record_id` or `wrong:count`, which are content errors
++the atlas can attribute to a phase. Many `unparseable` failures at 3 bits are a format
++collapse instead; still a valid hazard, but note it.
++
++## 2. Mac: Qwen2.5-3B (only if 1.7B fails `reliable`)
++
++```bash
++hazprec smoke -c configs/mac_pilot_3b.yaml --hops 1
++caffeinate -i python scripts/phase1_gate.py -c configs/mac_pilot_3b.yaml \
++    --out reports/gate_mac_qwen2.5-3b.json | tee reports/gate_mac_qwen2.5-3b.txt
++```
++
++Four copies of a 3B model use about 8-9 GB. Close browsers and other large apps.
++
++## 3. Colab: Qwen3-8B headline model (one session, A100 80 GB or H100)
++
++Open `colab/hazprec_colab.ipynb`, run the setup cells, then in place of the atlas cell:
++
++```bash
++!hazprec smoke -c configs/colab_8b.yaml --hops 1
++!python scripts/phase1_gate.py -c configs/colab_8b.yaml --n 20 \
++    --out $RUNS/gate_colab_qwen3-8b.json | tee $RUNS/gate_colab_qwen3-8b.txt
++```
++
++Expect `cost` to **fail** with the default config: a batch-size-1 atlas on an 8B model
++is hundreds of GPU-hours. That is the input for Phase 2 sizing, not a blocker. Every
++other check must pass. Copy the two report files into the repo's `reports/` folder.
++
++## 4. Close Phase 1
++
++```bash
++git add reports/ && git commit -m "Phase 1 gate reports"
++git tag phase1-complete
++```
++
++## 5. Phase 2 start line (weeks 3-5: sensitivity atlas, answers E1 and E2)
++
++**5a. Mac pilot atlas (start right away; runs overnight).** Use the model that passed
++the gate:
++
++```bash
++caffeinate -i hazprec atlas -c configs/mac_pilot.yaml --out runs/atlas_mac_qwen3-1.7b.jsonl
++hazprec fit --atlas runs/atlas_mac_qwen3-1.7b.jsonl --out reports/atlas_mac_qwen3-1.7b.fit.json
++```
++
++The atlas resumes if interrupted: rerun the same command. In the fit, look at:
++
++1. Per-phase `s`: are `act` and `stop` well above `read` and `think`? (first look at E1)
++2. `log2 slope` per phase: near −2 supports the 2^(−2b) model; much shallower means
++   the allocator should use fitted curves (`theory.curve_mode=empirical`).
++3. CI widths: they set how many tasks and samples the Colab atlas needs.
++
++**5b. Phase 2 engineering (built next, before the Colab atlas):**
++
++1. Batched replay sampling: the `n_samples` regenerations of a turn share one prefix
++   and run as one batch. This is what makes the 8B atlas affordable.
++2. Teacher-forced KL and entropy per segment, logged in the atlas: the data for E2
++   (do perplexity-style signals track where agents actually fail?).
++3. An E1/E2 report: share of hazard variance explained by phase, and the rank
++   correlation between entropy/KL and measured hazard, with bootstrap CIs.
++
++**5c. Colab headline atlas** once 5b lands, sized from the gate's throughput numbers.
++
++Do not pre-register the headline predictions from the Mac pilot. A pilot
++pre-registration and horizon sweep are fine as a dry run, under a `pilot_` file name;
++pre-registration files are write-once.
+diff --git a/reports/.gitkeep b/reports/.gitkeep
+new file mode 100644
+index 0000000..e69de29
+diff --git a/scripts/phase1_gate.py b/scripts/phase1_gate.py
+new file mode 100644
+index 0000000..4f5c28d
+--- /dev/null
++++ b/scripts/phase1_gate.py
+@@ -0,0 +1,256 @@
++"""Phase 1 gate: is this model + config ready for the Phase 2 sensitivity atlas?
++
++Runs uniform-precision episodes at each requested bit-width and horizon on task seeds
++disjoint from the atlas and the horizon sweep, then checks five things:
++
++  1. format     the model emits parseable tool calls at the reference precision
++  2. reliable   reference-precision success at the gate horizon meets the bar
++  3. signal     the lowest bit-width has a measurably higher per-turn failure rate
++  4. cache      history is append-only: no assistant text is re-prefilled
++  5. cost       what the atlas in the config will take on this machine
++
++Usage:
++  python scripts/phase1_gate.py -c configs/mac_pilot.yaml --quick
++  python scripts/phase1_gate.py -c configs/mac_pilot.yaml --out runs/gate_mac_qwen3_1p7b.json
++"""
++
++from __future__ import annotations
++
++import argparse
++import json
++import statistics
++import sys
++import time
++from collections import Counter, defaultdict
++from dataclasses import replace
++from pathlib import Path
++
++from hazprec.agent.harness import AgentHarness
++from hazprec.config import env_config, harness_kwargs, load_config
++from hazprec.envs.horizongym import HorizonGymEnv
++from hazprec.eval.stats import wilson_interval
++from hazprec.quant.backends import make_backend
++from hazprec.scheduler import UniformPolicy
++from hazprec.sensitivity.replay import PROBES
++
++
++def failure_kind(reason: str) -> str:
++    if reason.startswith("could not parse"):
++        return "unparseable"
++    if reason.startswith("expected tool"):
++        return "wrong_tool"
++    if reason.startswith("missing argument"):
++        return "missing:" + reason.split("'")[1]
++    if reason.startswith("wrong value"):
++        return "wrong:" + reason.split("'")[1]
++    return reason
++
++
++def run_episode(harness: AgentHarness, env: HorizonGymEnv, seed: int) -> dict:
++    """``AgentHarness.run_episode``, unrolled so we can see each observation and time it."""
++    be = harness.backend
++    env.reset(seed)
++    be.reset(seed)
++    be.bind_env(env)
++    harness.policy.begin_episode()
++    harness.hinter = harness.hinter_factory() if harness.hinter_factory else None
++    stats0 = dict(getattr(be, "stats", {}))
++    msgs = env.messages()
++    cfg = env.config
++    limit = cfg.horizon * (1 + (cfg.max_retries if cfg.error_mode == "recoverable" else 0)) + 2
++    turns, read_overhead = [], []
++    t0 = time.perf_counter()
++    while not env.state.done and len(turns) < limit:
++        obs = msgs[-1]["content"] if len(turns) > 0 else None
++        rec = harness.run_turn(env, msgs, len(turns))
++        if obs is not None and hasattr(be, "_encode"):
++            read_overhead.append(rec.segments[0].tokens - len(be._encode(obs)))
++        turns.append(rec)
++    secs = time.perf_counter() - t0
++    stats1 = dict(getattr(be, "stats", {}))
++    prefill = sum(s.tokens for t in turns for s in t.segments if s.phase.value in ("system", "read"))
++    decode = sum(s.tokens for t in turns for s in t.segments if s.phase.value in ("think", "act", "stop"))
++    fail = next((t for t in turns if not t.correct), None)
++    return {
++        "seed": seed,
++        "success": env.state.success,
++        "turns": len(turns),
++        "correct_turns": sum(t.correct for t in turns),
++        "failure": None if fail is None else failure_kind(fail.reason),
++        "failure_phase": None if fail is None else fail.expected_phase.value,
++        "parse_failures": sum(t.call is None for t in turns),
++        "prefill_tokens": prefill,
++        "decode_tokens": decode,
++        "seconds": secs,
++        "full_renders": stats1.get("full", 0) - stats0.get("full", 0),
++        "read_overhead": read_overhead,
++        "example_call": next((t.call.to_json() for t in turns if t.call is not None), None),
++    }
++
++
++def summarize(eps: list[dict]) -> dict:
++    n = len(eps)
++    succ = sum(e["success"] for e in eps)
++    turns = sum(e["turns"] for e in eps)
++    fails = sum(e["turns"] - e["correct_turns"] for e in eps)
++    lo, hi = wilson_interval(succ, n)
++    hlo, hhi = wilson_interval(fails, turns)
++    secs = sum(e["seconds"] for e in eps)
++    return {
++        "episodes": n,
++        "success": succ / n,
++        "success_ci95": [lo, hi],
++        "turns": turns,
++        "turn_failures": fails,
++        "turn_hazard": fails / max(turns, 1),
++        "turn_hazard_ci95": [hlo, hhi],
++        "parse_rate": 1 - sum(e["parse_failures"] for e in eps) / max(turns, 1),
++        "failure_kinds": dict(Counter(e["failure"] for e in eps if e["failure"])),
++        "sec_per_turn": secs / max(turns, 1),
++        "decode_tok_per_sec": sum(e["decode_tokens"] for e in eps) / max(secs, 1e-9),
++        "tokens_per_turn": (sum(e["prefill_tokens"] + e["decode_tokens"] for e in eps)) / max(turns, 1),
++    }
++
++
++def atlas_cost(cfg: dict, ref_sec_per_turn: float, ref_turns_per_task: float) -> dict:
++    """Wall-clock estimate for ``hazprec atlas`` with this config, from measured speed."""
++    at, be = cfg["atlas"], cfg["backend"]
++    levels = list(be["levels"])
++    settings = 1 + len(PROBES) * (len(levels) - 1)  # one ref setting + every probe x non-ref level
++    horizon = 2 * int(cfg["env"]["n_hops"]) + 1
++    replayed = min(ref_turns_per_task, at.get("max_turns") or horizon)
++    regens = replayed * settings * int(at["n_samples"])
++    per_task = (ref_turns_per_task + regens) * ref_sec_per_turn
++    total = per_task * int(at["n_tasks"])
++    return {
++        "settings_per_turn": settings,
++        "replayed_turns_per_task": replayed,
++        "turn_regenerations_per_task": regens,
++        "minutes_per_task": per_task / 60,
++        "hours_total": total / 3600,
++        "n_tasks": int(at["n_tasks"]),
++        "n_samples": int(at["n_samples"]),
++    }
++
++
++def main(argv: list[str] | None = None) -> int:
++    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
++    ap.add_argument("-c", "--config", required=True)
++    ap.add_argument("--set", dest="overrides", action="append", default=[], metavar="KEY=VALUE")
++    ap.add_argument("--bits", type=int, nargs="*", help="bit-widths to test (default: reference and lowest level)")
++    ap.add_argument("--hops", type=int, nargs="*", default=[1, 5], help="horizons in hops (default: 1 5)")
++    ap.add_argument("--gate-hops", type=int, default=5, help="horizon the reliability bar applies to")
++    ap.add_argument("--n", type=int, default=30, help="episodes per (bits, hops)")
++    ap.add_argument("--quick", action="store_true", help="10 episodes at 1 hop: a 2-5 minute first look")
++    ap.add_argument("--min-ref-success", type=float, default=0.8)
++    ap.add_argument("--min-parse-rate", type=float, default=0.98)
++    ap.add_argument("--max-read-overhead", type=int, default=48, help="template tokens around an observation")
++    ap.add_argument("--atlas-budget-hours", type=float, default=24.0)
++    ap.add_argument("--seed0", type=int, default=200_000, help="disjoint from atlas (0..) and horizon (100000..) seeds")
++    ap.add_argument("--out", default=None, help="write the full report as JSON")
++    a = ap.parse_args(argv)
++    if a.quick:
++        a.n, a.hops, a.gate_hops = 10, [1], 1
++
++    cfg = load_config(a.config, a.overrides)
++    levels = list(cfg["backend"]["levels"])
++    ref = int(cfg["backend"]["ref_bits"])
++    bits_list = a.bits or sorted({ref, min(levels)}, reverse=True)
++    print(f"[gate] loading backend {cfg['backend']['kind']} levels={levels} ref={ref}", flush=True)
++    t_load = time.perf_counter()
++    be = make_backend(cfg["backend"], cfg["seed"])
++    print(f"[gate] loaded in {time.perf_counter() - t_load:.0f}s", flush=True)
++
++    base_env = env_config(cfg)
++    results: dict[tuple[int, int], list[dict]] = defaultdict(list)
++    for hops in a.hops:
++        env = HorizonGymEnv(replace(base_env, n_hops=hops))
++        for b in bits_list:
++            h = AgentHarness(be, UniformPolicy(b), think=cfg["agent"]["think"], **harness_kwargs(cfg))
++            for i in range(a.n):
++                results[(b, hops)].append(run_episode(h, env, a.seed0 + 1000 * hops + i))
++            s = summarize(results[(b, hops)])
++            print(f"[gate] {b:>2} bits, {hops:>2} hops: success {s['success']:.2f} "
++                  f"({s['sec_per_turn']:.1f}s/turn, {s['decode_tok_per_sec']:.0f} decode tok/s)", flush=True)
++
++    # ---- report -------------------------------------------------------------------
++    print("\n bits  hops  success [95% CI]     turn hazard [95% CI]   parse   s/turn  failures")
++    table = {}
++    for (b, hops), eps in sorted(results.items(), key=lambda kv: (kv[0][1], -kv[0][0])):
++        s = summarize(eps)
++        table[f"{b}b_{hops}h"] = s
++        kinds = ", ".join(f"{k}={v}" for k, v in sorted(s["failure_kinds"].items(), key=lambda kv: -kv[1])) or "-"
++        print(f"{b:>5} {hops:>5}  {s['success']:.2f} [{s['success_ci95'][0]:.2f},{s['success_ci95'][1]:.2f}]"
++              f"     {s['turn_hazard']:.3f} [{s['turn_hazard_ci95'][0]:.3f},{s['turn_hazard_ci95'][1]:.3f}]"
++              f"   {s['parse_rate']:.3f}  {s['sec_per_turn']:6.1f}  {kinds}")
++
++    ref_eps = [e for (b, _), eps in results.items() if b == ref for e in eps]
++    low = min(bits_list)
++    low_eps = [e for (b, _), eps in results.items() if b == low for e in eps]
++    ref_s = summarize(ref_eps)
++    checks = []
++
++    checks.append(("format", ref_s["parse_rate"] >= a.min_parse_rate,
++                   f"parse rate at {ref} bits = {ref_s['parse_rate']:.3f} (need >= {a.min_parse_rate})"))
++
++    gate = results.get((ref, a.gate_hops))
++    if gate:
++        g = summarize(gate)
++        checks.append(("reliable", g["success"] >= a.min_ref_success,
++                       f"{ref}-bit success at {a.gate_hops} hops = {g['success']:.2f} "
++                       f"[{g['success_ci95'][0]:.2f}, {g['success_ci95'][1]:.2f}] (need >= {a.min_ref_success})"))
++    else:
++        checks.append(("reliable", False, f"no {ref}-bit runs at gate horizon {a.gate_hops} hops"))
++
++    if low != ref and low_eps:
++        l_s = summarize(low_eps)
++        sig = l_s["turn_hazard_ci95"][0] > ref_s["turn_hazard_ci95"][1]
++        checks.append(("signal", sig,
++                       f"per-turn hazard {low} bits = {l_s['turn_hazard']:.3f} vs {ref} bits = "
++                       f"{ref_s['turn_hazard']:.3f} (CIs {'separate' if sig else 'overlap'})"))
++
++    if hasattr(be, "stats"):
++        extra_full = sum(max(e["full_renders"] - 1, 0) for e in ref_eps + low_eps)
++        over = [o for e in ref_eps + low_eps for o in e["read_overhead"]]
++        mx = max(over) if over else 0
++        checks.append(("cache", extra_full == 0 and mx <= a.max_read_overhead,
++                       f"full re-renders after turn 0 = {extra_full}; template tokens around each observation "
++                       f"median {statistics.median(over) if over else 0:.0f}, max {mx} (need <= {a.max_read_overhead})"))
++
++    turns_per_task = (2 * int(cfg["env"]["n_hops"]) + 1) * max(ref_s["success"], 0.3)
++    cost = atlas_cost(cfg, ref_s["sec_per_turn"], turns_per_task)
++    checks.append(("cost", cost["hours_total"] <= a.atlas_budget_hours,
++                   f"atlas ({cost['n_tasks']} tasks x {cost['replayed_turns_per_task']:.0f} turns x "
++                   f"{cost['settings_per_turn']} settings x {cost['n_samples']} samples) ~ "
++                   f"{cost['hours_total']:.1f} h at {ref_s['sec_per_turn']:.1f} s/turn "
++                   f"(budget {a.atlas_budget_hours:.0f} h)"))
++
++    print("\nGate")
++    hints = {
++        "format": "try --set agent.think=false, check chat_template_kwargs, or switch model",
++        "reliable": "try the 3B config, --set env.n_fields=1, --set env.filler_lines=2, or a shorter gate horizon",
++        "signal": "add a 2-bit level (MLX supports it), raise env.n_fields to 3, or test longer horizons",
++        "cache": "the chat template is not append-friendly: send the output of this script",
++        "cost": "lower atlas.n_tasks / n_samples / max_turns, drop a bit-width, or cap agent.max_think_tokens",
++    }
++    for name, ok, msg in checks:
++        print(f"  [{'PASS' if ok else 'FAIL'}] {name:<9}{msg}")
++        if not ok:
++            print(f"           -> {hints[name]}")
++    example = next((e["example_call"] for e in ref_eps if e["example_call"]), None)
++    if example:
++        print(f"\nexample tool call at {ref} bits: {example}")
++
++    if a.out:
++        Path(a.out).parent.mkdir(parents=True, exist_ok=True)
++        Path(a.out).write_text(json.dumps({
++            "config": cfg, "bits": bits_list, "hops": a.hops, "n": a.n, "table": table,
++            "checks": [{"name": n, "pass": ok, "detail": m} for n, ok, m in checks],
++            "atlas_cost": cost, "episodes": {f"{b}b_{h}h": eps for (b, h), eps in results.items()},
++        }, indent=2, default=str))
++        print(f"report written to {a.out}")
++    return 0 if all(ok for _, ok, _ in checks) else 1
++
++
++if __name__ == "__main__":
++    sys.exit(main())
+diff --git a/src/hazprec/quant/backends/base.py b/src/hazprec/quant/backends/base.py
+index e22a424..3743273 100644
+--- a/src/hazprec/quant/backends/base.py
++++ b/src/hazprec/quant/backends/base.py
+@@ -46,8 +46,8 @@ class PrecisionBackend(ABC):
+         before sampling (e.g. an opening tool-call tag)."""
+ 
+     def snapshot(self) -> Any:
+-        """Opaque handle to the current state; ``restore`` returns to it. Only valid while
+-        the conversation has only been *extended* since the snapshot."""
++        """Opaque handle to the current state; ``restore`` returns to it, even after the
++        conversation has diverged or moved past the snapshot point."""
+         raise NotImplementedError
+ 
+     def restore(self, snap: Any) -> None:
+@@ -56,10 +56,6 @@ class PrecisionBackend(ABC):
+     def bind_env(self, env: Any) -> None:
+         """Hook for oracle-driven backends; real model backends ignore it."""
+ 
+-    def truncate_to(self, messages: list[dict]) -> None:
+-        """Drop cached state beyond what ``messages`` render to, so the next ``ingest``
+-        re-prefills everything after them (used by replay to control READ precision)."""
+-
+     def reseed(self, seed: int) -> None:
+         """Reseed sampling without touching the cache."""
+ 
+@@ -89,22 +85,42 @@ def find_stop(text: str, stops: Sequence[str]) -> tuple[int, str] | None:
+ 
+ 
+ class TokenBackend(PrecisionBackend):
+-    """Shared token-level logic: incremental prefill by longest common prefix,
+-    sampling loop with stop strings, and snapshot/restore by cache trimming.
+-
+-    Subclasses implement ``_render``, ``_feed``, ``_trim``, ``_reset_cache``,
+-    ``_sample``, ``_decode``, ``_encode`` and ``eos_ids``.
++    """Shared token-level logic for real models.
++
++    * **Append-only history.** After a turn, the cache holds exactly the tokens the model
++      generated, at the precision it generated them. The next ``ingest`` appends only the
++      template's tail (end of the assistant turn, the new tool message, the generation
++      prompt), found by rendering the conversation with a sentinel in place of the
++      assistant content. Re-rendering the assistant text instead would re-tokenize it,
++      diverge from the generated tokens, and re-prefill it at READ precision.
++    * **Precision provenance.** ``cached_bits[i]`` is the precision token ``i`` was
++      computed at. ``restore`` cuts back to the longest matching (token, bits) prefix
++      and re-feeds the rest of the snapshot at each token's original precision, so a
++      replay starts from exactly the state the reference run had.
++
++    Subclasses implement ``_render``, ``_render_text``, ``_feed``, ``_trim``,
++    ``_reset_cache``, ``_sample``, ``_decode``, ``_encode``, ``_reseed`` and ``eos_ids``.
+     """
+ 
++    SENTINEL = "<<HZP_ASSISTANT_SENTINEL_7f3a>>"
+     eos_ids: set[int]
+ 
+     def __init__(self) -> None:
+         self.cached_ids: list[int] = []
++        self.cached_bits: list[int] = []
+         self._logits: Any = None
++        self._msgs: list[dict] | None = None  # conversation as of the last ingest
++        self.stats = {"append": 0, "full": 0}
+ 
+     # -- primitives ------------------------------------------------------------------
+     @abstractmethod
+-    def _render(self, messages: list[dict]) -> list[int]: ...
++    def _render(self, messages: list[dict]) -> list[int]:
++        """Token ids of the chat template with the generation prompt appended."""
++
++    def _render_text(self, messages: list[dict]) -> str:
++        """The same rendering as text. Backends that cannot provide it fall back to
++        full re-rendering (correct prefixes only, with the caveats above)."""
++        raise NotImplementedError
+ 
+     @abstractmethod
+     def _feed(self, ids: list[int], bits: int) -> Any:
+@@ -129,13 +145,11 @@ class TokenBackend(PrecisionBackend):
+     @abstractmethod
+     def _reseed(self, seed: int) -> None: ...
+ 
+-    # -- interface -------------------------------------------------------------------
+-    def reset(self, seed: int | None = None) -> None:
+-        self._reset_cache()
+-        self.cached_ids = []
+-        self._logits = None
+-        if seed is not None:
+-            self._reseed(seed)
++    # -- cache bookkeeping -----------------------------------------------------------
++    def _push(self, ids: list[int], bits: int) -> None:
++        self._logits = self._feed(ids, bits)
++        self.cached_ids.extend(ids)
++        self.cached_bits.extend([bits] * len(ids))
+ 
+     def _cut_to(self, n_keep: int) -> None:
+         if n_keep < len(self.cached_ids):
+@@ -144,22 +158,70 @@ class TokenBackend(PrecisionBackend):
+             else:
+                 self._trim(n_keep)
+             self.cached_ids = self.cached_ids[:n_keep]
++            self.cached_bits = self.cached_bits[:n_keep]
+             self._logits = None
+ 
++    # -- interface -------------------------------------------------------------------
++    def reset(self, seed: int | None = None) -> None:
++        self._reset_cache()
++        self.cached_ids = []
++        self.cached_bits = []
++        self._logits = None
++        self._msgs = None
++        if seed is not None:
++            self._reseed(seed)
++
++    def reseed(self, seed: int) -> None:
++        self._reseed(seed)
++
++    def _is_assistant_extension(self, messages: list[dict]) -> bool:
++        prev = self._msgs
++        return (
++            prev is not None
++            and bool(self.cached_ids)
++            and len(messages) > len(prev) + 1
++            and messages[: len(prev)] == prev
++            and messages[len(prev)].get("role") == "assistant"
++        )
++
++    def _tail_ids(self, messages: list[dict]) -> list[int] | None:
++        """Template tokens that follow the just-generated assistant message."""
++        assert self._msgs is not None
++        k = len(self._msgs)
++        probe = self._msgs + [{**messages[k], "content": self.SENTINEL}] + messages[k + 1:]
++        try:
++            text = self._render_text(probe)
++        except NotImplementedError:
++            return None
++        i = text.rfind(self.SENTINEL)
++        if i < 0:
++            return None
++        tail = self._encode(text[i + len(self.SENTINEL):])
++        # The model may already have emitted the end-of-turn token itself.
++        if tail and self.cached_ids and self.cached_ids[-1] in self.eos_ids and tail[0] == self.cached_ids[-1]:
++            tail = tail[1:]
++        return tail or None
++
+     def ingest(self, messages: list[dict], bits: int) -> int:
+         self.check_bits(bits)
++        tail = self._tail_ids(messages) if self._is_assistant_extension(messages) else None
++        if tail is not None:
++            self._push(tail, bits)
++            self.stats["append"] += 1
++            self._msgs = [dict(m) for m in messages]
++            return len(tail)
++        # Full render: the first turn, or a conversation the cache cannot extend.
+         ids = self._render(messages)
+         if not ids:
+             raise ValueError("chat template rendered no tokens")
+         k = longest_common_prefix(self.cached_ids, ids)
++        if k == len(ids):
++            k -= 1  # nothing new: re-feed the last token so we hold fresh logits
+         self._cut_to(k)
+         delta = ids[k:]
+-        if not delta:
+-            # Nothing new: re-feed the last token so we hold fresh logits.
+-            self._cut_to(len(ids) - 1)
+-            delta = ids[-1:]
+-        self._logits = self._feed(delta, bits)
+-        self.cached_ids.extend(delta)
++        self._push(delta, bits)
++        self.stats["full"] += 1
++        self._msgs = [dict(m) for m in messages]
+         return len(delta)
+ 
+     def generate(self, bits: int, max_tokens: int, stop: Sequence[str] = (), prefix: str = "") -> GenResult:
+@@ -167,8 +229,7 @@ class TokenBackend(PrecisionBackend):
+         n_prefix = 0
+         if prefix:
+             pids = self._encode(prefix)
+-            self._logits = self._feed(pids, bits)
+-            self.cached_ids.extend(pids)
++            self._push(pids, bits)
+             n_prefix = len(pids)
+         if self._logits is None:
+             raise RuntimeError("generate() called without context; call ingest() first")
+@@ -177,8 +238,7 @@ class TokenBackend(PrecisionBackend):
+         for _ in range(max_tokens):
+             tok = self._sample(self._logits)
+             out.append(tok)
+-            self._logits = self._feed([tok], bits)
+-            self.cached_ids.append(tok)
++            self._push([tok], bits)
+             if tok in self.eos_ids:
+                 return GenResult(self._decode(out[:-1]), len(out) + n_prefix, None, "", True)
+             text = self._decode(out)
+@@ -188,21 +248,24 @@ class TokenBackend(PrecisionBackend):
+                 return GenResult(text[:i], len(out) + n_prefix, s, text[i + len(s):], False)
+         return GenResult(text, len(out) + n_prefix, None, "", False)
+ 
+-    def truncate_to(self, messages: list[dict]) -> None:
+-        if not self.cached_ids:
+-            return
+-        ids = self._render(messages)
+-        self._cut_to(longest_common_prefix(self.cached_ids, ids))
+-
+-    def reseed(self, seed: int) -> None:
+-        self._reseed(seed)
+-
+     def snapshot(self) -> Any:
+-        return (list(self.cached_ids), self._logits)
++        msgs = None if self._msgs is None else [dict(m) for m in self._msgs]
++        return (list(self.cached_ids), list(self.cached_bits), self._logits, msgs)
+ 
+     def restore(self, snap: Any) -> None:
+-        ids, logits = snap
+-        if self.cached_ids[: len(ids)] != ids:
+-            raise RuntimeError("cannot restore: the cache diverged before the snapshot point")
+-        self._cut_to(len(ids))
+-        self._logits = logits
++        ids, bits, logits, msgs = snap
++        n = min(len(self.cached_ids), len(ids))
++        k = 0
++        while k < n and self.cached_ids[k] == ids[k] and self.cached_bits[k] == bits[k]:
++            k += 1
++        self._cut_to(k)
++        i = k
++        while i < len(ids):  # re-feed each run of tokens at the precision it had
++            j = i
++            while j < len(ids) and bits[j] == bits[i]:
++                j += 1
++            self._push(list(ids[i:j]), bits[i])
++            i = j
++        if logits is not None:
++            self._logits = logits
++        self._msgs = None if msgs is None else [dict(m) for m in msgs]
+diff --git a/src/hazprec/quant/backends/hf_fakequant.py b/src/hazprec/quant/backends/hf_fakequant.py
+index 45a68d2..69dc49c 100644
+--- a/src/hazprec/quant/backends/hf_fakequant.py
++++ b/src/hazprec/quant/backends/hf_fakequant.py
+@@ -95,6 +95,12 @@ class HFFakeQuantBackend(TokenBackend):
+         )
+         return _as_id_list(rendered)
+ 
++    def _render_text(self, messages: list[dict]) -> str:
++        return self.tokenizer.apply_chat_template(
++            self._messages_for_template(messages), add_generation_prompt=True, tokenize=False,
++            **self.chat_template_kwargs,
++        )
++
+     def _new_cache(self):
+         from transformers import DynamicCache
+ 
+diff --git a/src/hazprec/quant/backends/mlx_backend.py b/src/hazprec/quant/backends/mlx_backend.py
+index 2fe972b..1eec5e5 100644
+--- a/src/hazprec/quant/backends/mlx_backend.py
++++ b/src/hazprec/quant/backends/mlx_backend.py
+@@ -81,18 +81,25 @@ class MLXBackend(TokenBackend):
+         self.cache: Any = None
+ 
+     # -- primitives ------------------------------------------------------------------
++    def _template_messages(self, messages: list[dict]) -> list[dict]:
++        if self.tool_role == "tool":
++            return messages
++        return [
++            {"role": self.tool_role, "content": f"TOOL RESULT:\n{m['content']}"} if m["role"] == "tool" else m
++            for m in messages
++        ]
++
+     def _render(self, messages: list[dict]) -> list[int]:
+-        msgs = messages
+-        if self.tool_role != "tool":
+-            msgs = [
+-                {"role": self.tool_role, "content": f"TOOL RESULT:\n{m['content']}"} if m["role"] == "tool" else m
+-                for m in messages
+-            ]
+         rendered = self.tokenizer.apply_chat_template(
+-            msgs, add_generation_prompt=True, tokenize=True, **self.chat_template_kwargs
++            self._template_messages(messages), add_generation_prompt=True, tokenize=True, **self.chat_template_kwargs
+         )
+         return _as_id_list(rendered)
+ 
++    def _render_text(self, messages: list[dict]) -> str:
++        return self.tokenizer.apply_chat_template(
++            self._template_messages(messages), add_generation_prompt=True, tokenize=False, **self.chat_template_kwargs
++        )
++
+     def _reset_cache(self) -> None:
+         from mlx_lm.models.cache import make_prompt_cache
+ 
+diff --git a/src/hazprec/quant/backends/simulated.py b/src/hazprec/quant/backends/simulated.py
+index 6bdd7e0..edc6a78 100644
+--- a/src/hazprec/quant/backends/simulated.py
++++ b/src/hazprec/quant/backends/simulated.py
+@@ -107,9 +107,6 @@ class SimulatedBackend(PrecisionBackend):
+         if seed is not None:
+             self.rng = random.Random(seed * 7919 + 17)
+ 
+-    def truncate_to(self, messages: list[dict]) -> None:
+-        self._seen = min(self._seen, len(messages))
+-
+     def reseed(self, seed: int) -> None:
+         self.rng = random.Random(seed)
+ 
+diff --git a/src/hazprec/sensitivity/replay.py b/src/hazprec/sensitivity/replay.py
+index 6e20e10..0618964 100644
+--- a/src/hazprec/sensitivity/replay.py
++++ b/src/hazprec/sensitivity/replay.py
+@@ -1,9 +1,10 @@
+ """Sensitivity measurement by replay (proposal Section 6.2).
+ 
+ For each task: run a reference episode at ``ref_bits``. For every turn on its correct
+-prefix, restore the conversation, environment and hinter to just before that turn,
+-then regenerate the turn ``n_samples`` times with one segment (READ, THINK or ACT)
+-at a probe precision and the others at ``ref_bits``. The fraction of regenerated
++prefix, restore the conversation, environment, hinter and backend cache to just before
++that turn (before its observation is prefilled), then regenerate the turn
++``n_samples`` times with one segment (READ, THINK or ACT) at a probe precision and the
++others at ``ref_bits``. The fraction of regenerated
+ turns the checker rejects is that turn's failure rate at that setting; subtracting
+ the reference rate gives the excess hazard.
+ 
+@@ -37,6 +38,7 @@ class _Checkpoint:
+     messages: list[dict]
+     env_state: Any
+     hinter: Any
++    backend: Any  # backend snapshot taken before the turn's observation was prefilled
+ 
+ 
+ def _reference(harness: AgentHarness, env: HorizonGymEnv, seed: int) -> tuple[Any, list[_Checkpoint]]:
+@@ -52,7 +54,8 @@ def _reference(harness: AgentHarness, env: HorizonGymEnv, seed: int) -> tuple[An
+     cfg = env.config
+     limit = cfg.horizon * (1 + (cfg.max_retries if cfg.error_mode == "recoverable" else 0)) + 2
+     while not env.state.done and len(turns) < limit:
+-        cps.append(_Checkpoint(copy.deepcopy(messages), env.get_state(), copy.deepcopy(harness.hinter)))
++        cps.append(_Checkpoint(copy.deepcopy(messages), env.get_state(), copy.deepcopy(harness.hinter),
++                               harness.backend.snapshot()))
+         turns.append(harness.run_turn(env, messages, len(turns)))
+     return turns, cps
+ 
+@@ -83,7 +86,7 @@ def measure_task(
+         "bits": ref_bits,
+         "success": env.state.success,
+         "n_hops": env_cfg.n_hops,
+-        "turns": [t.to_dict() for t in turns],
++        "turns": [t.to_dict(with_text=True) for t in turns],
+     }
+ 
+     # Only turns on the correct prefix are replayable (a later turn's context assumes it).
+@@ -109,7 +112,7 @@ def measure_task(
+                 env.set_state(cp.env_state)
+                 msgs = copy.deepcopy(cp.messages)
+                 harness.hinter = copy.deepcopy(cp.hinter)
+-                backend.truncate_to(msgs[:-1])  # force the last message to be re-prefilled
++                backend.restore(cp.backend)
+                 backend.reseed(_seed(seed, t.turn, probe, bits, k))
+                 rec = harness.run_turn(env, msgs, t.turn, bits_override=override)
+                 failures += int(not rec.correct)
+diff --git a/tests/test_hf_backend.py b/tests/test_hf_backend.py
+index 70cbdd6..6fc6b3d 100644
+--- a/tests/test_hf_backend.py
++++ b/tests/test_hf_backend.py
+@@ -26,8 +26,12 @@ class CharTokenizer:
+         return "".join(CHARS[i] if i > 1 else "" for i in ids)
+ 
+     def apply_chat_template(self, messages, add_generation_prompt=True, tokenize=True, **kw):
+-        text = "".join(f"[{m['role']}]{m['content']}\n" for m in messages) + "[assistant]"
+-        return self.encode(text)
++        # Like Qwen3 with thinking disabled: the generation prompt opens an empty think
++        # block that is NOT re-rendered for assistant messages in the history.
++        text = "".join(f"[{m['role']}]{m['content']}\n" for m in messages)
++        if add_generation_prompt:
++            text += "[assistant][think][/think]"
++        return self.encode(text) if tokenize else text
+ 
+ 
+ @pytest.fixture(scope="module")
+@@ -103,6 +107,61 @@ def test_weight_switcher_restores_master_and_error_falls_with_bits(tiny):
+     assert errs[8] < errs[4] / 50  # about 4x per bit -> ~256x for 4 extra bits
+ 
+ 
++def _episode(be, policy, hops=2, turns=4):
++    from hazprec.agent.harness import AgentHarness
++    from hazprec.envs.horizongym import HorizonGymConfig, HorizonGymEnv
++
++    env = HorizonGymEnv(HorizonGymConfig(n_hops=hops, error_mode="recoverable", max_retries=10))
++    h = AgentHarness(be, policy, max_think_tokens=10, max_act_tokens=10)
++    env.reset(0)
++    be.reset(0)
++    h.hinter = h.hinter_factory()
++    msgs = env.messages()
++    recs = [h.run_turn(env, msgs, t) for t in range(turns)]
++    return msgs, recs
++
++
++def test_append_only_history_preserves_generated_tokens_and_their_bits(tiny):
++    from hazprec.scheduler import PhaseTablePolicy
++
++    model, tok = tiny
++    be = HFFakeQuantBackend(model, tok, levels=(4, 8, 16), ref_bits=16, group_size=32, temperature=1.0)
++    msgs, recs = _episode(be, PhaseTablePolicy({"read": 4, "think": 8, "act": 16}))
++    assert be.stats["full"] == 1 and be.stats["append"] == len(recs) - 1
++    # Every token in the cache carries the precision of the segment that produced it.
++    for b in (4, 8, 16):
++        logged = sum(s.tokens for r in recs for s in r.segments if s.bits == b)
++        assert be.cached_bits.count(b) == logged, b
++    # Each READ prefill is exactly the template tail: the end of the assistant turn, the
++    # tool message, and the generation prompt. No assistant text is re-prefilled.
++    for t, r in enumerate(recs[1:], start=1):
++        obs = msgs[2 * t + 1]["content"]
++        assert r.segments[0].tokens == len(f"\n[tool]{obs}\n[assistant][think][/think]")
++
++
++def test_restore_fast_forwards_with_original_precisions(tiny):
++    from hazprec.scheduler import PhaseTablePolicy
++
++    model, tok = tiny
++    be = HFFakeQuantBackend(model, tok, levels=(4, 8, 16), ref_bits=16, group_size=32, temperature=1.0)
++    _episode(be, PhaseTablePolicy({"read": 4, "think": 8, "act": 16}), turns=1)
++    early = be.snapshot()
++    be.generate(8, 5)
++    late = be.snapshot()
++    late_logits = be._logits.clone()
++    be.restore(early)
++    be.generate(4, 7)  # diverge from the late snapshot, at another precision
++    be.restore(late)  # must cut back and re-feed the late tokens at their own bits
++    assert be.cached_ids == late[0] and be.cached_bits == late[1]
++    be._logits = None
++    be.restore(late)  # no-op restore keeps the snapshot logits
++    assert torch.allclose(be._logits, late_logits)
++    fresh = HFFakeQuantBackend(model, tok, levels=(4, 8, 16), ref_bits=16, group_size=32)
++    fresh.reset(0)
++    fresh.restore(late)  # restoring into an empty cache rebuilds it from provenance
++    assert torch.allclose(fresh._logits, late_logits, atol=1e-5)
++
++
+ def test_full_episode_and_replay_run_on_token_backend(tiny):
+     from hazprec.agent.harness import AgentHarness
+     from hazprec.envs.horizongym import HorizonGymConfig, HorizonGymEnv
+@@ -133,3 +192,29 @@ def test_mixed_precision_segments_change_outputs(tiny):
+     be.reset(0)
+     be.ingest(msgs, 4)
+     assert not torch.allclose(hi, be._logits)
++
++
++def test_gate_episode_loop_reports_append_only_cache(tiny):
++    import importlib.util
++    from pathlib import Path
++
++    from hazprec.agent.harness import AgentHarness
++    from hazprec.envs.horizongym import HorizonGymConfig, HorizonGymEnv
++    from hazprec.scheduler import UniformPolicy
++
++    path = Path(__file__).resolve().parents[1] / "scripts" / "phase1_gate.py"
++    spec = importlib.util.spec_from_file_location("phase1_gate", path)
++    gate = importlib.util.module_from_spec(spec)
++    spec.loader.exec_module(gate)
++
++    model, tok = tiny
++    be = HFFakeQuantBackend(model, tok, levels=(4, 16), ref_bits=16, group_size=32, temperature=1.0)
++    env = HorizonGymEnv(HorizonGymConfig(n_hops=2, error_mode="recoverable", max_retries=3))
++    h = AgentHarness(be, UniformPolicy(16), max_think_tokens=8, max_act_tokens=8)
++    ep = gate.run_episode(h, env, 0)
++    assert ep["full_renders"] == 1  # only the first turn renders the whole conversation
++    wrapper = len("\n[tool]\n[assistant][think][/think]")
++    assert ep["read_overhead"] and all(o == wrapper for o in ep["read_overhead"])
++    s = gate.summarize([ep])
++    assert 0 <= s["parse_rate"] <= 1 and s["turns"] == ep["turns"]
++    assert gate.failure_kind("wrong value for 'ack'") == "wrong:ack"
+-- 
+2.43.0
+

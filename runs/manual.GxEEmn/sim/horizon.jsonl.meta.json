@@ -1,0 +1,81 @@
+{
+  "experiment": {
+    "config": {
+      "agent": {
+        "max_act_tokens": 96,
+        "max_think_tokens": 160,
+        "think": true
+      },
+      "atlas": {
+        "max_turns": null,
+        "n_samples": 40,
+        "n_tasks": 30,
+        "seed0": 0
+      },
+      "backend": {
+        "kind": "sim",
+        "levels": [
+          3,
+          4,
+          5,
+          6,
+          8
+        ],
+        "ref_bits": 8,
+        "sim": {
+          "act_tokens": 24,
+          "base_hazard": 0.002,
+          "sensitivity": {
+            "act": 2.0,
+            "read": 0.3,
+            "stop": 6.0,
+            "system": 0.3,
+            "think": 0.5
+          },
+          "think_tokens": 40
+        }
+      },
+      "env": {
+        "error_mode": "fatal",
+        "filler_lines": 4,
+        "max_retries": 2,
+        "n_fields": 2,
+        "n_hops": 4
+      },
+      "horizon": {
+        "hops": [
+          2,
+          8,
+          16,
+          32,
+          48,
+          64
+        ],
+        "n_episodes": 1500,
+        "seed0": 100000
+      },
+      "seed": 0,
+      "theory": {
+        "alloc_hops": 8,
+        "bbar": 4,
+        "curve_mode": "parametric"
+      }
+    },
+    "dependencies": {
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2",
+      "numpy": "2.5.4",
+      "pyyaml": "6.0.3",
+      "tokenizers": "0.23.3",
+      "torch": "2.14.1",
+      "transformers": "5.20.2"
+    },
+    "python": "3.12.5",
+    "schema": 2,
+    "sha256": "b65393765bb8cf7959ccf2ad8090d38ad3c0eae1325e5068193b1bb3a0d8393e",
+    "source_sha256": "9ba3c5e286e6984c522a6962c265d2bb202539dd8877834733847491fb82de95"
+  },
+  "prereg_sha256": "a583d5b0cdd58903253c6f0c3bd662f77386e51675b6d0cf70d8786cb16dcd49",
+  "sha256": "cadb2e5cbdf4f85836ac9649ad57e5cd247b9d51873521413bf42e85d58fc952",
+  "stage": "horizon"
+}

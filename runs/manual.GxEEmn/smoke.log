@@ -1,0 +1,18 @@
+/Users/rayyanwaseem/Desktop/Projects/Precision-Scheduling-for-Long-Horizon-LLM-Agents/.venv/bin/python: Error while finding module specification for 'hazprec.cli' (ModuleNotFoundError: No module named 'hazprec')
+ 3 bits: success=False turns=1 tokens=316
+    ERR <unparseable>
+    per-turn failures: [1]
+ 4 bits: success=False turns=2 tokens=440
+    ok  {"arguments": {"record_id": "r_7311"}, "name": "read"}
+    ERR <unparseable>
+    per-turn failures: [0, 1]
+ 6 bits: success=False turns=3 tokens=738
+    ok  {"arguments": {"record_id": "r_7311"}, "name": "read"}
+    ok  {"arguments": {"ack": "37QBJ", "record_id": "r_7311", "seq": 1}, "name": "update"}
+    ERR {"arguments": {"record_id": "r_7311"}, "name": "read"}
+    per-turn failures: [0, 0, 1]
+ 8 bits: success=False turns=3 tokens=431
+    ok  {"arguments": {"record_id": "r_7311"}, "name": "read"}
+    ok  {"arguments": {"ack": "37QBJ", "record_id": "r_7311", "seq": 1}, "name": "update"}
+    ERR {"arguments": {"record_id": "r_7311"}, "name": "read"}
+    per-turn failures: [0, 0, 1]

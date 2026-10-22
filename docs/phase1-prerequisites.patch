@@ -1,0 +1,271 @@
+--- a/src/hazprec/agent/harness.py
++++ b/src/hazprec/agent/harness.py
+@@ -164,7 +164,7 @@
+         if overflow and CLOSE_TAG in overflow:
+             act_text, n_act = overflow.split(CLOSE_TAG, 1)[0], 0
+         else:
+-            g = self.backend.generate(b, self.max_act_tokens, stop = (CLOSE_TAG), prefix = OPEN_TAG if need_open else "")
++            g = self.backend.generate(b, self.max_act_tokens, stop = (CLOSE_TAG,), prefix = OPEN_TAG if need_open else "")
+             act_text, n_act = overflow + g.text, g.n_tokens
+         segments.append(self._record(ctx, SegmentRecord(sched_phase, b, n_act, act_text), bits_override))
+ 
+--- a/src/hazprec/envs/horizongym/generator.py
++++ b/src/hazprec/envs/horizongym/generator.py
+@@ -45,7 +45,7 @@
+     start_id: str 
+     chain: list[Record]
+     oracle: list[ToolCall]
+-    oracle_phases: List[Phase] 
++    oracle_phases: list[Phase] 
+ 
+     @property
+     def records(self) -> dict[str, Record]:
+@@ -61,7 +61,7 @@
+     chain: list[Record] = []
+     while len(ids) < config.n_hops:
+         ids.add(f"r_{rng.randint(1000, 9999)}")
+-    order = list(ids)
++    order = sorted(ids)
+     rng.shuffle(order)
+     for i, rid in enumerate(order):
+         tok = _token(rng, config.token_len)
+--- a/src/hazprec/eval/horizon.py
++++ b/src/hazprec/eval/horizon.py
+@@ -74,7 +74,7 @@
+     paired = {}
+     for h in hops_list:
+         a, u = by.get((h, adaptive), {}), by.get((h, uniform), {})
+-        seeds = sorted(set(a)) & set(u))
++        seeds = sorted(set(a) & set(u))
+         if seeds:
+             paired[h] = (np.array([a[s] for s in seeds]), np.array([u[s] for s in seeds]))
+     if len(paired) < 2:
+@@ -134,7 +134,7 @@
+         )
+     f = an["fit"]
+     lines.append(f"slope of log ratio per hop: {f['slope_per_hop']:.4f} 95% CI [{f['slope_ci95'][0]:.4f}, "
+-                 f"{f['slope_ci95'][1]:.4f}"]
++                 f"{f['slope_ci95'][1]:.4f}]")
+     lines.append(f"largest absolute gain at hops = {an['empirical_peak_gain_hops']}")
+     if "prediction" in an:
+         p = an["prediction"]
+--- a/src/hazprec/eval/survival.py
++++ b/src/hazprec/eval/survival.py
+@@ -72,5 +72,5 @@
+     cols = [cols[i] for i in keep]
+     y = np.array([r["failed"] for r in rows], float)
+     beta, se = fit_logistic(Xm, y)
+-    return {"n_rows", len(rows), "events": int(y.sum()),
++    return {"n_rows": len(rows), "events": int(y.sum()),
+             "coef": {c: float(b) for c, b in zip(cols, beta)}, "se": {c: float(s) for c, s in zip(cols, se)}}
+--- a/src/hazprec/quant/backends/hf_fakequant.py
++++ b/src/hazprec/quant/backends/hf_fakequant.py
+@@ -22,7 +22,7 @@
+     """apply_chat_tempalte returns a list, a list of lists, a tensor or a BatchEncoding
+     depending on the transformers version; normalize to a flat list of ints."""
+     if hasattr(rendered, "keys") and "input_ids" in rendered:
+-        rendered = rendered["input_ads"]
++        rendered = rendered["input_ids"]
+     if hasattr(rendered, "tolist"):
+         rendered = rendered.tolist()
+     if rendered and isinstance(rendered[0], list):
+--- a/src/hazprec/quant/backends/mlx_backend.py
++++ b/src/hazprec/quant/backends/mlx_backend.py
+@@ -32,9 +32,9 @@
+     except ImportError: # pragma: no cover 
+         from mlx_lm.utils import convert 
+     if bits >= 16:
+-        convert(hf_path = model, mlx_path=str{out}, dtype = "bfloat16")
++        convert(hf_path = model, mlx_path=str(out), dtype = "bfloat16")
+     else:
+-        convert(hf_path = model, mlx_path=str{out}, quantize=True, q_bits=bits, q_group_size=group_size)
++        convert(hf_path = model, mlx_path=str(out), quantize=True, q_bits=bits, q_group_size=group_size)
+ 
+ class MLXBackend(TokenBackend):
+     def __init__(
+@@ -77,54 +77,54 @@
+             mx.random.seed(seed)
+             self.cache: Any = None 
+ 
+-        # primitives #
+-        def _render(self, messages: list[dict]) -> list[int]:
+-            msgs = messages 
+-            if self.tool_role != "tool":
+-                msgs = [
+-                    {"role": self.tool_role, "content": f"TOOL RESULT: \n{m['content']}"} if m["role"] == "tool" else m
+-                    for m in messages
+-                ]
+-            rendered = self.tokenizer.apply_chat_template(
+-                msgs, add_generation_prompt = True, tokenize = True, **self.chat_template_kwargs
+-            )
+-            return _as_id_list(rendered)
++    # primitives #
++    def _render(self, messages: list[dict]) -> list[int]:
++        msgs = messages 
++        if self.tool_role != "tool":
++            msgs = [
++                {"role": self.tool_role, "content": f"TOOL RESULT: \n{m['content']}"} if m["role"] == "tool" else m
++                for m in messages
++            ]
++        rendered = self.tokenizer.apply_chat_template(
++            msgs, add_generation_prompt = True, tokenize = True, **self.chat_template_kwargs
++        )
++        return _as_id_list(rendered)
+ 
+-        def _reset_cache(self) -> None:
+-            from mlx_lm.models.cache import make_prompt_cache
++    def _reset_cache(self) -> None:
++        from mlx_lm.models.cache import make_prompt_cache
+ 
+-            self.cache = make_prompt_cache(self.models[self.ref_bits])
++        self.cache = make_prompt_cache(self.models[self.ref_bits])
+ 
+-        def _feed(self, ids: list[int], bits: int):
+-            mx = self.mx 
+-            if self.cache is None:
+-                self._reset_cache()
+-            logits = self.models[bits](mx.array(ids)[None], cache = self.cache)
+-            last = logits[0, -1, :].astype(mx.float32)
+-            mx.eval(last)
+-            return last 
++    def _feed(self, ids: list[int], bits: int):
++        mx = self.mx 
++        if self.cache is None:
++            self._reset_cache()
++        logits = self.models[bits](mx.array(ids)[None], cache = self.cache)
++        last = logits[0, -1, :].astype(mx.float32)
++        mx.eval(last)
++        return last 
+ 
+-        def _trim(self,  n_keep: int) -> None:
+-            from mlx_lm.models.cache import can_trim_prompt_cache, trim_prompt_cache
++    def _trim(self,  n_keep: int) -> None:
++        from mlx_lm.models.cache import can_trim_prompt_cache, trim_prompt_cache
+ 
+-            n_drop = len(self.cached_ids) - n_keep 
+-            if n_drop <= 0:
+-                return 
+-            if not can_trim_prompt_cache(self.cache):
+-                raise RuntimeError("this model's KV cache cannot be trimmed")
+-            trim_prompt_cache(self.cache, n_drop)
++        n_drop = len(self.cached_ids) - n_keep 
++        if n_drop <= 0:
++            return 
++        if not can_trim_prompt_cache(self.cache):
++            raise RuntimeError("this model's KV cache cannot be trimmed")
++        trim_prompt_cache(self.cache, n_drop)
+ 
+-        def _sample(self, logits) -> int:
+-            mx = self.mx 
+-            if self.temperature <= 0:
+-                return int(mx.argmax(logits).item())
+-            return int(mx.random.categorial(logits / self.temperature).item())
++    def _sample(self, logits) -> int:
++        mx = self.mx 
++        if self.temperature <= 0:
++            return int(mx.argmax(logits).item())
++        return int(mx.random.categorical(logits / self.temperature).item())
+ 
+-        def _decode(self, ids: list[int]) -> str:
+-            return self.tokenizer.decode(ids)
++    def _decode(self, ids: list[int]) -> str:
++        return self.tokenizer.decode(ids)
+ 
+-        def _encode(self, text: str) -> list[int]:
+-            return list(self.tokenizer.encode(text, add_special_tokens = False))
++    def _encode(self, text: str) -> list[int]:
++        return list(self.tokenizer.encode(text, add_special_tokens = False))
+ 
+-        def _reseed(self, seed: int) -> None:
+-            self.mx.random.seed(seed)
+\ No newline at end of file
++    def _reseed(self, seed: int) -> None:
++        self.mx.random.seed(seed)
+\ No newline at end of file
+--- a/src/hazprec/quant/fake_quant.py
++++ b/src/hazprec/quant/fake_quant.py
+@@ -87,7 +87,7 @@
+         if not self.linears:
+             raise ValueError("no nn.Linear modules found to quantize")
+         self.keep_master = 16 in self.levels 
+-        self.master = {name: mod.weight.detach().cline() for name, mod in self.linears} if self.keep_master else {}
++        self.master = {name: mod.weight.detach().clone() for name, mod in self.linears} if self.keep_master else {}
+         self.codes: dict[int, dict[str, _TorchCodes]] = {}
+         for b in self.levels:
+             if b >= 16:
+--- a/src/hazprec/sensitivity/fit.py
++++ b/src/hazprec/sensitivity/fit.py
+@@ -98,14 +98,14 @@
+         raise ValueError("no probe records in atlas")
+     ref_bits = int(probes[0]["ref_bits"])
+ 
+-    base = [r for r in probes if r["probes"] == "ref"]
++    base = [r for r in probes if r["probe"] == "ref"]
+     base_f = sum(r["failures"] for r in base)
+     base_n = sum(r["n"] for r in base)
+     base_rate = base_f / base_n if base_n else 0.0 
+ 
+     pooled: dict[str, dict[int, list[int]]] = defaultdict(lambda: defaultdict(lambda: [0, 0]))
+     for r in probes:
+-        if r["probes"] == "ref":
++        if r["probe"] == "ref":
+             continue 
+         acc = pooled[phase_key(r)][int(r["bits"])]
+         acc[0] += r["failures"]
+@@ -113,7 +113,7 @@
+ 
+     curves = {}
+     for key, by_bits in pooled.items():
+-        table, bits_l, deltas, n = {}, [], [], []
++        table, bits_l, deltas, ns = {}, [], [], []
+         for b in sorted(by_bits):
+             f, n = by_bits[b]
+             rate = f / n 
+--- a/configs/mac_pilot.yaml
++++ b/configs/mac_pilot.yaml
+@@ -17,6 +17,6 @@
+     tool_role: tool 
+ env: {n_hops: 3, n_fields: 2, filler_lines: 3, error_mode: fatal}
+ agent: {think: true, max_think_tokens: 128, max_act_tokens: 80}
+-atlas: {n_task: 20, n_samples: 4, seed0: 0, max_turns: 7}
++atlas: {n_tasks: 20, n_samples: 4, seed0: 0, max_turns: 7}
+ theory: {bbar: 4, alloc_hops: 8, curve_mode: parametric}
+ horizon: {hops: [2, 4, 6, 8], n_episodes: 100, seed0: 100000}
+\ No newline at end of file
+--- a/configs/mac_pilot_3b.yaml
++++ b/configs/mac_pilot_3b.yaml
+@@ -5,15 +5,15 @@
+ backend:
+   kind: mlx 
+   levels: [3, 4, 6, 8]
+-  ref_bit: 8
++  ref_bits: 8
+   mlx:
+     model: Qwen/Qwen2.5-3B-Instruct
+     group_size: 64
+-    cache_dr: ~/.cache/hazprec/mlx
++    cache_dir: ~/.cache/hazprec/mlx
+     temperature: 0.7
+     tool_role: tool
+ env: {n_hops: 4, n_fields: 2, filler_lines: 3, error_mode: fatal}
+-agents: {think: true, max_think_tokens: 128, max_act_tokens: 80}
++agent: {think: true, max_think_tokens: 128, max_act_tokens: 80}
+ atlas: {n_tasks: 40, n_samples: 6, seed0: 0, max_turns: 9}
+ theory: {bbar: 4, alloc_hops: 8, curve_mode: parametric}
+ horizon: {hops: [2, 4, 6, 8, 10], n_episodes: 150, seed0: 100000}
+\ No newline at end of file
+--- a/configs/sim.yaml
++++ b/configs/sim.yaml
+@@ -12,8 +12,8 @@
+     base_hazard: 0.002
+     think_tokens: 40
+     act_tokens: 24
+-env: {n_hops: 4, n_fields: 2, filler_liens: 4, error_mode: fatal}
++env: {n_hops: 4, n_fields: 2, filler_lines: 4, error_mode: fatal}
+ agent: {think: true, max_think_tokens: 160, max_act_tokens: 96}
+-atlas: {n_think: 30, n_samples: 40, seed0: 0}
+-thoery: {bbar: 4, alloc_hops: 8, curve_mode: parametric}
++atlas: {n_tasks: 30, n_samples: 40, seed0: 0}
++theory: {bbar: 4, alloc_hops: 8, curve_mode: parametric}
+ horizon: {hops: [2, 8, 16, 32, 48, 64], n_episodes: 1500, seed0: 100000}
+\ No newline at end of file
