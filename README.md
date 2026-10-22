@@ -73,7 +73,7 @@ hazprec fit        --atlas runs/atlas.jsonl
 hazprec preregister -c CONFIG --atlas runs/atlas.jsonl --out prereg/NAME.json
 hazprec horizon    -c CONFIG --prereg prereg/NAME.json --out runs/horizon.jsonl   # resumable
 hazprec analyze    --runs runs/horizon.jsonl --prereg prereg/NAME.json
-hazprec smoke      -c CONFIG --hops 1                          # load a real model, 1 episode per bit-width
+hazprec smoke      -c CONFIG [--hops 2]                        # load a real model, 1 episode per bit-width
 ```
 
 Any config value can be overridden: `--set env.n_hops=8 --set atlas.n_samples=16`.
@@ -94,13 +94,15 @@ Run these checks on the Mac before collecting an atlas:
 ```bash
 pip install -e ".[mlx,dev]"
 pytest -q
-hazprec smoke -c configs/mac_pilot.yaml --hops 1      # converts the model to 3/4/6/8-bit MLX copies once
+hazprec smoke -c configs/mac_pilot.yaml               # converts the model to 3/4/6/8-bit MLX copies once
 hazprec play  -c configs/mac_pilot.yaml --policy uniform:8 -v
 ```
 
 What to look for: each bit-width loads; the agent emits `<tool_call>{...}</tool_call>`;
-at 8 bits it usually completes a 1-hop task. If the model ignores the tool format, try
-`--set agent.think=false` or a different model before changing code.
+at 8 bits it usually completes a 2-hop task. Do not judge a model on 1-hop tasks: Qwen3-1.7B
+failed 30 of 30 at 8 bits, re-reading the only record instead of submitting. If the model ignores the
+tool format, try `--set agent.think=false` or a different model before changing code.
+Results of the first real-model runs are in [docs/FINDINGS.md](docs/FINDINGS.md).
 
 ## Colab
 

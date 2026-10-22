@@ -1,0 +1,19 @@
+# Pilot sensitivity atlas on the Mac with a 3B model. Four copies (3, 4, 6, 8 bits) take
+# roughly 8-9 GB of unified memory; close other heavy apps. Do not add a 16-bit copy
+
+seed: 0
+backend:
+  kind: mlx 
+  levels: [3, 4, 6, 8]
+  ref_bits: 8
+  mlx:
+    model: Qwen/Qwen2.5-3B-Instruct
+    group_size: 64
+    cache_dir: ~/.cache/hazprec/mlx
+    temperature: 0.7
+    tool_role: tool
+env: {n_hops: 4, n_fields: 2, filler_lines: 3, error_mode: fatal}
+agent: {think: true, max_think_tokens: 128, max_act_tokens: 80}
+atlas: {n_tasks: 40, n_samples: 6, seed0: 0, max_turns: 9}
+theory: {bbar: 4, alloc_hops: 8, curve_mode: parametric}
+horizon: {hops: [2, 4, 6, 8, 10], n_episodes: 150, seed0: 100000}

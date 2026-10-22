@@ -125,13 +125,15 @@ def test_unequal_or_unpaired_sweep_rejected():
 def gate():
     path=Path(__file__).parents[1]/'scripts/phase1_gate.py'
     spec=importlib.util.spec_from_file_location('phase1_gate',path)
-    module=importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
+    assert spec is not None and spec.loader is not None, f'Cannot load gate module from {path}'
+    module=importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
     return module
 
 
 @pytest.mark.parametrize('args',[
-    ['--bits','8'],['--bits','3'],['--n','0'],['--hops','1'],['--cost-samples','0'],
-    ['--seed0','0'],['--min-ref-success','nan'],
+    ['--bits','8'],['--bits','3'],['--bits','8','3'],['--n','0'],['--hops','1'],['--cost-samples','0'],
+    ['--seed0','0'],['--min-ref-success','nan'],['--min-sweep-survival','1'],
 ])
 def test_gate_rejects_missing_checks_before_model_loading(gate,args,monkeypatch):
     monkeypatch.setattr(gate,'make_backend',lambda *a: pytest.fail('loaded model before validating input'))
@@ -145,6 +147,43 @@ def test_simulated_gate_cannot_certify_real_model_ready(gate,tmp_path):
                       '--cost-samples','1','--set','atlas.max_turns=1'])
     body=json.loads(report.read_text())
     assert result==1 and body['ready'] is False
-    assert {c['name'] for c in body['checks']}=={'format','reliable','signal','cache','cost'}
+    assert {c['name'] for c in body['checks']}=={'format','reliable','signal','operating_point','cache','cost'}
+    assert body['arguments']['hops']==[4] and body['arguments']['gate_hops']==4  # quick uses the atlas horizon
     assert next(c for c in body['checks'] if c['name']=='cache')['pass'] is False
     assert body['atlas_cost']['measured_probe_samples']>0
+
+
+def test_gate_defaults_follow_the_experiment_horizons_and_budget(gate,tmp_path):
+    report=tmp_path/'gate.json'
+    gate.main(['-c','configs/sim.yaml','--n','3','--out',str(report),
+               '--cost-samples','1','--set','atlas.max_turns=1'])
+    body=json.loads(report.read_text())
+    # sim.yaml: shortest sweep horizon 2, atlas horizon 4; reference 8, bbar 4, lowest 3
+    assert body['arguments']['hops']==[2,4] and body['arguments']['gate_hops']==4
+    assert set(body['table'])=={f'{b}b_{h}h' for b in (8,4,3) for h in (2,4)}
+    checks={c['name']:c for c in body['checks']}
+    assert set(checks['reliable']['value'])=={'2','4'}
+    point=checks['operating_point']['value']
+    assert point['bbar']==4 and set(point['predicted_success'])=={'2','8','16','32','48','64'}
+    assert all(lo<=point['predicted_success'][h]<=hi for h,(lo,hi) in point['predicted_success_ci95'].items())
+    assert checks['operating_point']['pass']==(point['predicted_success']['64']>=0.1)
+
+
+def test_sweep_survival_compounds_the_turn_hazard(gate):
+    assert gate.sweep_survival(0.1,[2,8])=={2:0.9**5,8:0.9**17}
+
+
+def test_gate_episode_records_failing_turn_text(gate):
+    from hazprec.agent.harness import AgentHarness
+    from hazprec.envs.horizongym import HorizonGymConfig, HorizonGymEnv
+    from hazprec.quant.backends import SimulatedBackend
+    from hazprec.scheduler import UniformPolicy
+    env=HorizonGymEnv(HorizonGymConfig(n_hops=4))
+    h=AgentHarness(SimulatedBackend(),UniformPolicy(3))
+    episodes=[gate.run_episode(h,env,seed) for seed in range(40)]
+    failed=[e for e in episodes if not e['success']]
+    assert failed and all(e['failure_detail'] is None for e in episodes if e['success'])
+    detail=failed[0]['failure_detail']
+    assert detail['reason']!='ok' and json.loads(detail['expected'])['name'] in {'read','update','submit'}
+    assert (detail['think_end'],detail['act_end'])==('tag','tag') and detail['act']
+    assert sum(failed[0]['think_end'].values())==failed[0]['turns']

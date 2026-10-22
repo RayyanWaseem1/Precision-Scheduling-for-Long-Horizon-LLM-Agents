@@ -5,6 +5,10 @@ Each turn: prefill the new context (READ, or SYSTEM on the first turn), decode
 reasoning up to the opening tool-call tag (THINK), then decode the tool call (ACT, or
 STOP when the hinter predicts a terminating call). Every segment asks the policy for 
 its bits, and every segment is logged with its bits and token count.
+
+Each turn also records how its decode segments ended: "tag" (the expected tag was
+emitted), "eos" (the model ended its turn), "cap" (the token budget ran out), or, for
+ACT, "skipped" (no tool call was decoded because the model ended its turn in THINK).
 """
 
 from __future__ import annotations
@@ -15,10 +19,18 @@ from typing import Any, Callable, Mapping
 from hazprec.envs.horizongym import HorizonGymEnv
 from hazprec.envs.horizongym.hint import HorizonGymStopHinter
 from hazprec.phases import Phase, SegmentContext, SegmentRecord 
-from hazprec.quant.backends.base import PrecisionBackend 
+from hazprec.quant.backends.base import GenResult, PrecisionBackend
 from hazprec.scheduler.policies import PrecisionPolicy 
 
 from .toolcall import CLOSE_TAG, OPEN_TAG, ToolCall, parse_tool_call 
+
+
+def end_reason(g: GenResult, tag: str) -> str:
+    """How a decode segment ended: its expected tag, end of turn, or the token cap."""
+    if g.stop_hit == tag:
+        return "tag"
+    return "eos" if g.eos else "cap"
+
 
 @dataclass 
 class TurnRecord:
@@ -31,6 +43,8 @@ class TurnRecord:
     expected_phase: Phase 
     sched_phase: Phase 
     done: bool 
+    think_end: str | None = None  # None when THINK is disabled
+    act_end: str | None = None
 
     def to_dict(self, with_text: bool = False) -> dict:
         return {
@@ -45,6 +59,8 @@ class TurnRecord:
             "expected_phase": self.expected_phase.value,
             "sched_phase": self.sched_phase.value,
             "done": self.done,
+            "think_end": self.think_end,
+            "act_end": self.act_end,
         }
 
 
@@ -149,29 +165,39 @@ class AgentHarness:
 
         # THINK: free-form reasoning up to the tool-call tag 
         think_text, overflow, need_open = "", "", True 
+        think_end: str | None = None
         if self.think:
             ctx = SegmentContext(Phase.THINK, turn, self.max_think_tokens // 2, hint, extra = extra)
             b = self._bits(ctx, bits_override)
             g = self.backend.generate(b, self.max_think_tokens, stop = (OPEN_TAG, ))
             think_text, overflow = g.text, g.overflow
             need_open = g.stop_hit != OPEN_TAG
+            think_end = end_reason(g, OPEN_TAG)
             segments.append(self._record(ctx, SegmentRecord(Phase.THINK, b, g.n_tokens, g.text, g.boundary_tokens), bits_override))
 
         # ACT / STOP: the tool call 
         sched_phase = hint if hint is not None else Phase.ACT
         ctx = SegmentContext(sched_phase, turn, self.max_act_tokens // 3, hint, extra = extra)
         b = self._bits(ctx, bits_override)
-        if overflow and CLOSE_TAG in overflow:
+        if think_end == "eos":
+            # The model ended its turn without opening a tool call. Forcing the tag after
+            # its end-of-turn token would write an off-template continuation into the KV
+            # history of every later turn, so the turn has no tool call (a format failure).
+            act_text, n_act, act_boundary, act_end = "", 0, 0, "skipped"
+        elif overflow and CLOSE_TAG in overflow:
             act_text, n_act = overflow.split(CLOSE_TAG, 1)[0], 0
-            act_boundary = 0
+            act_boundary, act_end = 0, "tag"
         else:
             g = self.backend.generate(b, self.max_act_tokens, stop = (CLOSE_TAG,), prefix = OPEN_TAG if need_open else "")
             act_text, n_act = overflow + g.text, g.n_tokens
-            act_boundary = g.boundary_tokens
+            act_boundary, act_end = g.boundary_tokens, end_reason(g, CLOSE_TAG)
         segments.append(self._record(ctx, SegmentRecord(sched_phase, b, n_act, act_text, act_boundary), bits_override))
 
-        call = parse_tool_call(OPEN_TAG + act_text + CLOSE_TAG)
-        content = (think_text.strip() + "\n" if think_text.strip() else "") + OPEN_TAG + act_text.strip() + CLOSE_TAG
+        if act_end == "skipped":
+            call, content = None, think_text.strip()
+        else:
+            call = parse_tool_call(OPEN_TAG + act_text + CLOSE_TAG)
+            content = (think_text.strip() + "\n" if think_text.strip() else "") + OPEN_TAG + act_text.strip() + CLOSE_TAG
         messages.append({"role": "assistant", "content": content})
 
         result = env.step(call)
@@ -180,7 +206,7 @@ class AgentHarness:
             self.hinter.update(call, result.observation, result.correct)
         return TurnRecord(
             turn, segments, call, result.correct, result.reason, result.step_index,
-            result.expected_phase, sched_phase, result.done,
+            result.expected_phase, sched_phase, result.done, think_end, act_end,
         )
 
     def run_episode(self, env: HorizonGymEnv, seed: int, max_turns: int | None = None,

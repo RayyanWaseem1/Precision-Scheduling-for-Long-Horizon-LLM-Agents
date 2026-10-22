@@ -21,6 +21,8 @@ def test_reference_precision_is_reliable():
     assert phases == [Phase.SYSTEM, Phase.THINK, Phase.ACT]
     assert t.turns[-1].sched_phase is Phase.STOP  # hinter predicts the submit turn
     assert t.avg_bits == 8
+    assert all((u.think_end, u.act_end) == ("tag", "tag") for u in t.turns)
+    assert t.to_dict()["turns"][0]["act_end"] == "tag"
 
 
 def test_low_precision_fails_more_and_failures_are_logged():

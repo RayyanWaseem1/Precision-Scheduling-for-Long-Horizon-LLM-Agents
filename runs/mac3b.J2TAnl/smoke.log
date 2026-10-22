@@ -1,0 +1,43 @@
+[hazprec] converting Qwen/Qwen2.5-3B-Instruct to MLX at 3 bits -> /Users/rayyanwaseem/.cache/hazprec/mlx/Qwen--Qwen2.5-3B-Instruct-q3-g64
+[INFO] Loading
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files:  11%|█         | 1/9 [00:00<00:01,  5.95it/s]Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 9 files:  33%|███▎      | 3/9 [00:00<00:00,  9.89it/s]Fetching 9 files:  78%|███████▊  | 7/9 [00:00<00:00, 14.45it/s]Fetching 9 files:  78%|███████▊  | 7/9 [00:20<00:00, 14.45it/s]Fetching 9 files:  89%|████████▉ | 8/9 [01:05<00:12, 12.76s/it]Fetching 9 files: 100%|██████████| 9/9 [01:20<00:00, 13.14s/it]Fetching 9 files: 100%|██████████| 9/9 [01:20<00:00,  8.90s/it]
+[INFO] Using dtype: bfloat16
+[INFO] Quantizing
+[INFO] Quantized model with 3.501 bits per weight.
+[hazprec] converting Qwen/Qwen2.5-3B-Instruct to MLX at 4 bits -> /Users/rayyanwaseem/.cache/hazprec/mlx/Qwen--Qwen2.5-3B-Instruct-q4-g64
+[INFO] Loading
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 4997.19it/s]
+[INFO] Using dtype: bfloat16
+[INFO] Quantizing
+[INFO] Quantized model with 4.501 bits per weight.
+[hazprec] converting Qwen/Qwen2.5-3B-Instruct to MLX at 6 bits -> /Users/rayyanwaseem/.cache/hazprec/mlx/Qwen--Qwen2.5-3B-Instruct-q6-g64
+[INFO] Loading
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 4249.07it/s]
+[INFO] Using dtype: bfloat16
+[INFO] Quantizing
+[INFO] Quantized model with 6.501 bits per weight.
+[hazprec] converting Qwen/Qwen2.5-3B-Instruct to MLX at 8 bits -> /Users/rayyanwaseem/.cache/hazprec/mlx/Qwen--Qwen2.5-3B-Instruct-q8-g64
+[INFO] Loading
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 4429.04it/s]
+[INFO] Using dtype: bfloat16
+[INFO] Quantizing
+[INFO] Quantized model with 8.501 bits per weight.
+ 3 bits: success=False turns=1 tokens=430
+    ERR <unparseable>
+    per-turn failures: [1]
+ 4 bits: success=False turns=2 tokens=428
+    ok  {"arguments": {"record_id": "r_7890"}, "name": "read"}
+    ERR {"arguments": {"record_id": "r_7311"}, "name": "read"}
+    per-turn failures: [0, 1]
+ 6 bits: success=False turns=5 tokens=1001
+    ok  {"arguments": {"record_id": "r_7890"}, "name": "read"}
+    ok  {"arguments": {"ack": "J9TSP", "record_id": "r_7890", "seq": 1}, "name": "update"}
+    ok  {"arguments": {"record_id": "r_7311"}, "name": "read"}
+    ok  {"arguments": {"ack": "B48U8", "record_id": "r_7311", "seq": 2}, "name": "update"}
+    ERR {"arguments": {"record_id": "r_7311"}, "name": "read"}
+    per-turn failures: [0, 0, 0, 0, 1]
+ 8 bits: success=False turns=2 tokens=493
+    ok  {"arguments": {"record_id": "r_7890"}, "name": "read"}
+    ERR {"arguments": {"record_id": "r_7311"}, "name": "read"}
+    per-turn failures: [0, 1]

@@ -2,8 +2,10 @@ import json
 
 import pytest
 
+from hazprec.agent.harness import AgentHarness
 from hazprec.quant.backends.base import TokenBackend
-from hazprec.envs.horizongym import HorizonGymConfig
+from hazprec.envs.horizongym import HorizonGymConfig, HorizonGymEnv
+from hazprec.scheduler import UniformPolicy
 from hazprec.sensitivity.replay import measure_task
 
 
@@ -94,3 +96,43 @@ def test_replay_restores_reference_prefix_for_every_probe():
     for size,actual in be.prefixes[3:]: assert actual==reference[size]
     assert all(r['failures']==0 for r in rows if r['type']=='probe')
     assert all('text' in seg for turn in rows[0]['turns'] for seg in turn['segments'])
+
+
+class ScriptedTokenBackend(ToyBackend):
+    """Decodes a fixed script per generate() call; an exhausted script emits end of turn (0)."""
+    def __init__(self,scripts):
+        super().__init__(); self.scripts=list(scripts)
+    def generate(self,bits,max_tokens,stop=(),prefix=''):
+        self.pending=iter(map(ord,self.scripts.pop(0)))
+        return super().generate(bits,max_tokens,stop,prefix)
+    def _sample(self,logits): return next(self.pending,0)
+
+
+def _scripted_turns(scripts,n_turns,error_mode='fatal',max_think_tokens=64):
+    env=HorizonGymEnv(HorizonGymConfig(n_hops=1,error_mode=error_mode)); env.reset(0)
+    be=ScriptedTokenBackend(scripts); be.reset(0)
+    h=AgentHarness(be,UniformPolicy(8),max_think_tokens=max_think_tokens,max_act_tokens=128,hinter_factory=None)
+    messages=env.messages()
+    return be,env,[h.run_turn(env,messages,t) for t in range(n_turns)]
+
+
+def test_end_of_turn_during_think_is_a_format_failure_without_a_forced_tool_call():
+    env=HorizonGymEnv(HorizonGymConfig(n_hops=1)); env.reset(0)
+    good=env.expected.to_json()+'</tool_call>'
+    be,env,(failed,recovered)=_scripted_turns(['I will read it.','<tool_call>',good],2,'recoverable')
+    assert failed.call is None and not failed.correct and failed.reason=='could not parse a tool call'
+    assert (failed.think_end,failed.act_end)==('eos','skipped')
+    assert [s.tokens for s in failed.segments[1:]]==[16,0]  # 15 characters + end of turn; no ACT decode
+    after=be._decode(be.cached_ids).split('I will read it.\x00',1)[1]  # history after the failed turn
+    assert after.count('<tool_call>')==1 and after.index('ERROR')<after.index('<tool_call>')
+    assert recovered.correct and (recovered.think_end,recovered.act_end)==('tag','tag')
+    assert be.cache==list(zip(be.cached_ids,be.cached_bits))
+
+
+def test_think_budget_exhaustion_is_recorded_and_forces_the_tool_call():
+    env=HorizonGymEnv(HorizonGymConfig(n_hops=1)); env.reset(0)
+    be,env,(turn,)=_scripted_turns(['x'*10,env.expected.to_json()+'</tool_call>'],1,max_think_tokens=5)
+    assert (turn.think_end,turn.act_end)==('cap','tag') and turn.correct
+    assert env.task is not None, 'Expected an initialized task after running the scripted turn'
+    assert be._decode(be.cached_ids).endswith('xxxxx<tool_call>'+env.task.oracle[0].to_json()+'</tool_call>')
+    assert turn.to_dict()['think_end']=='cap'
