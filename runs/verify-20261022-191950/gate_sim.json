@@ -1,0 +1,2141 @@
+{
+  "ready": false,
+  "mode": "diagnostic",
+  "config": {
+    "seed": 0,
+    "backend": {
+      "kind": "sim",
+      "levels": [
+        3,
+        4,
+        5,
+        6,
+        8
+      ],
+      "ref_bits": 8,
+      "sim": {
+        "sensitivity": {
+          "system": 0.3,
+          "read": 0.3,
+          "think": 0.5,
+          "act": 2.0,
+          "stop": 6.0
+        },
+        "base_hazard": 0.002,
+        "think_tokens": 40,
+        "act_tokens": 24
+      }
+    },
+    "env": {
+      "n_hops": 4,
+      "n_fields": 2,
+      "filler_lines": 4,
+      "error_mode": "fatal",
+      "max_retries": 2
+    },
+    "agent": {
+      "think": true,
+      "max_think_tokens": 160,
+      "max_act_tokens": 96
+    },
+    "atlas": {
+      "n_tasks": 30,
+      "n_samples": 40,
+      "seed0": 0,
+      "max_turns": 1
+    },
+    "theory": {
+      "bbar": 4,
+      "alloc_hops": 8,
+      "curve_mode": "parametric"
+    },
+    "horizon": {
+      "hops": [
+        2,
+        8,
+        16,
+        32,
+        48,
+        64
+      ],
+      "n_episodes": 1500,
+      "seed0": 100000
+    }
+  },
+  "experiment": {
+    "schema": 2,
+    "config": {
+      "seed": 0,
+      "backend": {
+        "kind": "sim",
+        "levels": [
+          3,
+          4,
+          5,
+          6,
+          8
+        ],
+        "ref_bits": 8,
+        "sim": {
+          "sensitivity": {
+            "system": 0.3,
+            "read": 0.3,
+            "think": 0.5,
+            "act": 2.0,
+            "stop": 6.0
+          },
+          "base_hazard": 0.002,
+          "think_tokens": 40,
+          "act_tokens": 24
+        }
+      },
+      "env": {
+        "n_hops": 4,
+        "n_fields": 2,
+        "filler_lines": 4,
+        "error_mode": "fatal",
+        "max_retries": 2
+      },
+      "agent": {
+        "think": true,
+        "max_think_tokens": 160,
+        "max_act_tokens": 96
+      },
+      "atlas": {
+        "n_tasks": 30,
+        "n_samples": 40,
+        "seed0": 0,
+        "max_turns": 1
+      },
+      "theory": {
+        "bbar": 4,
+        "alloc_hops": 8,
+        "curve_mode": "parametric"
+      },
+      "horizon": {
+        "hops": [
+          2,
+          8,
+          16,
+          32,
+          48,
+          64
+        ],
+        "n_episodes": 1500,
+        "seed0": 100000
+      }
+    },
+    "source_sha256": "dde62381d732ddd3945a32681309e16321a22fefe1293513ee8dfdc048cb3798",
+    "dependencies": {
+      "numpy": "2.5.4",
+      "pyyaml": "6.0.3",
+      "torch": "2.14.1",
+      "transformers": "5.20.2",
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2",
+      "tokenizers": "0.23.3"
+    },
+    "python": "3.12.5",
+    "sha256": "c43799b62bc6768271d52e441cf3f17742eb7d1cb5c097820775ba529b14e04f"
+  },
+  "arguments": {
+    "config": "configs/sim.yaml",
+    "overrides": [
+      "atlas.max_turns=1"
+    ],
+    "bits": null,
+    "hops": [
+      2,
+      4
+    ],
+    "gate_hops": 4,
+    "n": 10,
+    "quick": false,
+    "min_ref_success": 0.8,
+    "min_parse_rate": 0.98,
+    "min_sweep_survival": 0.1,
+    "max_read_overhead": 48,
+    "atlas_budget_hours": 24,
+    "seed0": 200000,
+    "cost_tasks": 1,
+    "cost_samples": 1,
+    "out": "/Users/rayyanwaseem/Desktop/Projects/Precision-Scheduling-for-Long-Horizon-LLM-Agents/runs/verify-20261022-191950/gate_sim.json"
+  },
+  "checks": [
+    {
+      "name": "format",
+      "pass": true,
+      "value": 1.0
+    },
+    {
+      "name": "reliable",
+      "pass": true,
+      "value": {
+        "2": 0.9,
+        "4": 0.9
+      }
+    },
+    {
+      "name": "signal",
+      "pass": false,
+      "value": {
+        "low_ci": [
+          0.01427054877259009,
+          0.11549464605452325
+        ],
+        "reference_ci": [
+          0.0021299225877048286,
+          0.0651373778765888
+        ]
+      }
+    },
+    {
+      "name": "operating_point",
+      "pass": false,
+      "value": {
+        "bbar": 4,
+        "gate_hops": 4,
+        "turn_hazard": 0.02564102564102564,
+        "predicted_success": {
+          "2": 0.8782030639030666,
+          "8": 0.6430175450660477,
+          "16": 0.4243523938749447,
+          "32": 0.18481376877127506,
+          "48": 0.08049001165175004,
+          "64": 0.03505497463079607
+        },
+        "predicted_success_ci95": {
+          "2": [
+            0.628314673443211,
+            0.9651951945915734
+          ],
+          "8": [
+            0.20596929736874275,
+            0.886526074276621
+          ],
+          "16": [
+            0.04655534340824721,
+            0.7915165439929771
+          ],
+          "32": [
+            0.002378502589429834,
+            0.6309529326988031
+          ],
+          "48": [
+            0.00012151719123442762,
+            0.5029605588190367
+          ],
+          "64": [
+            6.208287445692547e-06,
+            0.40093216247608304
+          ]
+        }
+      }
+    },
+    {
+      "name": "cache",
+      "pass": false,
+      "value": {
+        "observations_checked": 0
+      }
+    },
+    {
+      "name": "cost",
+      "pass": true,
+      "value": {
+        "measured_seconds": 0.001126917079091072,
+        "measured_probe_samples": 13,
+        "calibration_tasks": 1,
+        "calibration_samples": 1,
+        "coverage_scale": 1.0,
+        "hours_total": 0.0003756390263636907,
+        "method": "timed replay; conservatively scaled to full reference-path coverage"
+      }
+    }
+  ],
+  "smoke": {
+    "3": {
+      "provenance_ok": null,
+      "seed": 200000,
+      "success": true,
+      "turns": 3,
+      "correct_turns": 3,
+      "failure": null,
+      "failure_phase": null,
+      "parse_failures": 0,
+      "prefill_tokens": 362,
+      "decode_tokens": 192,
+      "seconds": 0.00010920793283730745,
+      "full_renders": 0,
+      "read_overhead": [],
+      "example_call": "{\"arguments\": {\"record_id\": \"r_3661\"}, \"name\": \"read\"}",
+      "think_tokens": 120,
+      "think_end": {
+        "tag": 3
+      },
+      "act_end": {
+        "tag": 3
+      },
+      "failure_detail": null
+    },
+    "4": {
+      "provenance_ok": null,
+      "seed": 200000,
+      "success": true,
+      "turns": 3,
+      "correct_turns": 3,
+      "failure": null,
+      "failure_phase": null,
+      "parse_failures": 0,
+      "prefill_tokens": 362,
+      "decode_tokens": 192,
+      "seconds": 5.5958982557058334e-05,
+      "full_renders": 0,
+      "read_overhead": [],
+      "example_call": "{\"arguments\": {\"record_id\": \"r_3661\"}, \"name\": \"read\"}",
+      "think_tokens": 120,
+      "think_end": {
+        "tag": 3
+      },
+      "act_end": {
+        "tag": 3
+      },
+      "failure_detail": null
+    },
+    "5": {
+      "provenance_ok": null,
+      "seed": 200000,
+      "success": true,
+      "turns": 3,
+      "correct_turns": 3,
+      "failure": null,
+      "failure_phase": null,
+      "parse_failures": 0,
+      "prefill_tokens": 362,
+      "decode_tokens": 192,
+      "seconds": 4.7666020691394806e-05,
+      "full_renders": 0,
+      "read_overhead": [],
+      "example_call": "{\"arguments\": {\"record_id\": \"r_3661\"}, \"name\": \"read\"}",
+      "think_tokens": 120,
+      "think_end": {
+        "tag": 3
+      },
+      "act_end": {
+        "tag": 3
+      },
+      "failure_detail": null
+    },
+    "6": {
+      "provenance_ok": null,
+      "seed": 200000,
+      "success": true,
+      "turns": 3,
+      "correct_turns": 3,
+      "failure": null,
+      "failure_phase": null,
+      "parse_failures": 0,
+      "prefill_tokens": 362,
+      "decode_tokens": 192,
+      "seconds": 4.670803900808096e-05,
+      "full_renders": 0,
+      "read_overhead": [],
+      "example_call": "{\"arguments\": {\"record_id\": \"r_3661\"}, \"name\": \"read\"}",
+      "think_tokens": 120,
+      "think_end": {
+        "tag": 3
+      },
+      "act_end": {
+        "tag": 3
+      },
+      "failure_detail": null
+    },
+    "8": {
+      "provenance_ok": null,
+      "seed": 200000,
+      "success": true,
+      "turns": 3,
+      "correct_turns": 3,
+      "failure": null,
+      "failure_phase": null,
+      "parse_failures": 0,
+      "prefill_tokens": 362,
+      "decode_tokens": 192,
+      "seconds": 4.2499974370002747e-05,
+      "full_renders": 0,
+      "read_overhead": [],
+      "example_call": "{\"arguments\": {\"record_id\": \"r_3661\"}, \"name\": \"read\"}",
+      "think_tokens": 120,
+      "think_end": {
+        "tag": 3
+      },
+      "act_end": {
+        "tag": 3
+      },
+      "failure_detail": null
+    }
+  },
+  "table": {
+    "8b_2h": {
+      "episodes": 10,
+      "success": 0.9,
+      "success_ci95": [
+        0.5958436145024278,
+        0.9821242504842788
+      ],
+      "turns": 47,
+      "turn_failures": 1,
+      "turn_hazard": 0.02127659574468085,
+      "turn_hazard_ci95": [
+        0.003765671010464995,
+        0.11113236524331144
+      ],
+      "parse_rate": 1.0,
+      "failure_kinds": {
+        "wrong:seq": 1
+      },
+      "sec_per_turn": 1.4174640416464907e-05,
+      "decode_tok_per_sec": 4515105.718354534,
+      "tokens_per_turn": 169.17021276595744,
+      "think_tokens_per_turn": 40.0,
+      "think_end": {
+        "tag": 47
+      },
+      "act_end": {
+        "tag": 47
+      }
+    },
+    "4b_2h": {
+      "episodes": 10,
+      "success": 0.8,
+      "success_ci95": [
+        0.49015684672072335,
+        0.9433190520193067
+      ],
+      "turns": 46,
+      "turn_failures": 2,
+      "turn_hazard": 0.043478260869565216,
+      "turn_hazard_ci95": [
+        0.012005193588830829,
+        0.1453252291905342
+      ],
+      "parse_rate": 1.0,
+      "failure_kinds": {
+        "wrong:seq": 1,
+        "wrong:ack": 1
+      },
+      "sec_per_turn": 1.520014864028148e-05,
+      "decode_tok_per_sec": 4210485.141598907,
+      "tokens_per_turn": 170.5,
+      "think_tokens_per_turn": 40.0,
+      "think_end": {
+        "tag": 46
+      },
+      "act_end": {
+        "tag": 46
+      }
+    },
+    "3b_2h": {
+      "episodes": 10,
+      "success": 0.6,
+      "success_ci95": [
+        0.3126695474501864,
+        0.8318224187964902
+      ],
+      "turns": 44,
+      "turn_failures": 4,
+      "turn_hazard": 0.09090909090909091,
+      "turn_hazard_ci95": [
+        0.035921611478836546,
+        0.21159519397917487
+      ],
+      "parse_rate": 1.0,
+      "failure_kinds": {
+        "wrong:count": 1,
+        "wrong:seq": 1,
+        "wrong:ack": 1,
+        "wrong:record_id": 1
+      },
+      "sec_per_turn": 1.4218747806312008e-05,
+      "decode_tok_per_sec": 4501099.595534638,
+      "tokens_per_turn": 171.86363636363637,
+      "think_tokens_per_turn": 40.0,
+      "think_end": {
+        "tag": 44
+      },
+      "act_end": {
+        "tag": 44
+      }
+    },
+    "8b_4h": {
+      "episodes": 10,
+      "success": 0.9,
+      "success_ci95": [
+        0.5958436145024278,
+        0.9821242504842788
+      ],
+      "turns": 83,
+      "turn_failures": 1,
+      "turn_hazard": 0.012048192771084338,
+      "turn_hazard_ci95": [
+        0.0021299225877048286,
+        0.0651373778765888
+      ],
+      "parse_rate": 1.0,
+      "failure_kinds": {
+        "wrong:seq": 1
+      },
+      "sec_per_turn": 1.3577335244830115e-05,
+      "decode_tok_per_sec": 4713737.92028664,
+      "tokens_per_turn": 157.0120481927711,
+      "think_tokens_per_turn": 40.0,
+      "think_end": {
+        "tag": 83
+      },
+      "act_end": {
+        "tag": 83
+      }
+    },
+    "4b_4h": {
+      "episodes": 10,
+      "success": 0.8,
+      "success_ci95": [
+        0.49015684672072335,
+        0.9433190520193067
+      ],
+      "turns": 78,
+      "turn_failures": 2,
+      "turn_hazard": 0.02564102564102564,
+      "turn_hazard_ci95": [
+        0.007059945446585378,
+        0.08875440813398978
+      ],
+      "parse_rate": 1.0,
+      "failure_kinds": {
+        "wrong:seq": 1,
+        "wrong:ack": 1
+      },
+      "sec_per_turn": 1.3713166714669802e-05,
+      "decode_tok_per_sec": 4667047.468440337,
+      "tokens_per_turn": 158.44871794871796,
+      "think_tokens_per_turn": 40.0,
+      "think_end": {
+        "tag": 78
+      },
+      "act_end": {
+        "tag": 78
+      }
+    },
+    "3b_4h": {
+      "episodes": 10,
+      "success": 0.7,
+      "success_ci95": [
+        0.39677321997956516,
+        0.892210712513788
+      ],
+      "turns": 72,
+      "turn_failures": 3,
+      "turn_hazard": 0.041666666666666664,
+      "turn_hazard_ci95": [
+        0.01427054877259009,
+        0.11549464605452325
+      ],
+      "parse_rate": 1.0,
+      "failure_kinds": {
+        "wrong:seq": 1,
+        "wrong:ack": 1,
+        "wrong:record_id": 1
+      },
+      "sec_per_turn": 1.439814999078711e-05,
+      "decode_tok_per_sec": 4445015.508308459,
+      "tokens_per_turn": 159.90277777777777,
+      "think_tokens_per_turn": 40.0,
+      "think_end": {
+        "tag": 72
+      },
+      "act_end": {
+        "tag": 72
+      }
+    }
+  },
+  "episodes": {
+    "8b_2h": [
+      {
+        "provenance_ok": null,
+        "seed": 200000,
+        "success": true,
+        "turns": 5,
+        "correct_turns": 5,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 515,
+        "decode_tokens": 320,
+        "seconds": 7.120799273252487e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_2470\"}, \"name\": \"read\"}",
+        "think_tokens": 200,
+        "think_end": {
+          "tag": 5
+        },
+        "act_end": {
+          "tag": 5
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200001,
+        "success": true,
+        "turns": 5,
+        "correct_turns": 5,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 515,
+        "decode_tokens": 320,
+        "seconds": 7.375003769993782e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_6057\"}, \"name\": \"read\"}",
+        "think_tokens": 200,
+        "think_end": {
+          "tag": 5
+        },
+        "act_end": {
+          "tag": 5
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200002,
+        "success": true,
+        "turns": 5,
+        "correct_turns": 5,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 514,
+        "decode_tokens": 320,
+        "seconds": 6.849993951618671e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_9701\"}, \"name\": \"read\"}",
+        "think_tokens": 200,
+        "think_end": {
+          "tag": 5
+        },
+        "act_end": {
+          "tag": 5
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200003,
+        "success": true,
+        "turns": 5,
+        "correct_turns": 5,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 513,
+        "decode_tokens": 320,
+        "seconds": 7.083301898092031e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_9691\"}, \"name\": \"read\"}",
+        "think_tokens": 200,
+        "think_end": {
+          "tag": 5
+        },
+        "act_end": {
+          "tag": 5
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200004,
+        "success": true,
+        "turns": 5,
+        "correct_turns": 5,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 512,
+        "decode_tokens": 320,
+        "seconds": 7.141707465052605e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_1013\"}, \"name\": \"read\"}",
+        "think_tokens": 200,
+        "think_end": {
+          "tag": 5
+        },
+        "act_end": {
+          "tag": 5
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200005,
+        "success": true,
+        "turns": 5,
+        "correct_turns": 5,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 515,
+        "decode_tokens": 320,
+        "seconds": 6.779201794415712e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_4937\"}, \"name\": \"read\"}",
+        "think_tokens": 200,
+        "think_end": {
+          "tag": 5
+        },
+        "act_end": {
+          "tag": 5
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200006,
+        "success": false,
+        "turns": 2,
+        "correct_turns": 1,
+        "failure": "wrong:seq",
+        "failure_phase": "act",
+        "parse_failures": 0,
+        "prefill_tokens": 316,
+        "decode_tokens": 128,
+        "seconds": 3.529200330376625e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_1064\"}, \"name\": \"read\"}",
+        "think_tokens": 80,
+        "think_end": {
+          "tag": 2
+        },
+        "act_end": {
+          "tag": 2
+        },
+        "failure_detail": {
+          "turn": 1,
+          "step": 1,
+          "reason": "wrong value for 'seq'",
+          "expected": "{\"arguments\": {\"ack\": \"TEBB7\", \"record_id\": \"r_1064\", \"seq\": 1}, \"name\": \"update\"}",
+          "think_end": "tag",
+          "act_end": "tag",
+          "think": "Checking the record and choosing the next call.",
+          "act": "{\"name\": \"update\", \"arguments\": {\"record_id\": \"r_1064\", \"ack\": \"TEBB7\", \"seq\": 0}}"
+        }
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200007,
+        "success": true,
+        "turns": 5,
+        "correct_turns": 5,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 514,
+        "decode_tokens": 320,
+        "seconds": 6.779201794415712e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_6803\"}, \"name\": \"read\"}",
+        "think_tokens": 200,
+        "think_end": {
+          "tag": 5
+        },
+        "act_end": {
+          "tag": 5
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200008,
+        "success": true,
+        "turns": 5,
+        "correct_turns": 5,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 516,
+        "decode_tokens": 320,
+        "seconds": 6.854103412479162e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_2699\"}, \"name\": \"read\"}",
+        "think_tokens": 200,
+        "think_end": {
+          "tag": 5
+        },
+        "act_end": {
+          "tag": 5
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200009,
+        "success": true,
+        "turns": 5,
+        "correct_turns": 5,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 513,
+        "decode_tokens": 320,
+        "seconds": 7.108296267688274e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_9888\"}, \"name\": \"read\"}",
+        "think_tokens": 200,
+        "think_end": {
+          "tag": 5
+        },
+        "act_end": {
+          "tag": 5
+        },
+        "failure_detail": null
+      }
+    ],
+    "4b_2h": [
+      {
+        "provenance_ok": null,
+        "seed": 200000,
+        "success": true,
+        "turns": 5,
+        "correct_turns": 5,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 515,
+        "decode_tokens": 320,
+        "seconds": 7.204199209809303e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_2470\"}, \"name\": \"read\"}",
+        "think_tokens": 200,
+        "think_end": {
+          "tag": 5
+        },
+        "act_end": {
+          "tag": 5
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200001,
+        "success": true,
+        "turns": 5,
+        "correct_turns": 5,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 515,
+        "decode_tokens": 320,
+        "seconds": 7.354095578193665e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_6057\"}, \"name\": \"read\"}",
+        "think_tokens": 200,
+        "think_end": {
+          "tag": 5
+        },
+        "act_end": {
+          "tag": 5
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200002,
+        "success": true,
+        "turns": 5,
+        "correct_turns": 5,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 514,
+        "decode_tokens": 320,
+        "seconds": 7.483293302357197e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_9701\"}, \"name\": \"read\"}",
+        "think_tokens": 200,
+        "think_end": {
+          "tag": 5
+        },
+        "act_end": {
+          "tag": 5
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200003,
+        "success": true,
+        "turns": 5,
+        "correct_turns": 5,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 513,
+        "decode_tokens": 320,
+        "seconds": 7.60830007493496e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_9691\"}, \"name\": \"read\"}",
+        "think_tokens": 200,
+        "think_end": {
+          "tag": 5
+        },
+        "act_end": {
+          "tag": 5
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200004,
+        "success": true,
+        "turns": 5,
+        "correct_turns": 5,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 512,
+        "decode_tokens": 320,
+        "seconds": 8.508400060236454e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_1013\"}, \"name\": \"read\"}",
+        "think_tokens": 200,
+        "think_end": {
+          "tag": 5
+        },
+        "act_end": {
+          "tag": 5
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200005,
+        "success": true,
+        "turns": 5,
+        "correct_turns": 5,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 515,
+        "decode_tokens": 320,
+        "seconds": 7.470801938325167e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_4937\"}, \"name\": \"read\"}",
+        "think_tokens": 200,
+        "think_end": {
+          "tag": 5
+        },
+        "act_end": {
+          "tag": 5
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200006,
+        "success": false,
+        "turns": 2,
+        "correct_turns": 1,
+        "failure": "wrong:seq",
+        "failure_phase": "act",
+        "parse_failures": 0,
+        "prefill_tokens": 316,
+        "decode_tokens": 128,
+        "seconds": 3.829202614724636e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_1064\"}, \"name\": \"read\"}",
+        "think_tokens": 80,
+        "think_end": {
+          "tag": 2
+        },
+        "act_end": {
+          "tag": 2
+        },
+        "failure_detail": {
+          "turn": 1,
+          "step": 1,
+          "reason": "wrong value for 'seq'",
+          "expected": "{\"arguments\": {\"ack\": \"TEBB7\", \"record_id\": \"r_1064\", \"seq\": 1}, \"name\": \"update\"}",
+          "think_end": "tag",
+          "act_end": "tag",
+          "think": "Checking the record and choosing the next call.",
+          "act": "{\"name\": \"update\", \"arguments\": {\"record_id\": \"r_1064\", \"ack\": \"TEBB7\", \"seq\": 0}}"
+        }
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200007,
+        "success": false,
+        "turns": 4,
+        "correct_turns": 3,
+        "failure": "wrong:ack",
+        "failure_phase": "act",
+        "parse_failures": 0,
+        "prefill_tokens": 470,
+        "decode_tokens": 256,
+        "seconds": 6.645801477134228e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_6803\"}, \"name\": \"read\"}",
+        "think_tokens": 160,
+        "think_end": {
+          "tag": 4
+        },
+        "act_end": {
+          "tag": 4
+        },
+        "failure_detail": {
+          "turn": 3,
+          "step": 3,
+          "reason": "wrong value for 'ack'",
+          "expected": "{\"arguments\": {\"ack\": \"K7K6B\", \"record_id\": \"r_9678\", \"seq\": 2}, \"name\": \"update\"}",
+          "think_end": "tag",
+          "act_end": "tag",
+          "think": "Checking the record and choosing the next call.",
+          "act": "{\"name\": \"update\", \"arguments\": {\"record_id\": \"r_9678\", \"ack\": \"6W6YE\", \"seq\": 2}}"
+        }
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200008,
+        "success": true,
+        "turns": 5,
+        "correct_turns": 5,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 516,
+        "decode_tokens": 320,
+        "seconds": 6.78749056532979e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_2699\"}, \"name\": \"read\"}",
+        "think_tokens": 200,
+        "think_end": {
+          "tag": 5
+        },
+        "act_end": {
+          "tag": 5
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200009,
+        "success": true,
+        "turns": 5,
+        "correct_turns": 5,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 513,
+        "decode_tokens": 320,
+        "seconds": 7.02909892424941e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_9888\"}, \"name\": \"read\"}",
+        "think_tokens": 200,
+        "think_end": {
+          "tag": 5
+        },
+        "act_end": {
+          "tag": 5
+        },
+        "failure_detail": null
+      }
+    ],
+    "3b_2h": [
+      {
+        "provenance_ok": null,
+        "seed": 200000,
+        "success": true,
+        "turns": 5,
+        "correct_turns": 5,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 515,
+        "decode_tokens": 320,
+        "seconds": 7.174990605562925e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_2470\"}, \"name\": \"read\"}",
+        "think_tokens": 200,
+        "think_end": {
+          "tag": 5
+        },
+        "act_end": {
+          "tag": 5
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200001,
+        "success": true,
+        "turns": 5,
+        "correct_turns": 5,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 515,
+        "decode_tokens": 320,
+        "seconds": 7.183302659541368e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_6057\"}, \"name\": \"read\"}",
+        "think_tokens": 200,
+        "think_end": {
+          "tag": 5
+        },
+        "act_end": {
+          "tag": 5
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200002,
+        "success": true,
+        "turns": 5,
+        "correct_turns": 5,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 514,
+        "decode_tokens": 320,
+        "seconds": 6.945803761482239e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_9701\"}, \"name\": \"read\"}",
+        "think_tokens": 200,
+        "think_end": {
+          "tag": 5
+        },
+        "act_end": {
+          "tag": 5
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200003,
+        "success": true,
+        "turns": 5,
+        "correct_turns": 5,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 513,
+        "decode_tokens": 320,
+        "seconds": 6.79579097777605e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_9691\"}, \"name\": \"read\"}",
+        "think_tokens": 200,
+        "think_end": {
+          "tag": 5
+        },
+        "act_end": {
+          "tag": 5
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200004,
+        "success": true,
+        "turns": 5,
+        "correct_turns": 5,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 512,
+        "decode_tokens": 320,
+        "seconds": 7.070903666317463e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_1013\"}, \"name\": \"read\"}",
+        "think_tokens": 200,
+        "think_end": {
+          "tag": 5
+        },
+        "act_end": {
+          "tag": 5
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200005,
+        "success": false,
+        "turns": 5,
+        "correct_turns": 4,
+        "failure": "wrong:count",
+        "failure_phase": "stop",
+        "parse_failures": 0,
+        "prefill_tokens": 515,
+        "decode_tokens": 320,
+        "seconds": 6.904196925461292e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_4937\"}, \"name\": \"read\"}",
+        "think_tokens": 200,
+        "think_end": {
+          "tag": 5
+        },
+        "act_end": {
+          "tag": 5
+        },
+        "failure_detail": {
+          "turn": 4,
+          "step": 4,
+          "reason": "wrong value for 'count'",
+          "expected": "{\"arguments\": {\"count\": 2}, \"name\": \"submit\"}",
+          "think_end": "tag",
+          "act_end": "tag",
+          "think": "Checking the record and choosing the next call.",
+          "act": "{\"name\": \"submit\", \"arguments\": {\"count\": 1}}"
+        }
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200006,
+        "success": false,
+        "turns": 2,
+        "correct_turns": 1,
+        "failure": "wrong:seq",
+        "failure_phase": "act",
+        "parse_failures": 0,
+        "prefill_tokens": 316,
+        "decode_tokens": 128,
+        "seconds": 3.3917021937668324e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_1064\"}, \"name\": \"read\"}",
+        "think_tokens": 80,
+        "think_end": {
+          "tag": 2
+        },
+        "act_end": {
+          "tag": 2
+        },
+        "failure_detail": {
+          "turn": 1,
+          "step": 1,
+          "reason": "wrong value for 'seq'",
+          "expected": "{\"arguments\": {\"ack\": \"TEBB7\", \"record_id\": \"r_1064\", \"seq\": 1}, \"name\": \"update\"}",
+          "think_end": "tag",
+          "act_end": "tag",
+          "think": "Checking the record and choosing the next call.",
+          "act": "{\"name\": \"update\", \"arguments\": {\"record_id\": \"r_1064\", \"ack\": \"TEBB7\", \"seq\": 0}}"
+        }
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200007,
+        "success": false,
+        "turns": 4,
+        "correct_turns": 3,
+        "failure": "wrong:ack",
+        "failure_phase": "act",
+        "parse_failures": 0,
+        "prefill_tokens": 470,
+        "decode_tokens": 256,
+        "seconds": 5.908298771828413e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_6803\"}, \"name\": \"read\"}",
+        "think_tokens": 160,
+        "think_end": {
+          "tag": 4
+        },
+        "act_end": {
+          "tag": 4
+        },
+        "failure_detail": {
+          "turn": 3,
+          "step": 3,
+          "reason": "wrong value for 'ack'",
+          "expected": "{\"arguments\": {\"ack\": \"K7K6B\", \"record_id\": \"r_9678\", \"seq\": 2}, \"name\": \"update\"}",
+          "think_end": "tag",
+          "act_end": "tag",
+          "think": "Checking the record and choosing the next call.",
+          "act": "{\"name\": \"update\", \"arguments\": {\"record_id\": \"r_9678\", \"ack\": \"6W6YE\", \"seq\": 2}}"
+        }
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200008,
+        "success": true,
+        "turns": 5,
+        "correct_turns": 5,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 516,
+        "decode_tokens": 320,
+        "seconds": 6.574997678399086e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_2699\"}, \"name\": \"read\"}",
+        "think_tokens": 200,
+        "think_end": {
+          "tag": 5
+        },
+        "act_end": {
+          "tag": 5
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200009,
+        "success": false,
+        "turns": 3,
+        "correct_turns": 2,
+        "failure": "wrong:record_id",
+        "failure_phase": "act",
+        "parse_failures": 0,
+        "prefill_tokens": 360,
+        "decode_tokens": 192,
+        "seconds": 4.612503107637167e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_9888\"}, \"name\": \"read\"}",
+        "think_tokens": 120,
+        "think_end": {
+          "tag": 3
+        },
+        "act_end": {
+          "tag": 3
+        },
+        "failure_detail": {
+          "turn": 2,
+          "step": 2,
+          "reason": "wrong value for 'record_id'",
+          "expected": "{\"arguments\": {\"record_id\": \"r_5706\"}, \"name\": \"read\"}",
+          "think_end": "tag",
+          "act_end": "tag",
+          "think": "Checking the record and choosing the next call.",
+          "act": "{\"name\": \"read\", \"arguments\": {\"record_id\": \"r_9888\"}}"
+        }
+      }
+    ],
+    "8b_4h": [
+      {
+        "provenance_ok": null,
+        "seed": 200000,
+        "success": true,
+        "turns": 9,
+        "correct_turns": 9,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 821,
+        "decode_tokens": 576,
+        "seconds": 0.00012795801740139723,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_1739\"}, \"name\": \"read\"}",
+        "think_tokens": 360,
+        "think_end": {
+          "tag": 9
+        },
+        "act_end": {
+          "tag": 9
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200001,
+        "success": true,
+        "turns": 9,
+        "correct_turns": 9,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 822,
+        "decode_tokens": 576,
+        "seconds": 0.00012083398178219795,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_2720\"}, \"name\": \"read\"}",
+        "think_tokens": 360,
+        "think_end": {
+          "tag": 9
+        },
+        "act_end": {
+          "tag": 9
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200002,
+        "success": true,
+        "turns": 9,
+        "correct_turns": 9,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 823,
+        "decode_tokens": 576,
+        "seconds": 0.00012049998622387648,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_1256\"}, \"name\": \"read\"}",
+        "think_tokens": 360,
+        "think_end": {
+          "tag": 9
+        },
+        "act_end": {
+          "tag": 9
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200003,
+        "success": true,
+        "turns": 9,
+        "correct_turns": 9,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 823,
+        "decode_tokens": 576,
+        "seconds": 0.00012108299415558577,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_3213\"}, \"name\": \"read\"}",
+        "think_tokens": 360,
+        "think_end": {
+          "tag": 9
+        },
+        "act_end": {
+          "tag": 9
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200004,
+        "success": true,
+        "turns": 9,
+        "correct_turns": 9,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 821,
+        "decode_tokens": 576,
+        "seconds": 0.00012141698971390724,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_5411\"}, \"name\": \"read\"}",
+        "think_tokens": 360,
+        "think_end": {
+          "tag": 9
+        },
+        "act_end": {
+          "tag": 9
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200005,
+        "success": true,
+        "turns": 9,
+        "correct_turns": 9,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 825,
+        "decode_tokens": 576,
+        "seconds": 0.00012037495616823435,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_7059\"}, \"name\": \"read\"}",
+        "think_tokens": 360,
+        "think_end": {
+          "tag": 9
+        },
+        "act_end": {
+          "tag": 9
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200006,
+        "success": false,
+        "turns": 2,
+        "correct_turns": 1,
+        "failure": "wrong:seq",
+        "failure_phase": "act",
+        "parse_failures": 0,
+        "prefill_tokens": 316,
+        "decode_tokens": 128,
+        "seconds": 3.491691313683987e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_9465\"}, \"name\": \"read\"}",
+        "think_tokens": 80,
+        "think_end": {
+          "tag": 2
+        },
+        "act_end": {
+          "tag": 2
+        },
+        "failure_detail": {
+          "turn": 1,
+          "step": 1,
+          "reason": "wrong value for 'seq'",
+          "expected": "{\"arguments\": {\"ack\": \"7S8D3\", \"record_id\": \"r_9465\", \"seq\": 1}, \"name\": \"update\"}",
+          "think_end": "tag",
+          "act_end": "tag",
+          "think": "Checking the record and choosing the next call.",
+          "act": "{\"name\": \"update\", \"arguments\": {\"record_id\": \"r_9465\", \"ack\": \"7S8D3\", \"seq\": 0}}"
+        }
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200007,
+        "success": true,
+        "turns": 9,
+        "correct_turns": 9,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 824,
+        "decode_tokens": 576,
+        "seconds": 0.00011958403047174215,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_9678\"}, \"name\": \"read\"}",
+        "think_tokens": 360,
+        "think_end": {
+          "tag": 9
+        },
+        "act_end": {
+          "tag": 9
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200008,
+        "success": true,
+        "turns": 9,
+        "correct_turns": 9,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 823,
+        "decode_tokens": 576,
+        "seconds": 0.00011979194823652506,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_2699\"}, \"name\": \"read\"}",
+        "think_tokens": 360,
+        "think_end": {
+          "tag": 9
+        },
+        "act_end": {
+          "tag": 9
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200009,
+        "success": true,
+        "turns": 9,
+        "correct_turns": 9,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 822,
+        "decode_tokens": 576,
+        "seconds": 0.0001204590080305934,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_1924\"}, \"name\": \"read\"}",
+        "think_tokens": 360,
+        "think_end": {
+          "tag": 9
+        },
+        "act_end": {
+          "tag": 9
+        },
+        "failure_detail": null
+      }
+    ],
+    "4b_4h": [
+      {
+        "provenance_ok": null,
+        "seed": 200000,
+        "success": true,
+        "turns": 9,
+        "correct_turns": 9,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 821,
+        "decode_tokens": 576,
+        "seconds": 0.0001240420388057828,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_1739\"}, \"name\": \"read\"}",
+        "think_tokens": 360,
+        "think_end": {
+          "tag": 9
+        },
+        "act_end": {
+          "tag": 9
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200001,
+        "success": true,
+        "turns": 9,
+        "correct_turns": 9,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 822,
+        "decode_tokens": 576,
+        "seconds": 0.0001223749713972211,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_2720\"}, \"name\": \"read\"}",
+        "think_tokens": 360,
+        "think_end": {
+          "tag": 9
+        },
+        "act_end": {
+          "tag": 9
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200002,
+        "success": true,
+        "turns": 9,
+        "correct_turns": 9,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 823,
+        "decode_tokens": 576,
+        "seconds": 0.00012049998622387648,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_1256\"}, \"name\": \"read\"}",
+        "think_tokens": 360,
+        "think_end": {
+          "tag": 9
+        },
+        "act_end": {
+          "tag": 9
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200003,
+        "success": true,
+        "turns": 9,
+        "correct_turns": 9,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 823,
+        "decode_tokens": 576,
+        "seconds": 0.000120542012155056,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_3213\"}, \"name\": \"read\"}",
+        "think_tokens": 360,
+        "think_end": {
+          "tag": 9
+        },
+        "act_end": {
+          "tag": 9
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200004,
+        "success": true,
+        "turns": 9,
+        "correct_turns": 9,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 821,
+        "decode_tokens": 576,
+        "seconds": 0.00011962500866502523,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_5411\"}, \"name\": \"read\"}",
+        "think_tokens": 360,
+        "think_end": {
+          "tag": 9
+        },
+        "act_end": {
+          "tag": 9
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200005,
+        "success": true,
+        "turns": 9,
+        "correct_turns": 9,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 825,
+        "decode_tokens": 576,
+        "seconds": 0.00012054189573973417,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_7059\"}, \"name\": \"read\"}",
+        "think_tokens": 360,
+        "think_end": {
+          "tag": 9
+        },
+        "act_end": {
+          "tag": 9
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200006,
+        "success": false,
+        "turns": 2,
+        "correct_turns": 1,
+        "failure": "wrong:seq",
+        "failure_phase": "act",
+        "parse_failures": 0,
+        "prefill_tokens": 316,
+        "decode_tokens": 128,
+        "seconds": 3.324996214359999e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_9465\"}, \"name\": \"read\"}",
+        "think_tokens": 80,
+        "think_end": {
+          "tag": 2
+        },
+        "act_end": {
+          "tag": 2
+        },
+        "failure_detail": {
+          "turn": 1,
+          "step": 1,
+          "reason": "wrong value for 'seq'",
+          "expected": "{\"arguments\": {\"ack\": \"7S8D3\", \"record_id\": \"r_9465\", \"seq\": 1}, \"name\": \"update\"}",
+          "think_end": "tag",
+          "act_end": "tag",
+          "think": "Checking the record and choosing the next call.",
+          "act": "{\"name\": \"update\", \"arguments\": {\"record_id\": \"r_9465\", \"ack\": \"7S8D3\", \"seq\": 0}}"
+        }
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200007,
+        "success": false,
+        "turns": 4,
+        "correct_turns": 3,
+        "failure": "wrong:ack",
+        "failure_phase": "act",
+        "parse_failures": 0,
+        "prefill_tokens": 471,
+        "decode_tokens": 256,
+        "seconds": 5.891697946935892e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_9678\"}, \"name\": \"read\"}",
+        "think_tokens": 160,
+        "think_end": {
+          "tag": 4
+        },
+        "act_end": {
+          "tag": 4
+        },
+        "failure_detail": {
+          "turn": 3,
+          "step": 3,
+          "reason": "wrong value for 'ack'",
+          "expected": "{\"arguments\": {\"ack\": \"6YEP3\", \"record_id\": \"r_6803\", \"seq\": 2}, \"name\": \"update\"}",
+          "think_end": "tag",
+          "act_end": "tag",
+          "think": "Checking the record and choosing the next call.",
+          "act": "{\"name\": \"update\", \"arguments\": {\"record_id\": \"r_6803\", \"ack\": \"QXUEN\", \"seq\": 2}}"
+        }
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200008,
+        "success": true,
+        "turns": 9,
+        "correct_turns": 9,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 823,
+        "decode_tokens": 576,
+        "seconds": 0.00012916710693389177,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_2699\"}, \"name\": \"read\"}",
+        "think_tokens": 360,
+        "think_end": {
+          "tag": 9
+        },
+        "act_end": {
+          "tag": 9
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200009,
+        "success": true,
+        "turns": 9,
+        "correct_turns": 9,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 822,
+        "decode_tokens": 576,
+        "seconds": 0.00012066704221069813,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_1924\"}, \"name\": \"read\"}",
+        "think_tokens": 360,
+        "think_end": {
+          "tag": 9
+        },
+        "act_end": {
+          "tag": 9
+        },
+        "failure_detail": null
+      }
+    ],
+    "3b_4h": [
+      {
+        "provenance_ok": null,
+        "seed": 200000,
+        "success": true,
+        "turns": 9,
+        "correct_turns": 9,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 821,
+        "decode_tokens": 576,
+        "seconds": 0.00012491701636463404,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_1739\"}, \"name\": \"read\"}",
+        "think_tokens": 360,
+        "think_end": {
+          "tag": 9
+        },
+        "act_end": {
+          "tag": 9
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200001,
+        "success": true,
+        "turns": 9,
+        "correct_turns": 9,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 822,
+        "decode_tokens": 576,
+        "seconds": 0.00012024992611259222,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_2720\"}, \"name\": \"read\"}",
+        "think_tokens": 360,
+        "think_end": {
+          "tag": 9
+        },
+        "act_end": {
+          "tag": 9
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200002,
+        "success": true,
+        "turns": 9,
+        "correct_turns": 9,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 823,
+        "decode_tokens": 576,
+        "seconds": 0.00011787493713200092,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_1256\"}, \"name\": \"read\"}",
+        "think_tokens": 360,
+        "think_end": {
+          "tag": 9
+        },
+        "act_end": {
+          "tag": 9
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200003,
+        "success": true,
+        "turns": 9,
+        "correct_turns": 9,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 823,
+        "decode_tokens": 576,
+        "seconds": 0.00012383400462567806,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_3213\"}, \"name\": \"read\"}",
+        "think_tokens": 360,
+        "think_end": {
+          "tag": 9
+        },
+        "act_end": {
+          "tag": 9
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200004,
+        "success": true,
+        "turns": 9,
+        "correct_turns": 9,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 821,
+        "decode_tokens": 576,
+        "seconds": 0.00012883299496024847,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_5411\"}, \"name\": \"read\"}",
+        "think_tokens": 360,
+        "think_end": {
+          "tag": 9
+        },
+        "act_end": {
+          "tag": 9
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200005,
+        "success": true,
+        "turns": 9,
+        "correct_turns": 9,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 825,
+        "decode_tokens": 576,
+        "seconds": 0.0001395839499309659,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_7059\"}, \"name\": \"read\"}",
+        "think_tokens": 360,
+        "think_end": {
+          "tag": 9
+        },
+        "act_end": {
+          "tag": 9
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200006,
+        "success": false,
+        "turns": 2,
+        "correct_turns": 1,
+        "failure": "wrong:seq",
+        "failure_phase": "act",
+        "parse_failures": 0,
+        "prefill_tokens": 316,
+        "decode_tokens": 128,
+        "seconds": 4.129100125283003e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_9465\"}, \"name\": \"read\"}",
+        "think_tokens": 80,
+        "think_end": {
+          "tag": 2
+        },
+        "act_end": {
+          "tag": 2
+        },
+        "failure_detail": {
+          "turn": 1,
+          "step": 1,
+          "reason": "wrong value for 'seq'",
+          "expected": "{\"arguments\": {\"ack\": \"7S8D3\", \"record_id\": \"r_9465\", \"seq\": 1}, \"name\": \"update\"}",
+          "think_end": "tag",
+          "act_end": "tag",
+          "think": "Checking the record and choosing the next call.",
+          "act": "{\"name\": \"update\", \"arguments\": {\"record_id\": \"r_9465\", \"ack\": \"7S8D3\", \"seq\": 0}}"
+        }
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200007,
+        "success": false,
+        "turns": 4,
+        "correct_turns": 3,
+        "failure": "wrong:ack",
+        "failure_phase": "act",
+        "parse_failures": 0,
+        "prefill_tokens": 471,
+        "decode_tokens": 256,
+        "seconds": 6.362493149936199e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_9678\"}, \"name\": \"read\"}",
+        "think_tokens": 160,
+        "think_end": {
+          "tag": 4
+        },
+        "act_end": {
+          "tag": 4
+        },
+        "failure_detail": {
+          "turn": 3,
+          "step": 3,
+          "reason": "wrong value for 'ack'",
+          "expected": "{\"arguments\": {\"ack\": \"6YEP3\", \"record_id\": \"r_6803\", \"seq\": 2}, \"name\": \"update\"}",
+          "think_end": "tag",
+          "act_end": "tag",
+          "think": "Checking the record and choosing the next call.",
+          "act": "{\"name\": \"update\", \"arguments\": {\"record_id\": \"r_6803\", \"ack\": \"QXUEN\", \"seq\": 2}}"
+        }
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200008,
+        "success": true,
+        "turns": 9,
+        "correct_turns": 9,
+        "failure": null,
+        "failure_phase": null,
+        "parse_failures": 0,
+        "prefill_tokens": 823,
+        "decode_tokens": 576,
+        "seconds": 0.00013041601050645113,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_2699\"}, \"name\": \"read\"}",
+        "think_tokens": 360,
+        "think_end": {
+          "tag": 9
+        },
+        "act_end": {
+          "tag": 9
+        },
+        "failure_detail": null
+      },
+      {
+        "provenance_ok": null,
+        "seed": 200009,
+        "success": false,
+        "turns": 3,
+        "correct_turns": 2,
+        "failure": "wrong:record_id",
+        "failure_phase": "act",
+        "parse_failures": 0,
+        "prefill_tokens": 360,
+        "decode_tokens": 192,
+        "seconds": 4.6042026951909065e-05,
+        "full_renders": 0,
+        "read_overhead": [],
+        "example_call": "{\"arguments\": {\"record_id\": \"r_1924\"}, \"name\": \"read\"}",
+        "think_tokens": 120,
+        "think_end": {
+          "tag": 3
+        },
+        "act_end": {
+          "tag": 3
+        },
+        "failure_detail": {
+          "turn": 2,
+          "step": 2,
+          "reason": "wrong value for 'record_id'",
+          "expected": "{\"arguments\": {\"record_id\": \"r_5706\"}, \"name\": \"read\"}",
+          "think_end": "tag",
+          "act_end": "tag",
+          "think": "Checking the record and choosing the next call.",
+          "act": "{\"name\": \"read\", \"arguments\": {\"record_id\": \"r_1924\"}}"
+        }
+      }
+    ]
+  },
+  "atlas_cost": {
+    "measured_seconds": 0.001126917079091072,
+    "measured_probe_samples": 13,
+    "calibration_tasks": 1,
+    "calibration_samples": 1,
+    "coverage_scale": 1.0,
+    "hours_total": 0.0003756390263636907,
+    "method": "timed replay; conservatively scaled to full reference-path coverage"
+  }
+}

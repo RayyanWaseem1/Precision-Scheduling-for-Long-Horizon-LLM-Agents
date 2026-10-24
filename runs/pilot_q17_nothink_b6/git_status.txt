@@ -1,0 +1,4 @@
+?? hazprec_pipeline.sh
+?? runs/diag-20261022-192311.Z7r6/
+?? runs/pilot_q17_nothink_b6/
+?? runs/verify-20261022-191950/

@@ -1,0 +1,65 @@
+[gate] backend=mlx; checking every precision
+[gate] 8 bits, 2 hops: {'episodes': 30, 'success': 0.0, 'success_ci95': [0.0, 0.113517091390478], 'turns': 42, 'turn_failures': 30, 'turn_hazard': 0.7142857142857143, 'turn_hazard_ci95': [0.5643250392275445, 0.8283314125542434], 'parse_rate': 0.5476190476190477, 'failure_kinds': {'unparseable': 19, 'wrong_tool': 10, 'wrong:ack': 1}, 'sec_per_turn': 2.4934091369449605, 'decode_tok_per_sec': 31.826763478686406, 'tokens_per_turn': 264.5238095238095, 'think_tokens_per_turn': 63.04761904761905, 'think_end': {'eos': 17, 'tag': 22, 'cap': 3}, 'act_end': {'skipped': 17, 'tag': 15, 'eos': 9, 'cap': 1}}
+    seed 200000 turn 0: could not parse a tool call; expected {"arguments": {"record_id": "r_2470"}, "name": "read"}
+      think[eos]: 'Let\'s start by reading the record r_2470 to understand its initial state.\n\n```json\n{\n  "name": "read",\n  "arguments": {\n    "record_id": "r_2470"\n  }\n}\n```'
+      act[skipped]: ''
+    seed 200001 turn 1: expected tool 'update', got 'read'; expected {"arguments": {"ack": "TW9Y4", "record_id": "r_6057", "seq": 1}, "name": "update"}
+      think[tag]: "The record r_6057 does not have 'END' as its `next` value. It points to r_1045. Now, I will read the record r_1045.\n"
+      act[tag]: '{"name": "read", "arguments": {"record_id": "r_1045"}}'
+[gate] 6 bits, 2 hops: {'episodes': 30, 'success': 0.0, 'success_ci95': [0.0, 0.113517091390478], 'turns': 49, 'turn_failures': 30, 'turn_hazard': 0.6122448979591837, 'turn_hazard_ci95': [0.4724574648805242, 0.735711856260395], 'parse_rate': 0.653061224489796, 'failure_kinds': {'wrong_tool': 13, 'unparseable': 17}, 'sec_per_turn': 2.0851115451256117, 'decode_tok_per_sec': 38.12256284523076, 'tokens_per_turn': 243.26530612244898, 'think_tokens_per_turn': 62.02040816326531, 'think_end': {'tag': 29, 'eos': 17, 'cap': 3}, 'act_end': {'tag': 24, 'eos': 8, 'skipped': 17}}
+    seed 200000 turn 1: expected tool 'update', got 'read'; expected {"arguments": {"ack": "B82V7", "record_id": "r_2470", "seq": 1}, "name": "update"}
+      think[tag]: "Record r_2470's `next` value is r_3661. Now I will read this record to determine its next value.\n"
+      act[tag]: '{"name": "read", "arguments": {"record_id": "r_3661"}}'
+    seed 200001 turn 4: expected tool 'submit', got 'read'; expected {"arguments": {"count": 2}, "name": "submit"}
+      think[tag]: 'Finally, we need to read the `END` record to determine the total number of records we visited.\n'
+      act[tag]: '{"name": "read", "arguments": {"record_id": "END"}}'
+[gate] 4 bits, 2 hops: {'episodes': 30, 'success': 0.0, 'success_ci95': [0.0, 0.113517091390478], 'turns': 36, 'turn_failures': 30, 'turn_hazard': 0.8333333333333334, 'turn_hazard_ci95': [0.6810888526532568, 0.9212965937143589], 'parse_rate': 0.5833333333333333, 'failure_kinds': {'wrong_tool': 5, 'unparseable': 15, 'missing:record_id': 9, 'wrong:ack': 1}, 'sec_per_turn': 2.414858285939166, 'decode_tok_per_sec': 47.78288215120369, 'tokens_per_turn': 315.3611111111111, 'think_tokens_per_turn': 90.69444444444444, 'think_end': {'cap': 14, 'tag': 18, 'eos': 4}, 'act_end': {'eos': 30, 'skipped': 4, 'cap': 2}}
+    seed 200000 turn 1: expected tool 'update', got 'read'; expected {"arguments": {"ack": "B82V7", "record_id": "r_2470", "seq": 1}, "name": "update"}
+      think[cap]: "We have read the record `r_2470`. Now let's update this record with the `token` value and the position in the chain. The position is 1 since we are starting at `r_2470`.\n\nLet's update the record `r_2470` with the following parameters:\n- `ac"
+      act[eos]: '>{"name": "read", "arguments": {"record_id": "r_3661"}}"'
+    seed 200001 turn 1: expected tool 'update', got 'read'; expected {"arguments": {"ack": "TW9Y4", "record_id": "r_6057", "seq": 1}, "name": "update"}
+      think[tag]: "The record `r_6057` has its `status` as `active`, `token` as `TW9Y4`, and `note` as a set of values. The `next` value is `r_1045`. Now let's update this record with the required fields for further processing.\n\nWe proceed by reading the next"
+      act[eos]: '{"name": "read", "arguments": {"record_id": "r_1045"}}'
+[gate] 3 bits, 2 hops: {'episodes': 30, 'success': 0.0, 'success_ci95': [0.0, 0.113517091390478], 'turns': 30, 'turn_failures': 30, 'turn_hazard': 1.0, 'turn_hazard_ci95': [0.8864829086095221, 1.0], 'parse_rate': 0.0, 'failure_kinds': {'unparseable': 30}, 'sec_per_turn': 3.4563497986993754, 'decode_tok_per_sec': 60.46841673219728, 'tokens_per_turn': 430.0, 'think_tokens_per_turn': 128.0, 'think_end': {'cap': 30}, 'act_end': {'cap': 30}}
+    seed 200000 turn 0: could not parse a tool call; expected {"arguments": {"record_id": "r_2470"}, "name": "read"}
+      think[cap]: 'SCOOCURITYING, HOW YOU SAY, HOW YOU SC, HOW YOU ORCH, HOW YOU ORC, HOW YOU ORC, HOW YOU ORC, HOW YOU ORC, HOW YOU ORC, HOW ORC, HOW YOU ORC, HOW, ORC, HOW ORC, HOW, ORC, HOW ORC, HOW ORC, HOW ORC, HOW ORC, HOW ORC, HOW ORC, HOW ORC, HOW ORC'
+      act[cap]: 'BAT HOW ORC, HOW ORC, HOW ORCS, HOW ORC, HOW ORC, HOW ORC, HOW ORC, HOW ORC, HOW ORC, HOW ORC, HOW ORC, HOW ORC, HOW ORC, HOW ORC, HOW ORC, HOW ORC, HOW ORC, HO'
+    seed 200001 turn 0: could not parse a tool call; expected {"arguments": {"record_id": "r_6057"}, "name": "read"}
+      think[cap]: 'SECOORD USELESSLESSORD AND YOU MUST LIKE уンド WHILE GOING AND T �LL ENDLESS AND T LEND AND BE LESS ANY WHERE GOING THE END AND TLEND AND END AND ULESS AND END AND TILED AND TIS AND ULESS LIKE AND ITS AND END AND ULESS AND END AND ANY AND ANY'
+      act[cap]: 'MBERDANY AND ANY WHERE ANY AND ANYWHERE END AND ANY WHERE ANY WHERE ANY END AND ANY WHERE END AND ANY WHERE END AND ANY WHERE ANY WHERE YOU CAN END AND ANY WHER'
+[gate] 8 bits, 4 hops: {'episodes': 30, 'success': 0.0, 'success_ci95': [0.0, 0.113517091390478], 'turns': 41, 'turn_failures': 30, 'turn_hazard': 0.7317073170731707, 'turn_hazard_ci95': [0.5806617472399707, 0.8430519471866331], 'parse_rate': 0.5365853658536586, 'failure_kinds': {'unparseable': 19, 'wrong_tool': 11}, 'sec_per_turn': 2.529156110780427, 'decode_tok_per_sec': 28.622291678191985, 'tokens_per_turn': 260.0731707317073, 'think_tokens_per_turn': 58.146341463414636, 'think_end': {'eos': 17, 'tag': 21, 'cap': 3}, 'act_end': {'skipped': 17, 'tag': 16, 'eos': 8}}
+    seed 200000 turn 0: could not parse a tool call; expected {"arguments": {"record_id": "r_1739"}, "name": "read"}
+      think[eos]: 'Let\'s start by reading the record r_1739 to understand its initial state.\n\n```json\n{\n  "name": "read(record_id: str)",\n  "arguments": {\n    "record_id": "r_1739"\n  }\n}\n```'
+      act[skipped]: ''
+    seed 200001 turn 0: could not parse a tool call; expected {"arguments": {"record_id": "r_2720"}, "name": "read"}
+      think[eos]: 'To start, I need to follow the `next` link from record r_2720 until I find a record whose `next` is \'END\'. Let\'s begin by reading the record r_2720.\n{}\n{"name": "read", "arguments": {"record_id": "r_2720"}}'
+      act[skipped]: ''
+[gate] 6 bits, 4 hops: {'episodes': 30, 'success': 0.03333333333333333, 'success_ci95': [0.0059084379948573795, 0.16670751396958874], 'turns': 50, 'turn_failures': 29, 'turn_hazard': 0.58, 'turn_hazard_ci95': [0.4423319668777783, 0.7062520276543307], 'parse_rate': 0.6, 'failure_kinds': {'wrong_tool': 8, 'unparseable': 20, 'wrong:record_id': 1}, 'sec_per_turn': 2.190275346660055, 'decode_tok_per_sec': 34.19661373361792, 'tokens_per_turn': 237.76, 'think_tokens_per_turn': 57.28, 'think_end': {'tag': 28, 'eos': 18, 'cap': 4}, 'act_end': {'tag': 19, 'skipped': 18, 'eos': 12, 'cap': 1}}
+    seed 200000 turn 1: expected tool 'update', got 'read'; expected {"arguments": {"ack": "FZFE2", "record_id": "r_1739", "seq": 1}, "name": "update"}
+      think[tag]: 'Record r_1739 indicates its next is r_2470. I will now follow to r_2470 to continue the chain.\n'
+      act[tag]: '{"name": "read", "arguments": {"record_id": "r_2470"}}'
+    seed 200001 turn 0: could not parse a tool call; expected {"arguments": {"record_id": "r_2720"}, "name": "read"}
+      think[eos]: 'Let\'s start with the given record r_2720 and follow the chain until we reach the record whose `next` is "END".\n\nFirst, I will read the record r_2720 to understand its fields, particularly the `next` field.\n```json\n{"name": "read", "argument'
+      act[skipped]: ''
+[gate] 4 bits, 4 hops: {'episodes': 30, 'success': 0.03333333333333333, 'success_ci95': [0.0059084379948573795, 0.16670751396958874], 'turns': 48, 'turn_failures': 29, 'turn_hazard': 0.6041666666666666, 'turn_hazard_ci95': [0.4631015459693511, 0.7297937350404942], 'parse_rate': 0.75, 'failure_kinds': {'unparseable': 12, 'wrong_tool': 8, 'wrong:record_id': 1, 'missing:record_id': 8}, 'sec_per_turn': 1.9430771754171776, 'decode_tok_per_sec': 49.395447530826964, 'tokens_per_turn': 261.4375, 'think_tokens_per_turn': 70.375, 'think_end': {'tag': 35, 'cap': 11, 'eos': 2}, 'act_end': {'eos': 41, 'skipped': 2, 'tag': 3, 'cap': 2}}
+    seed 200000 turn 0: could not parse a tool call; expected {"arguments": {"record_id": "r_1739"}, "name": "read"}
+      think[tag]: "Let's assume we have the record `r_1739` and we need to follow the chain of `next` links until we reach a record whose `next` is `END`. Then for every record, we will read it, update it with the `token` value and the record's position in th"
+      act[eos]: '{"name": "read", "arguments": {"record_id: str: "r_1739"}}'
+    seed 200001 turn 1: expected tool 'update', got 'read'; expected {"arguments": {"ack": "X2AGS", "record_id": "r_2720", "seq": 1}, "name": "update"}
+      think[tag]: "The record `r_2720` has its `next` field set to `r_6057`. Now we read the record `r_6057` to continue the chain.\n\nLet's call the read function to get the fields of record `r_6057`.\n"
+      act[eos]: '{"name": "read", "arguments": {"record_id": "r_6057"}}'
+[gate] 3 bits, 4 hops: {'episodes': 30, 'success': 0.0, 'success_ci95': [0.0, 0.113517091390478], 'turns': 30, 'turn_failures': 30, 'turn_hazard': 1.0, 'turn_hazard_ci95': [0.8864829086095221, 1.0], 'parse_rate': 0.0, 'failure_kinds': {'unparseable': 30}, 'sec_per_turn': 3.475663024924385, 'decode_tok_per_sec': 60.13241171576088, 'tokens_per_turn': 430.0, 'think_tokens_per_turn': 128.0, 'think_end': {'cap': 30}, 'act_end': {'cap': 30}}
+    seed 200000 turn 0: could not parse a tool call; expected {"arguments": {"record_id": "r_1739"}, "name": "read"}
+      think[cap]: 'SCOOC���NEW,�NET, ∈NOT,QUILTER,CHLEAR,CH,, NOT, CH, NOT, CH, CH, CH, CH, NOT, CH Ch, NOT, NOT, CH G NOT, CH, CH, NOT, CH,, CH NOT, NOT, CH, CH NOT, NOT, CH, CH NOT, NOT, CH NOT, NOT, CH NOT, NOT, CH NOT, CH NOT, NOT CH NOT, NOT, CH NOT, CH '
+      act[cap]: ' NOT CH NOT, NOT CH, NOT, NOT CH NOT, NOT, CH NOT, NOT CH NOT, NOT CH NOTILE, NOT CH, NOT CH NOTS, NOT CH NOT, NOT CH NOT, NOT CH NOT, NOT CH NOT, NOT CH NOT, N'
+    seed 200001 turn 0: could not parse a tool call; expected {"arguments": {"record_id": "r_2720"}, "name": "read"}
+      think[cap]: 'SECOORD USELESSLESSORD AND YOU MUST LIKE CALL UPESPUE DEATH �/Public WHERE ENDLESS AND ᏋAT Ᏻ Ꮣ ᳳ Ᏻ Ᏻ ታ Ᏻ � ᳵ ᳳ Ᏻ ት Ᏻ ῳ ᴾ ት ፻ ት ᨵ ḵ ት ḳ ት ᵳ ት ት \u1ff1 ት ት ት ት ት ት ት �'
+      act[cap]: ' � prevailing �AAF ᨵUBL Ᾱ �브 � EH ት ት ት ት ᳵ \u1249 ḍ ት ት ት ት ት ት ት ት ት ት ት ት ት �'
+[gate] timing actual atlas replay
+[FAIL] format: 0.5421686746987953
+[FAIL] reliable: {2: 0.0, 4: 0.0}
+[PASS] signal: {'low_ci': [0.8864829086095221, 1.0], 'reference_ci': [0.5806617472399707, 0.8430519471866331]}
+[FAIL] operating_point: {'bbar': 4, 'gate_hops': 4, 'turn_hazard': 0.6041666666666666, 'predicted_success': {2: 0.009717662638597533, 4: 0.00023856749597708045, 6: 5.856804486164821e-06, 8: 1.4378387402974558e-07, 10: 3.529877509115804e-09}, 'predicted_success_ci95': {2: [0.0014403799633954007, 0.04461293208287885], 4: [7.678187769857436e-06, 0.0037070579996826432], 6: [4.092987192783145e-08, 0.00030803353134202467], 8: [2.1818356964455824e-10, 2.559567625841329e-05], 10: [1.1630642320791635e-12, 2.126841971623113e-06]}}
+[PASS] cache: {'observations_checked': 88}
+[PASS] cost: {'measured_seconds': 123.21676704194397, 'measured_probe_samples': 40, 'calibration_tasks': 1, 'calibration_samples': 2, 'coverage_scale': 4.5, 'hours_total': 18.482515056291597, 'method': 'timed replay; conservatively scaled to full reference-path coverage'}
+Phase 2 ready: False

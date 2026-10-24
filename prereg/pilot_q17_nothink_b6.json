@@ -1,0 +1,391 @@
+{
+  "adaptive_table": {
+    "act": 8,
+    "read": 4,
+    "stop": 8,
+    "system": 8
+  },
+  "alloc_hops": 8,
+  "atlas_path": "/Users/rayyanwaseem/Desktop/Projects/Precision-Scheduling-for-Long-Horizon-LLM-Agents/runs/pilot_q17_nothink_b6/atlas.jsonl",
+  "atlas_sha256": "75f75682a913199614cc416f221c535c2c2164e8a463a3fe0ab4f0a7f515bba3",
+  "avg_bits_at_alloc_hops": 5.717228906188566,
+  "base_hazard_per_turn": 1e-06,
+  "bbar": 6.0,
+  "config": {
+    "agent": {
+      "max_act_tokens": 80,
+      "max_think_tokens": 128,
+      "think": false
+    },
+    "atlas": {
+      "max_turns": 7,
+      "n_samples": 8,
+      "n_tasks": 40,
+      "seed0": 0
+    },
+    "backend": {
+      "kind": "mlx",
+      "levels": [
+        3,
+        4,
+        6,
+        8
+      ],
+      "mlx": {
+        "cache_dir": "~/.cache/hazprec/mlx",
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        },
+        "group_size": 64,
+        "model": "Qwen/Qwen3-1.7B",
+        "temperature": 0.7,
+        "tool_role": "tool"
+      },
+      "ref_bits": 8
+    },
+    "env": {
+      "error_mode": "fatal",
+      "filler_lines": 3,
+      "max_retries": 2,
+      "n_fields": 2,
+      "n_hops": 3
+    },
+    "horizon": {
+      "hops": [
+        3,
+        4,
+        6,
+        8
+      ],
+      "n_episodes": 300,
+      "seed0": 100000
+    },
+    "seed": 0,
+    "theory": {
+      "alloc_hops": 8,
+      "bbar": 6,
+      "curve_mode": "parametric"
+    }
+  },
+  "created_utc": "2026-10-24T01:16:32+00:00",
+  "curve_mode": "parametric",
+  "diagnostics": {
+    "continuous_bits": {
+      "act": 7.457537063598711,
+      "read": 4.920652165839774,
+      "stop": 9.08704738924208,
+      "system": 7.260903428743083
+    },
+    "continuous_excess_ratio": 0.2648684287293181
+  },
+  "experiment": {
+    "config": {
+      "agent": {
+        "max_act_tokens": 80,
+        "max_think_tokens": 128,
+        "think": false
+      },
+      "atlas": {
+        "max_turns": 7,
+        "n_samples": 8,
+        "n_tasks": 40,
+        "seed0": 0
+      },
+      "backend": {
+        "kind": "mlx",
+        "levels": [
+          3,
+          4,
+          6,
+          8
+        ],
+        "mlx": {
+          "cache_dir": "~/.cache/hazprec/mlx",
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "group_size": 64,
+          "model": "Qwen/Qwen3-1.7B",
+          "temperature": 0.7,
+          "tool_role": "tool"
+        },
+        "ref_bits": 8
+      },
+      "env": {
+        "error_mode": "fatal",
+        "filler_lines": 3,
+        "max_retries": 2,
+        "n_fields": 2,
+        "n_hops": 3
+      },
+      "horizon": {
+        "hops": [
+          3,
+          4,
+          6,
+          8
+        ],
+        "n_episodes": 300,
+        "seed0": 100000
+      },
+      "seed": 0,
+      "theory": {
+        "alloc_hops": 8,
+        "bbar": 6,
+        "curve_mode": "parametric"
+      }
+    },
+    "dependencies": {
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2",
+      "numpy": "2.5.4",
+      "pyyaml": "6.0.3",
+      "tokenizers": "0.23.3",
+      "torch": "2.14.1",
+      "transformers": "5.20.2"
+    },
+    "python": "3.12.5",
+    "schema": 2,
+    "sha256": "e8b55d80b20cc3f63268876b2a13e6537d245e3001f80a325954d623f401950c",
+    "source_sha256": "dde62381d732ddd3945a32681309e16321a22fefe1293513ee8dfdc048cb3798"
+  },
+  "fit": {
+    "base_hazard": 0.0,
+    "base_n": 2240,
+    "curves": {
+      "act": {
+        "log2_slope": -5.222392421336448,
+        "phase": "act",
+        "s": 10.609326900987824,
+        "table": {
+          "3": {
+            "ci_method": "matched-stratum Bonferroni-Wilson (conditional contexts)",
+            "delta": 0.175,
+            "failures": 336,
+            "hi": 0.7137856916287489,
+            "lo": -0.5923614395924616,
+            "n": 1920,
+            "rate": 0.175,
+            "reference_rate": 0.0
+          },
+          "4": {
+            "ci_method": "matched-stratum Bonferroni-Wilson (conditional contexts)",
+            "delta": 0.0046875,
+            "failures": 9,
+            "hi": 0.6548496354607327,
+            "lo": -0.6515972001383321,
+            "n": 1920,
+            "rate": 0.0046875,
+            "reference_rate": 0.0
+          },
+          "6": {
+            "ci_method": "matched-stratum Bonferroni-Wilson (conditional contexts)",
+            "delta": 0.0,
+            "failures": 0,
+            "hi": 0.6530735656106053,
+            "lo": -0.6530735656106053,
+            "n": 1920,
+            "rate": 0.0,
+            "reference_rate": 0.0
+          }
+        }
+      },
+      "read": {
+        "log2_slope": null,
+        "phase": "read",
+        "s": 0.6273068381958803,
+        "table": {
+          "3": {
+            "ci_method": "matched-stratum Bonferroni-Wilson (conditional contexts)",
+            "delta": 0.010416666666666666,
+            "failures": 20,
+            "hi": 0.6576899870536147,
+            "lo": -0.6504623530038355,
+            "n": 1920,
+            "rate": 0.010416666666666666,
+            "reference_rate": 0.0
+          },
+          "4": {
+            "ci_method": "matched-stratum Bonferroni-Wilson (conditional contexts)",
+            "delta": 0.0,
+            "failures": 0,
+            "hi": 0.6530735656106053,
+            "lo": -0.6530735656106053,
+            "n": 1920,
+            "rate": 0.0,
+            "reference_rate": 0.0
+          },
+          "6": {
+            "ci_method": "matched-stratum Bonferroni-Wilson (conditional contexts)",
+            "delta": 0.0,
+            "failures": 0,
+            "hi": 0.6530735656106053,
+            "lo": -0.6530735656106053,
+            "n": 1920,
+            "rate": 0.0,
+            "reference_rate": 0.0
+          }
+        }
+      },
+      "stop": {
+        "log2_slope": -1.8844807462013073,
+        "phase": "stop",
+        "s": 56.85164254537101,
+        "table": {
+          "3": {
+            "ci_method": "matched-stratum Bonferroni-Wilson (conditional contexts)",
+            "delta": 0.94375,
+            "failures": 302,
+            "hi": 0.9810739363158124,
+            "lo": -0.21457658773338578,
+            "n": 320,
+            "rate": 0.94375,
+            "reference_rate": 0.0
+          },
+          "4": {
+            "ci_method": "matched-stratum Bonferroni-Wilson (conditional contexts)",
+            "delta": 0.0,
+            "failures": 0,
+            "hi": 0.5939086894927543,
+            "lo": -0.5939086894927543,
+            "n": 320,
+            "rate": 0.0,
+            "reference_rate": 0.0
+          },
+          "6": {
+            "ci_method": "matched-stratum Bonferroni-Wilson (conditional contexts)",
+            "delta": 0.01875,
+            "failures": 6,
+            "hi": 0.6032301487798695,
+            "lo": -0.5880017246358478,
+            "n": 320,
+            "rate": 0.01875,
+            "reference_rate": 0.0
+          }
+        }
+      },
+      "system": {
+        "log2_slope": null,
+        "phase": "system",
+        "s": 59.84507236388698,
+        "table": {
+          "3": {
+            "ci_method": "matched-stratum Bonferroni-Wilson (conditional contexts)",
+            "delta": 0.99375,
+            "failures": 318,
+            "hi": 0.9995376478951629,
+            "lo": -0.19243116826201145,
+            "n": 320,
+            "rate": 0.99375,
+            "reference_rate": 0.0
+          },
+          "4": {
+            "ci_method": "matched-stratum Bonferroni-Wilson (conditional contexts)",
+            "delta": 0.0,
+            "failures": 0,
+            "hi": 0.5939086894927543,
+            "lo": -0.5939086894927543,
+            "n": 320,
+            "rate": 0.0,
+            "reference_rate": 0.0
+          },
+          "6": {
+            "ci_method": "matched-stratum Bonferroni-Wilson (conditional contexts)",
+            "delta": 0.0,
+            "failures": 0,
+            "hi": 0.5939086894927543,
+            "lo": -0.5939086894927543,
+            "n": 320,
+            "rate": 0.0,
+            "reference_rate": 0.0
+          }
+        }
+      }
+    },
+    "freq_per_hop": {
+      "act": 2.0,
+      "read": 2.0,
+      "stop": 0.3333333333333333,
+      "system": 0.3333333333333333
+    },
+    "n_tasks": 40,
+    "ref_bits": 8,
+    "tokens": {
+      "act": 30.370833333333334,
+      "read": 60.479166666666664,
+      "stop": 17.0,
+      "system": 225.0
+    }
+  },
+  "git_commit": "750307e0e2a57b8484648fb4cd2266f199991043",
+  "per_hops": [
+    {
+      "avg_bits": 5.584169737009274,
+      "hops": 3,
+      "log_S_adaptive": -0.031285201915114705,
+      "log_S_uniform": -0.04518256495666165,
+      "log_ratio": 0.013897363041546942,
+      "table": {
+        "act": 8,
+        "read": 4,
+        "stop": 8,
+        "system": 6
+      }
+    },
+    {
+      "avg_bits": 5.967244701348748,
+      "hops": 4,
+      "log_S_adaptive": -0.035822185996058444,
+      "log_S_uniform": -0.05067794655944287,
+      "log_ratio": 0.014855760563384425,
+      "table": {
+        "act": 8,
+        "read": 4,
+        "stop": 6,
+        "system": 8
+      }
+    },
+    {
+      "avg_bits": 5.820897763098634,
+      "hops": 6,
+      "log_S_adaptive": -0.03317832154387654,
+      "log_S_uniform": -0.06166870976500532,
+      "log_ratio": 0.02849038822112878,
+      "table": {
+        "act": 8,
+        "read": 4,
+        "stop": 8,
+        "system": 8
+      }
+    },
+    {
+      "avg_bits": 5.717228906188566,
+      "hops": 8,
+      "log_S_adaptive": -0.043643613981833806,
+      "log_S_uniform": -0.07265947297056777,
+      "log_ratio": 0.02901585898873396,
+      "table": {
+        "act": 8,
+        "read": 4,
+        "stop": 8,
+        "system": 8
+      }
+    }
+  ],
+  "prediction": {
+    "adaptive": {
+      "intercept": -0.001782444230004742,
+      "slope_per_hop": -0.005232646218978633
+    },
+    "asymptotic_log_ratio_slope_per_hop": 0.0002627353838025896,
+    "h_star_hops": 84.02726474474643,
+    "log_ratio_intercept": 0.02691397591831324,
+    "log_ratio_slope_per_hop": 0.003479500734722293,
+    "uniform": {
+      "intercept": -0.028696420148317983,
+      "slope_per_hop": -0.005495381602781222
+    }
+  },
+  "sha256": "b6916f0d430f94ed483251839412b5eea3404a58ba991d9e0b5a35a7eb8373af",
+  "uniform_bits": 6
+}

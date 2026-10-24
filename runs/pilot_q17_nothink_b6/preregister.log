@@ -1,0 +1,17 @@
+Reference (8-bits) per-turn failure rate: 0.0000 (n=2240), tasks=40
+phase            s  log2 slope excess hazard by bits [95% CI]
+act         10.609   -5.222392 3b:+0.1750[-0.592,+0.714] 4b:+0.0047[-0.652,+0.655] 6b:+0.0000[-0.653,+0.653]
+read         0.627         n/a 3b:+0.0104[-0.650,+0.658] 4b:+0.0000[-0.653,+0.653] 6b:+0.0000[-0.653,+0.653]
+stop        56.852   -1.884481 3b:+0.9437[-0.215,+0.981] 4b:+0.0000[-0.594,+0.594] 6b:+0.0187[-0.588,+0.603]
+system      59.845         n/a 3b:+0.9938[-0.192,+1.000] 4b:+0.0000[-0.594,+0.594] 6b:+0.0000[-0.594,+0.594]
+tokens/segment: act = 30.4, read = 60.5, stop = 17.0, system = 225.0
+segments/hop: act = 2.00, read = 2.00, stop = 0.33, system = 0.33
+
+adaptive table: {'system': 8, 'read': 4, 'act': 8, 'stop': 8}  (avg 5.72 bits at 8 hops; uniform = 6)
+  hops=  3: table {'system': 6, 'read': 4, 'act': 8, 'stop': 8} avg 5.58 bits, predicted log ratio 0.0139
+  hops=  4: table {'system': 8, 'read': 4, 'act': 8, 'stop': 6} avg 5.97 bits, predicted log ratio 0.0149
+  hops=  6: table {'system': 8, 'read': 4, 'act': 8, 'stop': 8} avg 5.82 bits, predicted log ratio 0.0285
+  hops=  8: table {'system': 8, 'read': 4, 'act': 8, 'stop': 8} avg 5.72 bits, predicted log ratio 0.0290
+continuous water-filling excess hazard / uniform (Prop. 1 quantity): 0.265
+pre-registered log-ratio slope per hop: 0.0035; peak absolute gain H* = 84.0 hops
+written to /Users/rayyanwaseem/Desktop/Projects/Precision-Scheduling-for-Long-Horizon-LLM-Agents/prereg/pilot_q17_nothink_b6.json (sha256 b6916f0d430f...)

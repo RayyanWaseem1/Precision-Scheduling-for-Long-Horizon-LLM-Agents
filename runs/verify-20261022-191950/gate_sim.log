@@ -1,0 +1,45 @@
+[gate] backend=sim; checking every precision
+[gate] 8 bits, 2 hops: {'episodes': 10, 'success': 0.9, 'success_ci95': [0.5958436145024278, 0.9821242504842788], 'turns': 47, 'turn_failures': 1, 'turn_hazard': 0.02127659574468085, 'turn_hazard_ci95': [0.003765671010464995, 0.11113236524331144], 'parse_rate': 1.0, 'failure_kinds': {'wrong:seq': 1}, 'sec_per_turn': 1.4174640416464907e-05, 'decode_tok_per_sec': 4515105.718354534, 'tokens_per_turn': 169.17021276595744, 'think_tokens_per_turn': 40.0, 'think_end': {'tag': 47}, 'act_end': {'tag': 47}}
+    seed 200006 turn 1: wrong value for 'seq'; expected {"arguments": {"ack": "TEBB7", "record_id": "r_1064", "seq": 1}, "name": "update"}
+      think[tag]: 'Checking the record and choosing the next call.'
+      act[tag]: '{"name": "update", "arguments": {"record_id": "r_1064", "ack": "TEBB7", "seq": 0}}'
+[gate] 4 bits, 2 hops: {'episodes': 10, 'success': 0.8, 'success_ci95': [0.49015684672072335, 0.9433190520193067], 'turns': 46, 'turn_failures': 2, 'turn_hazard': 0.043478260869565216, 'turn_hazard_ci95': [0.012005193588830829, 0.1453252291905342], 'parse_rate': 1.0, 'failure_kinds': {'wrong:seq': 1, 'wrong:ack': 1}, 'sec_per_turn': 1.520014864028148e-05, 'decode_tok_per_sec': 4210485.141598907, 'tokens_per_turn': 170.5, 'think_tokens_per_turn': 40.0, 'think_end': {'tag': 46}, 'act_end': {'tag': 46}}
+    seed 200006 turn 1: wrong value for 'seq'; expected {"arguments": {"ack": "TEBB7", "record_id": "r_1064", "seq": 1}, "name": "update"}
+      think[tag]: 'Checking the record and choosing the next call.'
+      act[tag]: '{"name": "update", "arguments": {"record_id": "r_1064", "ack": "TEBB7", "seq": 0}}'
+    seed 200007 turn 3: wrong value for 'ack'; expected {"arguments": {"ack": "K7K6B", "record_id": "r_9678", "seq": 2}, "name": "update"}
+      think[tag]: 'Checking the record and choosing the next call.'
+      act[tag]: '{"name": "update", "arguments": {"record_id": "r_9678", "ack": "6W6YE", "seq": 2}}'
+[gate] 3 bits, 2 hops: {'episodes': 10, 'success': 0.6, 'success_ci95': [0.3126695474501864, 0.8318224187964902], 'turns': 44, 'turn_failures': 4, 'turn_hazard': 0.09090909090909091, 'turn_hazard_ci95': [0.035921611478836546, 0.21159519397917487], 'parse_rate': 1.0, 'failure_kinds': {'wrong:count': 1, 'wrong:seq': 1, 'wrong:ack': 1, 'wrong:record_id': 1}, 'sec_per_turn': 1.4218747806312008e-05, 'decode_tok_per_sec': 4501099.595534638, 'tokens_per_turn': 171.86363636363637, 'think_tokens_per_turn': 40.0, 'think_end': {'tag': 44}, 'act_end': {'tag': 44}}
+    seed 200005 turn 4: wrong value for 'count'; expected {"arguments": {"count": 2}, "name": "submit"}
+      think[tag]: 'Checking the record and choosing the next call.'
+      act[tag]: '{"name": "submit", "arguments": {"count": 1}}'
+    seed 200006 turn 1: wrong value for 'seq'; expected {"arguments": {"ack": "TEBB7", "record_id": "r_1064", "seq": 1}, "name": "update"}
+      think[tag]: 'Checking the record and choosing the next call.'
+      act[tag]: '{"name": "update", "arguments": {"record_id": "r_1064", "ack": "TEBB7", "seq": 0}}'
+[gate] 8 bits, 4 hops: {'episodes': 10, 'success': 0.9, 'success_ci95': [0.5958436145024278, 0.9821242504842788], 'turns': 83, 'turn_failures': 1, 'turn_hazard': 0.012048192771084338, 'turn_hazard_ci95': [0.0021299225877048286, 0.0651373778765888], 'parse_rate': 1.0, 'failure_kinds': {'wrong:seq': 1}, 'sec_per_turn': 1.3577335244830115e-05, 'decode_tok_per_sec': 4713737.92028664, 'tokens_per_turn': 157.0120481927711, 'think_tokens_per_turn': 40.0, 'think_end': {'tag': 83}, 'act_end': {'tag': 83}}
+    seed 200006 turn 1: wrong value for 'seq'; expected {"arguments": {"ack": "7S8D3", "record_id": "r_9465", "seq": 1}, "name": "update"}
+      think[tag]: 'Checking the record and choosing the next call.'
+      act[tag]: '{"name": "update", "arguments": {"record_id": "r_9465", "ack": "7S8D3", "seq": 0}}'
+[gate] 4 bits, 4 hops: {'episodes': 10, 'success': 0.8, 'success_ci95': [0.49015684672072335, 0.9433190520193067], 'turns': 78, 'turn_failures': 2, 'turn_hazard': 0.02564102564102564, 'turn_hazard_ci95': [0.007059945446585378, 0.08875440813398978], 'parse_rate': 1.0, 'failure_kinds': {'wrong:seq': 1, 'wrong:ack': 1}, 'sec_per_turn': 1.3713166714669802e-05, 'decode_tok_per_sec': 4667047.468440337, 'tokens_per_turn': 158.44871794871796, 'think_tokens_per_turn': 40.0, 'think_end': {'tag': 78}, 'act_end': {'tag': 78}}
+    seed 200006 turn 1: wrong value for 'seq'; expected {"arguments": {"ack": "7S8D3", "record_id": "r_9465", "seq": 1}, "name": "update"}
+      think[tag]: 'Checking the record and choosing the next call.'
+      act[tag]: '{"name": "update", "arguments": {"record_id": "r_9465", "ack": "7S8D3", "seq": 0}}'
+    seed 200007 turn 3: wrong value for 'ack'; expected {"arguments": {"ack": "6YEP3", "record_id": "r_6803", "seq": 2}, "name": "update"}
+      think[tag]: 'Checking the record and choosing the next call.'
+      act[tag]: '{"name": "update", "arguments": {"record_id": "r_6803", "ack": "QXUEN", "seq": 2}}'
+[gate] 3 bits, 4 hops: {'episodes': 10, 'success': 0.7, 'success_ci95': [0.39677321997956516, 0.892210712513788], 'turns': 72, 'turn_failures': 3, 'turn_hazard': 0.041666666666666664, 'turn_hazard_ci95': [0.01427054877259009, 0.11549464605452325], 'parse_rate': 1.0, 'failure_kinds': {'wrong:seq': 1, 'wrong:ack': 1, 'wrong:record_id': 1}, 'sec_per_turn': 1.439814999078711e-05, 'decode_tok_per_sec': 4445015.508308459, 'tokens_per_turn': 159.90277777777777, 'think_tokens_per_turn': 40.0, 'think_end': {'tag': 72}, 'act_end': {'tag': 72}}
+    seed 200006 turn 1: wrong value for 'seq'; expected {"arguments": {"ack": "7S8D3", "record_id": "r_9465", "seq": 1}, "name": "update"}
+      think[tag]: 'Checking the record and choosing the next call.'
+      act[tag]: '{"name": "update", "arguments": {"record_id": "r_9465", "ack": "7S8D3", "seq": 0}}'
+    seed 200007 turn 3: wrong value for 'ack'; expected {"arguments": {"ack": "6YEP3", "record_id": "r_6803", "seq": 2}, "name": "update"}
+      think[tag]: 'Checking the record and choosing the next call.'
+      act[tag]: '{"name": "update", "arguments": {"record_id": "r_6803", "ack": "QXUEN", "seq": 2}}'
+[gate] timing actual atlas replay
+[PASS] format: 1.0
+[PASS] reliable: {2: 0.9, 4: 0.9}
+[FAIL] signal: {'low_ci': [0.01427054877259009, 0.11549464605452325], 'reference_ci': [0.0021299225877048286, 0.0651373778765888]}
+[FAIL] operating_point: {'bbar': 4, 'gate_hops': 4, 'turn_hazard': 0.02564102564102564, 'predicted_success': {2: 0.8782030639030666, 8: 0.6430175450660477, 16: 0.4243523938749447, 32: 0.18481376877127506, 48: 0.08049001165175004, 64: 0.03505497463079607}, 'predicted_success_ci95': {2: [0.628314673443211, 0.9651951945915734], 8: [0.20596929736874275, 0.886526074276621], 16: [0.04655534340824721, 0.7915165439929771], 32: [0.002378502589429834, 0.6309529326988031], 48: [0.00012151719123442762, 0.5029605588190367], 64: [6.208287445692547e-06, 0.40093216247608304]}}
+[FAIL] cache: {'observations_checked': 0}
+[PASS] cost: {'measured_seconds': 0.001126917079091072, 'measured_probe_samples': 13, 'calibration_tasks': 1, 'calibration_samples': 1, 'coverage_scale': 1.0, 'hours_total': 0.0003756390263636907, 'method': 'timed replay; conservatively scaled to full reference-path coverage'}
+Phase 2 ready: False

@@ -1,0 +1,166 @@
+# /Users/rayyanwaseem/Desktop/Projects/Precision-Scheduling-for-Long-Horizon-LLM-Agents/runs/diag-20261022-192311.Z7r6
+
+## gate_q17_think-false.json  ready=False  mode=full
+model=Qwen/Qwen3-1.7B think=False bbar=4 hops=[2, 3] gate_hops=3 n=30 source=dde62381d732
+cell      success          turn hazard [95% CI]       parse  think tok/turn  think_end / act_end      failures
+8b_2h     29/30   0.967  0.007 [0.001, 0.037]  1.00       0.0  {} / {'tag': 139, 'eos': 11}  {'wrong_tool': 1}
+6b_2h     21/30   0.700  0.060 [0.032, 0.110]  1.00       0.0  {} / {'tag': 129, 'eos': 21}  {'wrong_tool': 8, 'wrong:count': 1}
+4b_2h      0/30   0.000  0.204 [0.147, 0.276]  1.00       0.0  {} / {'tag': 147}  {'wrong_tool': 29, 'wrong:record_id': 1}
+3b_2h      0/30   0.000  0.526 [0.399, 0.650]  1.00       0.0  {} / {'eos': 34, 'tag': 10, 'cap': 13}  {'wrong_tool': 18, 'wrong:seq': 1, 'missing:record_id': 8, 'wrong:record_id': 3}
+8b_3h     30/30   1.000  0.000 [0.000, 0.018]  1.00       0.0  {} / {'tag': 194, 'eos': 16}  {}
+6b_3h     28/30   0.933  0.010 [0.003, 0.034]  1.00       0.0  {} / {'tag': 180, 'eos': 30}  {'wrong:count': 2}
+4b_3h      0/30   0.000  0.143 [0.102, 0.197]  1.00       0.0  {} / {'tag': 210}  {'wrong_tool': 30}
+3b_3h      0/30   0.000  0.536 [0.407, 0.660]  0.98       0.0  {} / {'eos': 43, 'tag': 9, 'cap': 4}  {'missing:record_id': 11, 'wrong_tool': 15, 'wrong:record_id': 3, 'unparseable': 1}
+  [PASS] format: 1.0
+  [PASS] reliable: {'2': 0.9666666666666667, '3': 1.0}
+  [PASS] signal: {'low_ci': [0.4070395665724008, 0.6598035659641625], 'reference_ci': [0.0, 0.017964699104383804]}
+  [FAIL] operating_point: {'bbar': 4, 'gate_hops': 3, 'turn_hazard': 0.14285714285714285, 'predicted_success': {'2': '0.463', '4': '0.25', '6': '0.135', '8': '0.0728'}}
+  [PASS] cache: {'observations_checked': 958}
+  [PASS] cost: {'hours_total': 0.6033489643453828, 'coverage_scale': 1.0}
+  e.g. 8b_2h seed 200013 turn 4: expected tool 'submit', got 'read' | expected {"arguments": {"count": 2}, "name": "submit"}
+       think[None] ''
+       act[eos] '{"name": "read", "arguments": {"record_id": "END"}}'
+  e.g. 6b_2h seed 200001 turn 4: expected tool 'submit', got 'read' | expected {"arguments": {"count": 2}, "name": "submit"}
+       think[None] ''
+       act[tag] '{"name": "read", "arguments": {"record_id": "END"}}'
+  e.g. 4b_2h seed 200000 turn 4: expected tool 'submit', got 'read' | expected {"arguments": {"count": 2}, "name": "submit"}
+       think[None] ''
+       act[tag] '{"name": "read", "arguments": {"record_id": "END"}}'
+  e.g. 3b_2h seed 200000 turn 1: expected tool 'update', got 'read' | expected {"arguments": {"ack": "B82V7", "record_id": "r_2470", "seq": 1}, "name": "update"}
+       think[None] ''
+       act[eos] '{"name": "read", "arguments": {"record_id": "r_3661"}}�'
+  e.g. 6b_3h seed 200003 turn 6: wrong value for 'count' | expected {"arguments": {"count": 3}, "name": "submit"}
+       think[None] ''
+       act[tag] '{"name": "submit", "arguments": {"count": 4}}'
+  e.g. 4b_3h seed 200000 turn 6: expected tool 'submit', got 'read' | expected {"arguments": {"count": 3}, "name": "submit"}
+       think[None] ''
+       act[tag] '{"name": "read", "arguments": {"record_id": "END"}}'
+  e.g. 3b_3h seed 200000 turn 0: missing argument 'record_id' | expected {"arguments": {"record_id": "r_6613"}, "name": "read"}
+       think[None] ''
+       act[eos] '{"name": "read", "arguments": {"record": "r_6613"}}'
+
+## gate_q17_think-true.json  ready=False  mode=full
+model=Qwen/Qwen3-1.7B think=True bbar=4 hops=[2, 3] gate_hops=3 n=30 source=dde62381d732
+cell      success          turn hazard [95% CI]       parse  think tok/turn  think_end / act_end      failures
+8b_2h     27/30   0.900  0.021 [0.007, 0.060]  0.99       1.3  {'tag': 140, 'eos': 2} / {'tag': 125, 'eos': 15, 'skipped': 2}  {'wrong_tool': 1, 'unparseable': 2}
+6b_2h      0/30   0.000  0.857 [0.706, 0.937]  0.20      87.3  {'eos': 28, 'tag': 7} / {'skipped': 28, 'eos': 7}  {'unparseable': 28, 'wrong_tool': 2}
+4b_2h      0/30   0.000  0.714 [0.564, 0.828]  0.40      19.8  {'tag': 18, 'eos': 24} / {'tag': 18, 'skipped': 24}  {'wrong_tool': 5, 'unparseable': 25}
+3b_2h      0/30   0.000  0.789 [0.637, 0.889]  0.37      97.7  {'cap': 16, 'eos': 22} / {'eos': 15, 'skipped': 22, 'cap': 1}  {'unparseable': 24, 'missing:record_id': 1, 'wrong_tool': 5}
+8b_3h     28/30   0.933  0.010 [0.003, 0.036]  0.99       1.2  {'tag': 196, 'eos': 2} / {'tag': 175, 'eos': 21, 'skipped': 2}  {'unparseable': 2}
+6b_3h      0/30   0.000  0.789 [0.637, 0.889]  0.29      79.2  {'eos': 27, 'tag': 11} / {'skipped': 27, 'eos': 11}  {'unparseable': 27, 'wrong_tool': 3}
+4b_3h      0/30   0.000  0.682 [0.534, 0.800]  0.36      22.5  {'eos': 26, 'tag': 18} / {'skipped': 26, 'tag': 18}  {'unparseable': 28, 'wrong_tool': 2}
+3b_3h      0/30   0.000  0.882 [0.734, 0.953]  0.29     104.4  {'cap': 16, 'eos': 18} / {'eos': 16, 'skipped': 18}  {'unparseable': 24, 'wrong_tool': 6}
+  [PASS] format: 0.9882352941176471
+  [PASS] reliable: {'2': 0.9, '3': 0.9333333333333333}
+  [PASS] signal: {'low_ci': [0.7337882520370121, 0.9532862902656388], 'reference_ci': [0.0027743880346107024, 0.03607587870921218]}
+  [FAIL] operating_point: {'bbar': 4, 'gate_hops': 3, 'turn_hazard': 0.6818181818181818, 'predicted_success': {'2': '0.00326', '4': '3.34e-05', '6': '3.43e-07', '8': '3.51e-09'}}
+  [PASS] cache: {'observations_checked': 333}
+  [PASS] cost: {'hours_total': 0.9631910911994055, 'coverage_scale': 1.0}
+  e.g. 8b_2h seed 200009 turn 4: expected tool 'submit', got 'read' | expected {"arguments": {"count": 2}, "name": "submit"}
+       think[tag] ''
+       act[tag] '{"name": "read", "arguments": {"record_id": "END"}}'
+  e.g. 6b_2h seed 200000 turn 0: could not parse a tool call | expected {"arguments": {"record_id": "r_2470"}, "name": "read"}
+       think[eos] "I will start by reading the record r_2470. Then, I will follow the chain of `next` links until I reach a record whose `next` is END. For each record, I will read it, update it with the record's `token"
+       act[skipped] ''
+  e.g. 4b_2h seed 200000 turn 1: expected tool 'update', got 'read' | expected {"arguments": {"ack": "B82V7", "record_id": "r_2470", "seq": 1}, "name": "update"}
+       think[tag] 'Reading record r_3661.\n\n'
+       act[tag] '{"name": "read", "arguments": {"record_id": "r_3661"}}'
+  e.g. 3b_2h seed 200000 turn 1: could not parse a tool call | expected {"arguments": {"ack": "B82V7", "record_id": "r_2470", "seq": 1}, "name": "update"}
+       think[eos] '{"name": "read", "arguments": {"record_id": "r_3661"}}'
+       act[skipped] ''
+  e.g. 8b_3h seed 200023 turn 0: could not parse a tool call | expected {"arguments": {"record_id": "r_6356"}, "name": "read"}
+       think[eos] '{"name": "read", "arguments": {"record_id": "r_6356"}}'
+       act[skipped] ''
+  e.g. 6b_3h seed 200000 turn 0: could not parse a tool call | expected {"arguments": {"record_id": "r_6613"}, "name": "read"}
+       think[eos] 'I will start by reading the record r_6613. Then, I will follow the chain of `next` links until I reach a record whose `next` is END. For each record, I will update it with the token value as the ack a'
+       act[skipped] ''
+  e.g. 4b_3h seed 200000 turn 0: could not parse a tool call | expected {"arguments": {"record_id": "r_6613"}, "name": "read"}
+       think[eos] '{"name": "read", "arguments": {"record_id": "r_6613"}}'
+       act[skipped] ''
+  e.g. 3b_3h seed 200000 turn 0: could not parse a tool call | expected {"arguments": {"record_id": "r_6613"}, "name": "read"}
+       think[cap] 'The record r_6613 is the first to be processed. We need to follow the chain of `next` links until we reach a record whose `next` is END. \n\nWe need to read every record along the chain until we reach a'
+       act[eos] '{"record_id": "r_6613"}}'
+
+## gate_q3b_think-false.json  ready=False  mode=full
+model=Qwen/Qwen2.5-3B-Instruct think=False bbar=4 hops=[2, 4] gate_hops=4 n=30 source=dde62381d732
+cell      success          turn hazard [95% CI]       parse  think tok/turn  think_end / act_end      failures
+8b_2h      0/30   0.000  0.213 [0.153, 0.287]  1.00       0.0  {} / {'tag': 124, 'eos': 17}  {'wrong_tool': 26, 'wrong:ack': 1, 'wrong:record_id': 3}
+6b_2h      0/30   0.000  0.216 [0.156, 0.291]  1.00       0.0  {} / {'tag': 116, 'eos': 23}  {'wrong_tool': 28, 'wrong:ack': 1, 'wrong:record_id': 1}
+4b_2h      0/30   0.000  0.208 [0.150, 0.282]  0.99       0.0  {} / {'tag': 112, 'eos': 32}  {'wrong_tool': 27, 'unparseable': 1, 'wrong:ack': 1, 'missing:count': 1}
+3b_2h      0/30   0.000  1.000 [0.886, 1.000]  0.00       0.0  {} / {'eos': 4, 'cap': 26}  {'unparseable': 30}
+8b_4h     26/30   0.867  0.015 [0.006, 0.038]  1.00       0.0  {} / {'tag': 234, 'eos': 33}  {'wrong_tool': 3, 'unparseable': 1}
+6b_4h     21/30   0.700  0.035 [0.018, 0.065]  1.00       0.0  {} / {'tag': 194, 'eos': 65}  {'wrong:seq': 1, 'wrong_tool': 7, 'unparseable': 1}
+4b_4h      3/30   0.100  0.111 [0.077, 0.157]  1.00       0.0  {} / {'tag': 164, 'eos': 79}  {'missing:count': 22, 'wrong:ack': 2, 'unparseable': 1, 'wrong_tool': 2}
+3b_4h      0/30   0.000  1.000 [0.886, 1.000]  0.00       0.0  {} / {'eos': 4, 'cap': 26}  {'unparseable': 30}
+  [PASS] format: 0.9975490196078431
+  [FAIL] reliable: {'2': 0.0, '4': 0.8666666666666667}
+  [PASS] signal: {'low_ci': [0.8864829086095221, 1.0], 'reference_ci': [0.005840848692858679, 0.03788064756177871]}
+  [FAIL] operating_point: {'bbar': 4, 'gate_hops': 4, 'turn_hazard': 0.1111111111111111, 'predicted_success': {'2': '0.555', '4': '0.346', '6': '0.216', '8': '0.135', '10': '0.0843'}}
+  [PASS] cache: {'observations_checked': 1019}
+  [PASS] cost: {'hours_total': 6.327758124994579, 'coverage_scale': 3.0}
+  e.g. 8b_2h seed 200000 turn 4: expected tool 'submit', got 'read' | expected {"arguments": {"count": 2}, "name": "submit"}
+       think[None] ''
+       act[eos] '{"name": "read", "arguments": {"record_id": "END"}}'
+  e.g. 6b_2h seed 200000 turn 4: expected tool 'submit', got 'read' | expected {"arguments": {"count": 2}, "name": "submit"}
+       think[None] ''
+       act[eos] '{"name": "read", "arguments": {"record_id": "END"}}'
+  e.g. 4b_2h seed 200000 turn 4: expected tool 'submit', got 'read' | expected {"arguments": {"count": 2}, "name": "submit"}
+       think[None] ''
+       act[eos] '{"name": "read", "arguments": {"record_id": "END"}}'
+  e.g. 3b_2h seed 200000 turn 0: could not parse a tool call | expected {"arguments": {"record_id": "r_2470"}, "name": "read"}
+       think[None] ''
+       act[eos] ''
+  e.g. 8b_4h seed 200010 turn 8: expected tool 'submit', got 'read' | expected {"arguments": {"count": 4}, "name": "submit"}
+       think[None] ''
+       act[eos] '{"name": "read", "arguments": {"record_id": "END"}}'
+  e.g. 6b_4h seed 200000 turn 7: wrong value for 'seq' | expected {"arguments": {"ack": "263CB", "record_id": "r_6613", "seq": 4}, "name": "update"}
+       think[None] ''
+       act[tag] '{"name": "update", "arguments": {"record_id": "r_6613", "ack": "263CB", "seq": 6}}'
+  e.g. 4b_4h seed 200000 turn 8: missing argument 'count' | expected {"arguments": {"count": 4}, "name": "submit"}
+       think[None] ''
+       act[tag] '{"name": "submit", "arguments": {"count: int": 5}}'
+  e.g. 3b_4h seed 200000 turn 0: could not parse a tool call | expected {"arguments": {"record_id": "r_1739"}, "name": "read"}
+       think[None] ''
+       act[eos] ''
+
+## gate_q3b_think-true.json  ready=False  mode=full
+model=Qwen/Qwen2.5-3B-Instruct think=True bbar=4 hops=[2, 4] gate_hops=4 n=30 source=dde62381d732
+cell      success          turn hazard [95% CI]       parse  think tok/turn  think_end / act_end      failures
+8b_2h      0/30   0.000  0.714 [0.564, 0.828]  0.55      63.0  {'eos': 17, 'tag': 22, 'cap': 3} / {'skipped': 17, 'tag': 15, 'eos': 9, 'cap': 1}  {'unparseable': 19, 'wrong_tool': 10, 'wrong:ack': 1}
+6b_2h      0/30   0.000  0.612 [0.472, 0.736]  0.65      62.0  {'tag': 29, 'eos': 17, 'cap': 3} / {'tag': 24, 'eos': 8, 'skipped': 17}  {'wrong_tool': 13, 'unparseable': 17}
+4b_2h      0/30   0.000  0.833 [0.681, 0.921]  0.58      90.7  {'cap': 14, 'tag': 18, 'eos': 4} / {'eos': 30, 'skipped': 4, 'cap': 2}  {'wrong_tool': 5, 'unparseable': 15, 'missing:record_id': 9, 'wrong:ack': 1}
+3b_2h      0/30   0.000  1.000 [0.886, 1.000]  0.00     128.0  {'cap': 30} / {'cap': 30}  {'unparseable': 30}
+8b_4h      0/30   0.000  0.732 [0.581, 0.843]  0.54      58.1  {'eos': 17, 'tag': 21, 'cap': 3} / {'skipped': 17, 'tag': 16, 'eos': 8}  {'unparseable': 19, 'wrong_tool': 11}
+6b_4h      1/30   0.033  0.580 [0.442, 0.706]  0.60      57.3  {'tag': 28, 'eos': 18, 'cap': 4} / {'tag': 19, 'skipped': 18, 'eos': 12, 'cap': 1}  {'wrong_tool': 8, 'unparseable': 20, 'wrong:record_id': 1}
+4b_4h      1/30   0.033  0.604 [0.463, 0.730]  0.75      70.4  {'tag': 35, 'cap': 11, 'eos': 2} / {'eos': 41, 'skipped': 2, 'tag': 3, 'cap': 2}  {'unparseable': 12, 'wrong_tool': 8, 'wrong:record_id': 1, 'missing:record_id': 8}
+3b_4h      0/30   0.000  1.000 [0.886, 1.000]  0.00     128.0  {'cap': 30} / {'cap': 30}  {'unparseable': 30}
+  [FAIL] format: 0.5421686746987953
+  [FAIL] reliable: {'2': 0.0, '4': 0.0}
+  [PASS] signal: {'low_ci': [0.8864829086095221, 1.0], 'reference_ci': [0.5806617472399707, 0.8430519471866331]}
+  [FAIL] operating_point: {'bbar': 4, 'gate_hops': 4, 'turn_hazard': 0.6041666666666666, 'predicted_success': {'2': '0.00972', '4': '0.000239', '6': '5.86e-06', '8': '1.44e-07', '10': '3.53e-09'}}
+  [PASS] cache: {'observations_checked': 88}
+  [PASS] cost: {'hours_total': 18.482515056291597, 'coverage_scale': 4.5}
+  e.g. 8b_2h seed 200000 turn 0: could not parse a tool call | expected {"arguments": {"record_id": "r_2470"}, "name": "read"}
+       think[eos] 'Let\'s start by reading the record r_2470 to understand its initial state.\n\n```json\n{\n  "name": "read",\n  "arguments": {\n    "record_id": "r_2470"\n  }\n}\n```'
+       act[skipped] ''
+  e.g. 6b_2h seed 200000 turn 1: expected tool 'update', got 'read' | expected {"arguments": {"ack": "B82V7", "record_id": "r_2470", "seq": 1}, "name": "update"}
+       think[tag] "Record r_2470's `next` value is r_3661. Now I will read this record to determine its next value.\n"
+       act[tag] '{"name": "read", "arguments": {"record_id": "r_3661"}}'
+  e.g. 4b_2h seed 200000 turn 1: expected tool 'update', got 'read' | expected {"arguments": {"ack": "B82V7", "record_id": "r_2470", "seq": 1}, "name": "update"}
+       think[cap] "We have read the record `r_2470`. Now let's update this record with the `token` value and the position in the chain. The position is 1 since we are starting at `r_2470`.\n\nLet's update the record `r_24"
+       act[eos] '>{"name": "read", "arguments": {"record_id": "r_3661"}}"'
+  e.g. 3b_2h seed 200000 turn 0: could not parse a tool call | expected {"arguments": {"record_id": "r_2470"}, "name": "read"}
+       think[cap] 'SCOOCURITYING, HOW YOU SAY, HOW YOU SC, HOW YOU ORCH, HOW YOU ORC, HOW YOU ORC, HOW YOU ORC, HOW YOU ORC, HOW YOU ORC, HOW ORC, HOW YOU ORC, HOW, ORC, HOW ORC, HOW, ORC, HOW ORC, HOW ORC, HOW ORC, HOW'
+       act[cap] 'BAT HOW ORC, HOW ORC, HOW ORCS, HOW ORC, HOW ORC, HOW ORC, HOW ORC, HOW ORC, HOW ORC, HOW ORC, HOW ORC, HOW ORC, HOW ORC'
+  e.g. 8b_4h seed 200000 turn 0: could not parse a tool call | expected {"arguments": {"record_id": "r_1739"}, "name": "read"}
+       think[eos] 'Let\'s start by reading the record r_1739 to understand its initial state.\n\n```json\n{\n  "name": "read(record_id: str)",\n  "arguments": {\n    "record_id": "r_1739"\n  }\n}\n```'
+       act[skipped] ''
+  e.g. 6b_4h seed 200000 turn 1: expected tool 'update', got 'read' | expected {"arguments": {"ack": "FZFE2", "record_id": "r_1739", "seq": 1}, "name": "update"}
+       think[tag] 'Record r_1739 indicates its next is r_2470. I will now follow to r_2470 to continue the chain.\n'
+       act[tag] '{"name": "read", "arguments": {"record_id": "r_2470"}}'
+  e.g. 4b_4h seed 200000 turn 0: could not parse a tool call | expected {"arguments": {"record_id": "r_1739"}, "name": "read"}
+       think[tag] "Let's assume we have the record `r_1739` and we need to follow the chain of `next` links until we reach a record whose `next` is `END`. Then for every record, we will read it, update it with the `toke"
+       act[eos] '{"name": "read", "arguments": {"record_id: str: "r_1739"}}'
+  e.g. 3b_4h seed 200000 turn 0: could not parse a tool call | expected {"arguments": {"record_id": "r_1739"}, "name": "read"}
+       think[cap] 'SCOOC���NEW,�NET, ∈NOT,QUILTER,CHLEAR,CH,, NOT, CH, NOT, CH, CH, CH, CH, NOT, CH Ch, NOT, NOT, CH G NOT, CH, CH, NOT, CH,, CH NOT, NOT, CH, CH NOT, NOT, CH, CH NOT, NOT, CH NOT, NOT, CH NOT, NOT, CH N'
+       act[cap] ' NOT CH NOT, NOT CH, NOT, NOT CH NOT, NOT, CH NOT, NOT CH NOT, NOT CH NOTILE, NOT CH, NOT CH NOTS, NOT CH NOT, NOT CH NO'

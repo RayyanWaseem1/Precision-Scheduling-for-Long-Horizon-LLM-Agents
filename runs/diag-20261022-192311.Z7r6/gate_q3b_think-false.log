@@ -1,0 +1,65 @@
+[gate] backend=mlx; checking every precision
+[gate] 8 bits, 2 hops: {'episodes': 30, 'success': 0.0, 'success_ci95': [0.0, 0.113517091390478], 'turns': 141, 'turn_failures': 30, 'turn_hazard': 0.2127659574468085, 'turn_hazard_ci95': [0.15329835090284472, 0.28747004712645075], 'parse_rate': 1.0, 'failure_kinds': {'wrong_tool': 26, 'wrong:ack': 1, 'wrong:record_id': 3}, 'sec_per_turn': 0.9458984521354701, 'decode_tok_per_sec': 29.653971128450156, 'tokens_per_turn': 123.49645390070921, 'think_tokens_per_turn': 0.0, 'think_end': {}, 'act_end': {'tag': 124, 'eos': 17}}
+    seed 200000 turn 4: expected tool 'submit', got 'read'; expected {"arguments": {"count": 2}, "name": "submit"}
+      think[None]: ''
+      act[eos]: '{"name": "read", "arguments": {"record_id": "END"}}'
+    seed 200001 turn 4: expected tool 'submit', got 'read'; expected {"arguments": {"count": 2}, "name": "submit"}
+      think[None]: ''
+      act[eos]: '{"name": "read", "arguments": {"record_id": "END"}}'
+[gate] 6 bits, 2 hops: {'episodes': 30, 'success': 0.0, 'success_ci95': [0.0, 0.113517091390478], 'turns': 139, 'turn_failures': 30, 'turn_hazard': 0.2158273381294964, 'turn_hazard_ci95': [0.15557197920756322, 0.2913678478456201], 'parse_rate': 1.0, 'failure_kinds': {'wrong_tool': 28, 'wrong:ack': 1, 'wrong:record_id': 1}, 'sec_per_turn': 0.819818727506271, 'decode_tok_per_sec': 34.68041619730077, 'tokens_per_turn': 124.84172661870504, 'think_tokens_per_turn': 0.0, 'think_end': {}, 'act_end': {'tag': 116, 'eos': 23}}
+    seed 200000 turn 4: expected tool 'submit', got 'read'; expected {"arguments": {"count": 2}, "name": "submit"}
+      think[None]: ''
+      act[eos]: '{"name": "read", "arguments": {"record_id": "END"}}'
+    seed 200001 turn 4: expected tool 'submit', got 'read'; expected {"arguments": {"count": 2}, "name": "submit"}
+      think[None]: ''
+      act[eos]: '{"name": "read", "arguments": {"record_id": "END"}}'
+[gate] 4 bits, 2 hops: {'episodes': 30, 'success': 0.0, 'success_ci95': [0.0, 0.113517091390478], 'turns': 144, 'turn_failures': 30, 'turn_hazard': 0.20833333333333334, 'turn_hazard_ci95': [0.15001005766064063, 0.2818142732448691], 'parse_rate': 0.9930555555555556, 'failure_kinds': {'wrong_tool': 27, 'unparseable': 1, 'wrong:ack': 1, 'missing:count': 1}, 'sec_per_turn': 0.664072809318087, 'decode_tok_per_sec': 42.28953954939236, 'tokens_per_turn': 122.88888888888889, 'think_tokens_per_turn': 0.0, 'think_end': {}, 'act_end': {'tag': 112, 'eos': 32}}
+    seed 200000 turn 4: expected tool 'submit', got 'read'; expected {"arguments": {"count": 2}, "name": "submit"}
+      think[None]: ''
+      act[eos]: '{"name": "read", "arguments": {"record_id": "END"}}'
+    seed 200001 turn 4: expected tool 'submit', got 'read'; expected {"arguments": {"count": 2}, "name": "submit"}
+      think[None]: ''
+      act[tag]: '{"name": "read", "arguments": {"record_id": "END"}}'
+[gate] 3 bits, 2 hops: {'episodes': 30, 'success': 0.0, 'success_ci95': [0.0, 0.113517091390478], 'turns': 30, 'turn_failures': 30, 'turn_hazard': 1.0, 'turn_hazard_ci95': [0.8864829086095221, 1.0], 'parse_rate': 0.0, 'failure_kinds': {'unparseable': 30}, 'sec_per_turn': 1.4677289208979345, 'decode_tok_per_sec': 48.01068212484102, 'tokens_per_turn': 291.46666666666664, 'think_tokens_per_turn': 0.0, 'think_end': {}, 'act_end': {'eos': 4, 'cap': 26}}
+    seed 200000 turn 0: could not parse a tool call; expected {"arguments": {"record_id": "r_2470"}, "name": "read"}
+      think[None]: ''
+      act[eos]: ''
+    seed 200001 turn 0: could not parse a tool call; expected {"arguments": {"record_id": "r_6057"}, "name": "read"}
+      think[None]: ''
+      act[cap]: 'CACASCUDOBJECTIBORDYOESUFICO OOUDIB ORDERYOUCTUROLOSCELVIB O OUVEO TLIBS THEW AND HOW YOU, ABUY, YOU, BE, YOU, BEST, BE, YOU, BE, BE, BE, BE, BE, BE, BE, BE, BE'
+[gate] 8 bits, 4 hops: {'episodes': 30, 'success': 0.8666666666666667, 'success_ci95': [0.7031831605558306, 0.9469043057578189], 'turns': 267, 'turn_failures': 4, 'turn_hazard': 0.0149812734082397, 'turn_hazard_ci95': [0.005840848692858679, 0.03788064756177871], 'parse_rate': 0.9962546816479401, 'failure_kinds': {'wrong_tool': 3, 'unparseable': 1}, 'sec_per_turn': 1.0047396151719559, 'decode_tok_per_sec': 28.86692719226386, 'tokens_per_turn': 108.64794007490637, 'think_tokens_per_turn': 0.0, 'think_end': {}, 'act_end': {'tag': 234, 'eos': 33}}
+    seed 200010 turn 8: expected tool 'submit', got 'read'; expected {"arguments": {"count": 4}, "name": "submit"}
+      think[None]: ''
+      act[eos]: '{"name": "read", "arguments": {"record_id": "END"}}'
+    seed 200011 turn 8: expected tool 'submit', got 'read'; expected {"arguments": {"count": 4}, "name": "submit"}
+      think[None]: ''
+      act[eos]: '{"name": "read", "arguments": {"record_id": "END"}}'
+[gate] 6 bits, 4 hops: {'episodes': 30, 'success': 0.7, 'success_ci95': [0.5212387898833981, 0.8333543735604105], 'turns': 259, 'turn_failures': 9, 'turn_hazard': 0.03474903474903475, 'turn_hazard_ci95': [0.018387145093751157, 0.06471081200284237], 'parse_rate': 0.9961389961389961, 'failure_kinds': {'wrong:seq': 1, 'wrong_tool': 7, 'unparseable': 1}, 'sec_per_turn': 0.8607106399497657, 'decode_tok_per_sec': 34.07438454565524, 'tokens_per_turn': 109.6949806949807, 'think_tokens_per_turn': 0.0, 'think_end': {}, 'act_end': {'tag': 194, 'eos': 65}}
+    seed 200000 turn 7: wrong value for 'seq'; expected {"arguments": {"ack": "263CB", "record_id": "r_6613", "seq": 4}, "name": "update"}
+      think[None]: ''
+      act[tag]: '{"name": "update", "arguments": {"record_id": "r_6613", "ack": "263CB", "seq": 6}}'
+    seed 200008 turn 8: expected tool 'submit', got 'read'; expected {"arguments": {"count": 4}, "name": "submit"}
+      think[None]: ''
+      act[eos]: '{"name": "read", "arguments": {"record_id": "END"}}'
+[gate] 4 bits, 4 hops: {'episodes': 30, 'success': 0.1, 'success_ci95': [0.03459925995971615, 0.25621441315266624], 'turns': 243, 'turn_failures': 27, 'turn_hazard': 0.1111111111111111, 'turn_hazard_ci95': [0.07749327777826062, 0.15683351316783595], 'parse_rate': 0.9958847736625515, 'failure_kinds': {'missing:count': 22, 'wrong:ack': 2, 'unparseable': 1, 'wrong_tool': 2}, 'sec_per_turn': 0.658821798869171, 'decode_tok_per_sec': 44.27407279161344, 'tokens_per_turn': 110.92181069958848, 'think_tokens_per_turn': 0.0, 'think_end': {}, 'act_end': {'tag': 164, 'eos': 79}}
+    seed 200000 turn 8: missing argument 'count'; expected {"arguments": {"count": 4}, "name": "submit"}
+      think[None]: ''
+      act[tag]: '{"name": "submit", "arguments": {"count: int": 5}}'
+    seed 200001 turn 8: missing argument 'count'; expected {"arguments": {"count": 4}, "name": "submit"}
+      think[None]: ''
+      act[tag]: '{"name": "submit", "arguments": {"count: int": 5}}'
+[gate] 3 bits, 4 hops: {'episodes': 30, 'success': 0.0, 'success_ci95': [0.0, 0.113517091390478], 'turns': 30, 'turn_failures': 30, 'turn_hazard': 1.0, 'turn_hazard_ci95': [0.8864829086095221, 1.0], 'parse_rate': 0.0, 'failure_kinds': {'unparseable': 30}, 'sec_per_turn': 1.4990020777797326, 'decode_tok_per_sec': 47.00905202949374, 'tokens_per_turn': 291.46666666666664, 'think_tokens_per_turn': 0.0, 'think_end': {}, 'act_end': {'eos': 4, 'cap': 26}}
+    seed 200000 turn 0: could not parse a tool call; expected {"arguments": {"record_id": "r_1739"}, "name": "read"}
+      think[None]: ''
+      act[eos]: ''
+    seed 200001 turn 0: could not parse a tool call; expected {"arguments": {"record_id": "r_2720"}, "name": "read"}
+      think[None]: ''
+      act[cap]: 'CACASCUDOBJECTIBORDACLEESUFICO@INCABASCASCASCASCASCASCASCASCASCASCASCASCASCASCUSABASCASCUNASCASCUASCUNASCASCASCASCUMASCASCUSP2ASCASCASCUSP2ASCASCASCASCUEASCASCU'
+[gate] timing actual atlas replay
+[PASS] format: 0.9975490196078431
+[FAIL] reliable: {2: 0.0, 4: 0.8666666666666667}
+[PASS] signal: {'low_ci': [0.8864829086095221, 1.0], 'reference_ci': [0.005840848692858679, 0.03788064756177871]}
+[FAIL] operating_point: {'bbar': 4, 'gate_hops': 4, 'turn_hazard': 0.1111111111111111, 'predicted_success': {2: 0.5549289573066435, 4: 0.34643941611461837, 6: 0.21628042194870853, 8: 0.13502280266756742, 10: 0.0842940709840506}, 'predicted_success_ci95': {2: [0.4261541106623911, 0.6681095775406085], 4: [0.21538726796028745, 0.4838668346247541], 6: [0.10886126412646341, 0.35043220681198606], 8: [0.05502077694488721, 0.2537944797691164], 10: [0.027808660131874403, 0.1838062732511187]}}
+[PASS] cache: {'observations_checked': 1019}
+[PASS] cost: {'measured_seconds': 63.2775812499458, 'measured_probe_samples': 42, 'calibration_tasks': 1, 'calibration_samples': 2, 'coverage_scale': 3.0, 'hours_total': 6.327758124994579, 'method': 'timed replay; conservatively scaled to full reference-path coverage'}
+Phase 2 ready: False

@@ -1,0 +1,24 @@
+[gate] backend=mlx; checking every precision
+[gate] 8 bits, 3 hops: {'episodes': 30, 'success': 1.0, 'success_ci95': [0.8864829086095221, 1.0], 'turns': 210, 'turn_failures': 0, 'turn_hazard': 0.0, 'turn_hazard_ci95': [0.0, 0.017964699104383804], 'parse_rate': 1.0, 'failure_kinds': {}, 'sec_per_turn': 0.5742090055469556, 'decode_tok_per_sec': 49.65008130161145, 'tokens_per_turn': 112.3952380952381, 'think_tokens_per_turn': 0.0, 'think_end': {}, 'act_end': {'tag': 194, 'eos': 16}}
+[gate] 6 bits, 3 hops: {'episodes': 30, 'success': 0.9333333333333333, 'success_ci95': [0.7867618227892791, 0.9815233646723066], 'turns': 210, 'turn_failures': 2, 'turn_hazard': 0.009523809523809525, 'turn_hazard_ci95': [0.0026156146029230956, 0.03405451880423435], 'parse_rate': 1.0, 'failure_kinds': {'wrong:count': 2}, 'sec_per_turn': 0.49095357063924894, 'decode_tok_per_sec': 58.069694395750744, 'tokens_per_turn': 112.33333333333333, 'think_tokens_per_turn': 0.0, 'think_end': {}, 'act_end': {'tag': 180, 'eos': 30}}
+    seed 200003 turn 6: wrong value for 'count'; expected {"arguments": {"count": 3}, "name": "submit"}
+      think[None]: ''
+      act[tag]: '{"name": "submit", "arguments": {"count": 4}}'
+    seed 200015 turn 6: wrong value for 'count'; expected {"arguments": {"count": 3}, "name": "submit"}
+      think[None]: ''
+      act[tag]: '{"name": "submit", "arguments": {"count": 4}}'
+[gate] 3 bits, 3 hops: {'episodes': 30, 'success': 0.0, 'success_ci95': [0.0, 0.113517091390478], 'turns': 56, 'turn_failures': 30, 'turn_hazard': 0.5357142857142857, 'turn_hazard_ci95': [0.4070395665724008, 0.6598035659641625], 'parse_rate': 0.9821428571428571, 'failure_kinds': {'missing:record_id': 11, 'wrong_tool': 15, 'wrong:record_id': 3, 'unparseable': 1}, 'sec_per_turn': 0.4537156554995038, 'decode_tok_per_sec': 66.90785845536259, 'tokens_per_turn': 184.10714285714286, 'think_tokens_per_turn': 0.0, 'think_end': {}, 'act_end': {'eos': 43, 'tag': 9, 'cap': 4}}
+    seed 200000 turn 0: missing argument 'record_id'; expected {"arguments": {"record_id": "r_6613"}, "name": "read"}
+      think[None]: ''
+      act[eos]: '{"name": "read", "arguments": {"record": "r_6613"}}'
+    seed 200001 turn 2: expected tool 'read', got 'submit'; expected {"arguments": {"record_id": "r_1045"}, "name": "read"}
+      think[None]: ''
+      act[eos]: '{"name": "submit", "arguments": {"count": 1}}'
+[gate] timing actual atlas replay
+[PASS] format: 1.0
+[PASS] reliable: {3: 1.0}
+[PASS] signal: {'low_ci': [0.4070395665724008, 0.6598035659641625], 'reference_ci': [0.0, 0.017964699104383804]}
+[PASS] operating_point: {'bbar': 6, 'gate_hops': 3, 'turn_hazard': 0.009523809523809525, 'predicted_success': {3: 0.9352081472278245, 4: 0.9174794848450023, 6: 0.8830240313205435, 8: 0.8498625340067532}, 'predicted_success_ci95': {3: [0.7846361370538575, 0.9818337433399862], 4: [0.7321052754577296, 0.9767042631429412], 6: [0.637358815332588, 0.9665255579244153], 8: [0.5548741049955933, 0.9564529298920299]}}
+[PASS] cache: {'observations_checked': 394}
+[PASS] cost: {'measured_seconds': 54.38844858307857, 'measured_probe_samples': 98, 'calibration_tasks': 1, 'calibration_samples': 2, 'coverage_scale': 1.0, 'hours_total': 2.417264381470159, 'method': 'timed replay; conservatively scaled to full reference-path coverage'}
+Phase 2 ready: True
