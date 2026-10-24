@@ -1,0 +1,76 @@
+{
+  "experiment": {
+    "config": {
+      "agent": {
+        "max_act_tokens": 80,
+        "max_think_tokens": 128,
+        "think": false
+      },
+      "atlas": {
+        "max_turns": 7,
+        "n_samples": 8,
+        "n_tasks": 40,
+        "seed0": 0
+      },
+      "backend": {
+        "kind": "mlx",
+        "levels": [
+          3,
+          4,
+          6,
+          8
+        ],
+        "mlx": {
+          "cache_dir": "~/.cache/hazprec/mlx",
+          "chat_template_kwargs": {
+            "enable_thinking": false
+          },
+          "group_size": 64,
+          "model": "Qwen/Qwen3-1.7B",
+          "temperature": 0.7,
+          "tool_role": "tool"
+        },
+        "ref_bits": 8
+      },
+      "env": {
+        "error_mode": "fatal",
+        "filler_lines": 3,
+        "max_retries": 2,
+        "n_fields": 2,
+        "n_hops": 3
+      },
+      "horizon": {
+        "hops": [
+          3,
+          4,
+          6,
+          8
+        ],
+        "n_episodes": 300,
+        "seed0": 100000
+      },
+      "seed": 0,
+      "theory": {
+        "alloc_hops": 8,
+        "bbar": 6,
+        "curve_mode": "parametric"
+      }
+    },
+    "dependencies": {
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2",
+      "numpy": "2.5.4",
+      "pyyaml": "6.0.3",
+      "tokenizers": "0.23.3",
+      "torch": "2.14.1",
+      "transformers": "5.20.2"
+    },
+    "python": "3.12.5",
+    "schema": 2,
+    "sha256": "e8b55d80b20cc3f63268876b2a13e6537d245e3001f80a325954d623f401950c",
+    "source_sha256": "dde62381d732ddd3945a32681309e16321a22fefe1293513ee8dfdc048cb3798"
+  },
+  "prereg_sha256": "b6916f0d430f94ed483251839412b5eea3404a58ba991d9e0b5a35a7eb8373af",
+  "sha256": "f085237b60095549ff4c27cc2bd0961bce7cb64a82fd306f8b50859e99f77011",
+  "stage": "horizon"
+}

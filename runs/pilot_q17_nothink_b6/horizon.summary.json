@@ -1,0 +1,62 @@
+{
+  "rows": [
+    {
+      "pred_log_ratio": 0.013897363041546942,
+      "hops": 3,
+      "n": 300,
+      "S_adaptive": 0.5,
+      "S_uniform": 0.9133333333333333,
+      "log_ratio": -0.6009881767606549,
+      "abs_gain": -0.41333333333333333,
+      "avg_bits_adaptive": 5.591521829388768,
+      "avg_bits_uniform": 6.0
+    },
+    {
+      "pred_log_ratio": 0.014855760563384425,
+      "hops": 4,
+      "n": 300,
+      "S_adaptive": 0.9833333333333333,
+      "S_uniform": 0.9866666666666667,
+      "log_ratio": -0.0033783815916271637,
+      "abs_gain": -0.0033333333333334103,
+      "avg_bits_adaptive": 5.98156592966985,
+      "avg_bits_uniform": 6.0
+    },
+    {
+      "pred_log_ratio": 0.02849038822112878,
+      "hops": 6,
+      "n": 300,
+      "S_adaptive": 0.9866666666666667,
+      "S_uniform": 0.9633333333333334,
+      "log_ratio": 0.02389192142473014,
+      "abs_gain": 0.023333333333333317,
+      "avg_bits_adaptive": 5.816844645483647,
+      "avg_bits_uniform": 6.0
+    },
+    {
+      "pred_log_ratio": 0.02901585898873396,
+      "hops": 8,
+      "n": 300,
+      "S_adaptive": 0.99,
+      "S_uniform": 0.9833333333333333,
+      "log_ratio": 0.006745388139531494,
+      "abs_gain": 0.00666666666666671,
+      "avg_bits_adaptive": 5.717418807607284,
+      "avg_bits_uniform": 6.0
+    }
+  ],
+  "fit": {
+    "intercept": -0.6392156646752865,
+    "slope_per_hop": 0.09443492428157739,
+    "slope_ci95": [
+      0.07856518473898065,
+      0.11359372206799757
+    ]
+  },
+  "empirical_peak_gain_hops": 6,
+  "prediction": {
+    "slope_per_hop": 0.003479500734722293,
+    "h_star_hops": 84.02726474474643,
+    "slope_inside_ci": false
+  }
+}

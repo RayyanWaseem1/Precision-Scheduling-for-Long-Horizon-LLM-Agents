@@ -1,0 +1,3545 @@
+{
+  "config": "/Users/rayyanwaseem/Desktop/Projects/Precision-Scheduling-for-Long-Horizon-LLM-Agents/runs/pilot_q17_nothink_b6/config.yaml",
+  "source_sha256": "dde62381d732ddd3945a32681309e16321a22fefe1293513ee8dfdc048cb3798",
+  "seeds": [
+    200000,
+    200029
+  ],
+  "cells": [
+    {
+      "cell": "reference",
+      "hops": 3,
+      "bits": {
+        "system": 8,
+        "read": 8,
+        "act": 8,
+        "stop": 8
+      },
+      "success": 30,
+      "n": 30,
+      "ci95": [
+        0.8864829086095221,
+        1.0
+      ],
+      "avg_bits": 8.0,
+      "fail_phase": {},
+      "fail_reason": {},
+      "seconds": 118.83032270800322,
+      "episodes": [
+        {
+          "seed": 200000,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200001,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200002,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200003,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200004,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200005,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200006,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200007,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200008,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200009,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200010,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200011,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200012,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200013,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200014,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200015,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200016,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200017,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200018,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200019,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200020,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200021,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200022,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200023,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200024,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200025,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200026,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200027,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200028,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200029,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 8.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        }
+      ]
+    },
+    {
+      "cell": "uniform 6",
+      "hops": 3,
+      "bits": {
+        "system": 6,
+        "read": 6,
+        "act": 6,
+        "stop": 6
+      },
+      "success": 28,
+      "n": 30,
+      "ci95": [
+        0.7867618227892791,
+        0.9815233646723066
+      ],
+      "avg_bits": 6.0,
+      "fail_phase": {
+        "stop": 2
+      },
+      "fail_reason": {
+        "wrong value for 'count'": 2
+      },
+      "seconds": 103.74642570805736,
+      "episodes": [
+        {
+          "seed": 200000,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200001,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200002,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200003,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": "stop",
+          "fail_reason": "wrong value for 'count'",
+          "fail_call": "{\"arguments\": {\"count\": 4}, \"name\": \"submit\"}"
+        },
+        {
+          "seed": 200004,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200005,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200006,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200007,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200008,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200009,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200010,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200011,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200012,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200013,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200014,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200015,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": "stop",
+          "fail_reason": "wrong value for 'count'",
+          "fail_call": "{\"arguments\": {\"count\": 4}, \"name\": \"submit\"}"
+        },
+        {
+          "seed": 200016,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200017,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200018,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200019,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200020,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200021,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200022,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200023,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200024,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200025,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200026,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200027,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200028,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200029,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.0,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        }
+      ]
+    },
+    {
+      "cell": "uniform 4",
+      "hops": 3,
+      "bits": {
+        "system": 4,
+        "read": 4,
+        "act": 4,
+        "stop": 4
+      },
+      "success": 0,
+      "n": 30,
+      "ci95": [
+        0.0,
+        0.113517091390478
+      ],
+      "avg_bits": 4.0,
+      "fail_phase": {
+        "stop": 30
+      },
+      "fail_reason": {
+        "expected tool 'submit', got 'read'": 30
+      },
+      "seconds": 82.03843658301048,
+      "episodes": [
+        {
+          "seed": 200000,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200001,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200002,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200003,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200004,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200005,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200006,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200007,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200008,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200009,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200010,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200011,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200012,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200013,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200014,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200015,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200016,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200017,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200018,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200019,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200020,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200021,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200022,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200023,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200024,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200025,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200026,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200027,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200028,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200029,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.0,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        }
+      ]
+    },
+    {
+      "cell": "system prompt at 4",
+      "hops": 3,
+      "bits": {
+        "system": 4,
+        "read": 8,
+        "act": 8,
+        "stop": 8
+      },
+      "success": 8,
+      "n": 30,
+      "ci95": [
+        0.14182495553910618,
+        0.4444830204431169
+      ],
+      "avg_bits": 6.810243246577977,
+      "fail_phase": {
+        "stop": 21,
+        "act": 1
+      },
+      "fail_reason": {
+        "wrong value for 'count'": 15,
+        "expected tool 'submit', got 'read'": 6,
+        "expected tool 'update', got 'read'": 1
+      },
+      "seconds": 125.31676658301149,
+      "episodes": [
+        {
+          "seed": 200000,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 6.84020618556701,
+          "fail_phase": "stop",
+          "fail_reason": "wrong value for 'count'",
+          "fail_call": "{\"arguments\": {\"count\": 4}, \"name\": \"submit\"}"
+        },
+        {
+          "seed": 200001,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 6.856416772554002,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200002,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 6.854961832061068,
+          "fail_phase": "stop",
+          "fail_reason": "wrong value for 'count'",
+          "fail_call": "{\"arguments\": {\"count\": 4}, \"name\": \"submit\"}"
+        },
+        {
+          "seed": 200003,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 6.850574712643678,
+          "fail_phase": "stop",
+          "fail_reason": "wrong value for 'count'",
+          "fail_call": "{\"arguments\": {\"count\": 4}, \"name\": \"submit\"}"
+        },
+        {
+          "seed": 200004,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 6.8520408163265305,
+          "fail_phase": "stop",
+          "fail_reason": "wrong value for 'count'",
+          "fail_call": "{\"arguments\": {\"count\": 4}, \"name\": \"submit\"}"
+        },
+        {
+          "seed": 200005,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 6.856416772554002,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200006,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.860759493670886,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200007,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 6.84020618556701,
+          "fail_phase": "stop",
+          "fail_reason": "wrong value for 'count'",
+          "fail_call": "{\"arguments\": {\"count\": 4}, \"name\": \"submit\"}"
+        },
+        {
+          "seed": 200008,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.873591989987484,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200009,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 6.8621997471555,
+          "fail_phase": "stop",
+          "fail_reason": "wrong value for 'count'",
+          "fail_call": "{\"arguments\": {\"count\": 4}, \"name\": \"submit\"}"
+        },
+        {
+          "seed": 200010,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.863636363636363,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200011,
+          "success": false,
+          "turns": 2,
+          "avg_bits": 5.554347826086956,
+          "fail_phase": "act",
+          "fail_reason": "expected tool 'update', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"r_7993\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200012,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.847631241997439,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200013,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 6.849104859335038,
+          "fail_phase": "stop",
+          "fail_reason": "wrong value for 'count'",
+          "fail_call": "{\"arguments\": {\"count\": 4}, \"name\": \"submit\"}"
+        },
+        {
+          "seed": 200014,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.8621997471555,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200015,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 6.853503184713376,
+          "fail_phase": "stop",
+          "fail_reason": "wrong value for 'count'",
+          "fail_call": "{\"arguments\": {\"count\": 4}, \"name\": \"submit\"}"
+        },
+        {
+          "seed": 200016,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 6.856416772554002,
+          "fail_phase": "stop",
+          "fail_reason": "wrong value for 'count'",
+          "fail_call": "{\"arguments\": {\"count\": 4}, \"name\": \"submit\"}"
+        },
+        {
+          "seed": 200017,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 6.847631241997439,
+          "fail_phase": "stop",
+          "fail_reason": "wrong value for 'count'",
+          "fail_call": "{\"arguments\": {\"count\": 4}, \"name\": \"submit\"}"
+        },
+        {
+          "seed": 200018,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.8621997471555,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200019,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 6.8520408163265305,
+          "fail_phase": "stop",
+          "fail_reason": "wrong value for 'count'",
+          "fail_call": "{\"arguments\": {\"count\": 4}, \"name\": \"submit\"}"
+        },
+        {
+          "seed": 200020,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 6.8520408163265305,
+          "fail_phase": "stop",
+          "fail_reason": "wrong value for 'count'",
+          "fail_call": "{\"arguments\": {\"count\": 4}, \"name\": \"submit\"}"
+        },
+        {
+          "seed": 200021,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 6.847631241997439,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200022,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 6.854961832061068,
+          "fail_phase": "stop",
+          "fail_reason": "wrong value for 'count'",
+          "fail_call": "{\"arguments\": {\"count\": 4}, \"name\": \"submit\"}"
+        },
+        {
+          "seed": 200023,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 6.847631241997439,
+          "fail_phase": "stop",
+          "fail_reason": "wrong value for 'count'",
+          "fail_call": "{\"arguments\": {\"count\": 4}, \"name\": \"submit\"}"
+        },
+        {
+          "seed": 200024,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 6.850574712643678,
+          "fail_phase": "stop",
+          "fail_reason": "wrong value for 'count'",
+          "fail_call": "{\"arguments\": {\"count\": 4}, \"name\": \"submit\"}"
+        },
+        {
+          "seed": 200025,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 6.854961832061068,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200026,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.8578680203045685,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200027,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 6.84020618556701,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200028,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 6.863636363636363,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200029,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.841698841698841,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        }
+      ]
+    },
+    {
+      "cell": "observations at 4",
+      "hops": 3,
+      "bits": {
+        "system": 8,
+        "read": 4,
+        "act": 8,
+        "stop": 8
+      },
+      "success": 29,
+      "n": 30,
+      "ci95": [
+        0.8332924860304112,
+        0.9940915620051425
+      ],
+      "avg_bits": 6.1586902080751695,
+      "fail_phase": {
+        "stop": 1
+      },
+      "fail_reason": {
+        "expected tool 'submit', got 'read'": 1
+      },
+      "seconds": 128.72476879204623,
+      "episodes": [
+        {
+          "seed": 200000,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.173913043478261,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200001,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.157760814249364,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200002,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.157760814249364,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200003,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.149556400506971,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200004,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.168367346938775,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200005,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.157760814249364,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200006,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.156962025316456,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200007,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.163682864450128,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200008,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.125,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200009,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.146464646464646,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200010,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.141414141414141,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200011,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.165605095541402,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200012,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.155019059720457,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200013,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.173913043478261,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200014,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.149178255372946,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200015,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.160509554140128,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200016,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.155019059720457,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200017,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.166453265044814,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200018,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.144121365360303,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200019,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.165605095541402,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200020,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.173469387755102,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200021,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.162849872773537,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200022,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.141414141414141,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200023,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.16010165184244,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200024,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.16602809706258,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200025,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.155414012738854,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200026,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.141057934508816,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200027,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.176696542893726,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200028,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 6.154235145385588,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200029,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 6.195372750642673,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        }
+      ]
+    },
+    {
+      "cell": "read/update calls at 4",
+      "hops": 3,
+      "bits": {
+        "system": 8,
+        "read": 8,
+        "act": 4,
+        "stop": 8
+      },
+      "success": 23,
+      "n": 30,
+      "ci95": [
+        0.5907132766967574,
+        0.8820776078949878
+      ],
+      "avg_bits": 7.072261968970735,
+      "fail_phase": {
+        "stop": 7
+      },
+      "fail_reason": {
+        "wrong value for 'count'": 7
+      },
+      "seconds": 90.83577658294234,
+      "episodes": [
+        {
+          "seed": 200000,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.063938618925831,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200001,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.073791348600509,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200002,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.073791348600509,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200003,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 7.077313054499366,
+          "fail_phase": "stop",
+          "fail_reason": "wrong value for 'count'",
+          "fail_call": "{\"arguments\": {\"count\": 4}, \"name\": \"submit\"}"
+        },
+        {
+          "seed": 200004,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.066326530612245,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200005,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.073791348600509,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200006,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.068354430379747,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200007,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.0741687979539645,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200008,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.085,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200009,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.075757575757576,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200010,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.08080808080808,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200011,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.067515923566879,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200012,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.074968233799238,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200013,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 7.071065989847716,
+          "fail_phase": "stop",
+          "fail_reason": "wrong value for 'count'",
+          "fail_call": "{\"arguments\": {\"count\": 4}, \"name\": \"submit\"}"
+        },
+        {
+          "seed": 200014,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.0745891276864725,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200015,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 7.072611464968153,
+          "fail_phase": "stop",
+          "fail_reason": "wrong value for 'count'",
+          "fail_call": "{\"arguments\": {\"count\": 4}, \"name\": \"submit\"}"
+        },
+        {
+          "seed": 200016,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 7.074968233799238,
+          "fail_phase": "stop",
+          "fail_reason": "wrong value for 'count'",
+          "fail_call": "{\"arguments\": {\"count\": 4}, \"name\": \"submit\"}"
+        },
+        {
+          "seed": 200017,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.072983354673496,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200018,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.079646017699115,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200019,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.067515923566879,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200020,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.061224489795919,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200021,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.068702290076335,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200022,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.08080808080808,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200023,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.0698856416772555,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200024,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 7.070242656449553,
+          "fail_phase": "stop",
+          "fail_reason": "wrong value for 'count'",
+          "fail_call": "{\"arguments\": {\"count\": 4}, \"name\": \"submit\"}"
+        },
+        {
+          "seed": 200025,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 7.077707006369427,
+          "fail_phase": "stop",
+          "fail_reason": "wrong value for 'count'",
+          "fail_call": "{\"arguments\": {\"count\": 4}, \"name\": \"submit\"}"
+        },
+        {
+          "seed": 200026,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.07808564231738,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200027,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.062740076824584,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200028,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.0695322376738305,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200029,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 7.060025542784164,
+          "fail_phase": "stop",
+          "fail_reason": "wrong value for 'count'",
+          "fail_call": "{\"arguments\": {\"count\": 4}, \"name\": \"submit\"}"
+        }
+      ]
+    },
+    {
+      "cell": "submit call at 4",
+      "hops": 3,
+      "bits": {
+        "system": 8,
+        "read": 8,
+        "act": 8,
+        "stop": 4
+      },
+      "success": 30,
+      "n": 30,
+      "ci95": [
+        0.8864829086095221,
+        1.0
+      ],
+      "avg_bits": 7.913567277248158,
+      "fail_phase": {},
+      "fail_reason": {},
+      "seconds": 123.95404074992985,
+      "episodes": [
+        {
+          "seed": 200000,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.913043478260869,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200001,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.913486005089059,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200002,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.913486005089059,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200003,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.913814955640051,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200004,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.913265306122449,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200005,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.913486005089059,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200006,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.913924050632912,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200007,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.913043478260869,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200008,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.915,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200009,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.914141414141414,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200010,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.914141414141414,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200011,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.913375796178344,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200012,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.9135959339263025,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200013,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.913043478260869,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200014,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.914032869785082,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200015,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.913375796178344,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200016,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.9135959339263025,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200017,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.912932138284251,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200018,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.914032869785082,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200019,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.913375796178344,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200020,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.913265306122449,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200021,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.913486005089059,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200022,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.914141414141414,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200023,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.9135959339263025,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200024,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.913154533844189,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200025,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.913375796178344,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200026,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.914357682619648,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200027,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.912932138284251,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200028,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.914032869785082,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200029,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 7.912483912483912,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        }
+      ]
+    },
+    {
+      "cell": "everything but submit at 4",
+      "hops": 3,
+      "bits": {
+        "system": 4,
+        "read": 4,
+        "act": 4,
+        "stop": 8
+      },
+      "success": 0,
+      "n": 30,
+      "ci95": [
+        0.0,
+        0.113517091390478
+      ],
+      "avg_bits": 4.100396464761917,
+      "fail_phase": {
+        "stop": 30
+      },
+      "fail_reason": {
+        "expected tool 'submit', got 'read'": 30
+      },
+      "seconds": 91.84543183306232,
+      "episodes": [
+        {
+          "seed": 200000,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.116751269035533,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"r_1833\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200001,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.09148665819568,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200002,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.09148665819568,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200003,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.091139240506329,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200004,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.116455696202531,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"r_1013\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200005,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.116161616161616,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"r_7944\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200006,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.09102402022756,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200007,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.091954022988506,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200008,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.089887640449438,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200009,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.1152882205513786,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"r_1924\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200010,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.090794451450189,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200011,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.116308470290771,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"r_7993\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200012,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.091370558375634,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200013,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.091254752851711,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200014,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.090909090909091,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200015,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.091603053435114,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200016,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.091370558375634,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200017,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.092071611253197,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200018,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.115432873274781,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"r_4576\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200019,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.116308470290771,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"r_8561\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200020,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.09171974522293,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200021,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.09148665819568,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200022,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.090794451450189,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200023,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.116015132408575,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"r_6356\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200024,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.11660329531052,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"r_1031\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200025,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.116308470290771,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"r_5682\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200026,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.090566037735849,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200027,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.092071611253197,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200028,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.115432873274781,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"r_6194\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200029,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 4.091836734693878,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        }
+      ]
+    },
+    {
+      "cell": "pre-registered 3-hop table",
+      "hops": 3,
+      "bits": {
+        "system": 6,
+        "read": 4,
+        "act": 8,
+        "stop": 8
+      },
+      "success": 19,
+      "n": 30,
+      "ci95": [
+        0.45513246433604937,
+        0.7812629779598231
+      ],
+      "avg_bits": 5.588160933968701,
+      "fail_phase": {
+        "stop": 11
+      },
+      "fail_reason": {
+        "expected tool 'submit', got 'read'": 11
+      },
+      "seconds": 129.0173116250662,
+      "episodes": [
+        {
+          "seed": 200000,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 5.601532567049809,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200001,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 5.588310038119441,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200002,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 5.585241730279898,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200003,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 5.579214195183777,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200004,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 5.597452229299363,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200005,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 5.588310038119441,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200006,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 5.587341772151898,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200007,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 5.588235294117647,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200008,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 5.5625,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200009,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 5.578282828282828,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200010,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 5.5732323232323235,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200011,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 5.592356687898089,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200012,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 5.59539052496799,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200013,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 5.59846547314578,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200014,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 5.580278128950695,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200015,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 5.587261146496815,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200016,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 5.586294416243655,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200017,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 5.590268886043534,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200018,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 5.575221238938053,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200019,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 5.595419847328245,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200020,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 5.599489795918367,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200021,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 5.590330788804072,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200022,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 5.576292559899117,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200023,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 5.588310038119441,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200024,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 5.591315453384419,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200025,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 5.585241730279898,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200026,
+          "success": true,
+          "turns": 7,
+          "avg_bits": 5.574307304785894,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200027,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 5.603580562659847,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200028,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 5.588383838383838,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        },
+        {
+          "seed": 200029,
+          "success": false,
+          "turns": 7,
+          "avg_bits": 5.616966580976864,
+          "fail_phase": "stop",
+          "fail_reason": "expected tool 'submit', got 'read'",
+          "fail_call": "{\"arguments\": {\"record_id\": \"END\"}, \"name\": \"read\"}"
+        }
+      ]
+    },
+    {
+      "cell": "pre-registered 4-hop table",
+      "hops": 4,
+      "bits": {
+        "system": 8,
+        "read": 4,
+        "act": 8,
+        "stop": 6
+      },
+      "success": 30,
+      "n": 30,
+      "ci95": [
+        0.8864829086095221,
+        1.0
+      ],
+      "avg_bits": 5.966063575140818,
+      "fail_phase": {},
+      "fail_reason": {},
+      "seconds": 167.3787962909555,
+      "episodes": [
+        {
+          "seed": 200000,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.973140495867769,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200001,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.960905349794238,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200002,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.975129533678756,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200003,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.95679012345679,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200004,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.954871794871795,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200005,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.973305954825462,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200006,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.967179487179487,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200007,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.96292481977343,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200008,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.936863543788188,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200009,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.95496417604913,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200010,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.957055214723926,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200011,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.970924195223261,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200012,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.9751809720785936,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200013,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.9855072463768115,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200014,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.96292481977343,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200015,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.958720330237358,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200016,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.961065573770492,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200017,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.975077881619938,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200018,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.961065573770492,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200019,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.966976264189887,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200020,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.9833852544132915,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200021,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.965092402464066,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200022,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.942798774259448,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200023,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.965020576131687,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200024,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.969072164948454,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200025,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.971044467425026,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200026,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.967179487179487,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200027,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.981288981288981,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200028,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.961065573770492,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200029,
+          "success": true,
+          "turns": 9,
+          "avg_bits": 5.985386221294363,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        }
+      ]
+    },
+    {
+      "cell": "pre-registered 6-hop table",
+      "hops": 6,
+      "bits": {
+        "system": 8,
+        "read": 4,
+        "act": 8,
+        "stop": 8
+      },
+      "success": 30,
+      "n": 30,
+      "ci95": [
+        0.8864829086095221,
+        1.0
+      ],
+      "avg_bits": 5.815906992516702,
+      "fail_phase": {},
+      "fail_reason": {},
+      "seconds": 247.07095279195346,
+      "episodes": [
+        {
+          "seed": 200000,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.823353293413174,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200001,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.822556390977444,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200002,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.81981981981982,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200003,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.813293502613891,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200004,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.8105891126025355,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200005,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.8105891126025355,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200006,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.821187077385424,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200007,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.82145536384096,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200008,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.795252225519288,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200009,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.808095952023988,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200010,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.810306198655713,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200011,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.810871183916604,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200012,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.8125,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200013,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.8149253731343284,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200014,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.81245311327832,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200015,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.816280806572069,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200016,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.806547619047619,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200017,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.818726591760299,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200018,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.804444444444444,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200019,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.82145536384096,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200020,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.822822822822823,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200021,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.8105891126025355,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200022,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.804914370811616,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200023,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.825563909774436,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200024,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.820359281437126,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200025,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.81763826606876,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200026,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.8165548098434,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200027,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.8357196684250185,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200028,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.8105891126025355,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200029,
+          "success": true,
+          "turns": 13,
+          "avg_bits": 5.837755875663381,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        }
+      ]
+    },
+    {
+      "cell": "pre-registered 8-hop table",
+      "hops": 8,
+      "bits": {
+        "system": 8,
+        "read": 4,
+        "act": 8,
+        "stop": 8
+      },
+      "success": 30,
+      "n": 30,
+      "ci95": [
+        0.8864829086095221,
+        1.0
+      ],
+      "avg_bits": 5.7104506335862215,
+      "fail_phase": {},
+      "fail_reason": {},
+      "seconds": 326.20857608295046,
+      "episodes": [
+        {
+          "seed": 200000,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.717314487632509,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200001,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.712603062426384,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200002,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.716970052847915,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200003,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.700988947062245,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200004,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.7036172695449245,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200005,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.718988830099941,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200006,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.709582598471488,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200007,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.717978848413631,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200008,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.69661610268378,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200009,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.714621256605989,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200010,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.70426651081239,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200011,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.705916813122437,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200012,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.7015798712697485,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200013,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.710618436406068,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200014,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.709582598471488,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200015,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.706916764361079,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200016,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.704572098475968,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200017,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.711606096131301,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200018,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.7066043249561655,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200019,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.715634218289085,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200020,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.710588235294118,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200021,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.7036172695449245,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200022,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.692577440093513,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200023,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.717994100294986,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200024,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.71933962264151,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200025,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.714621256605989,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200026,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.707574867880211,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200027,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.708920187793427,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200028,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.714958775029446,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        },
+        {
+          "seed": 200029,
+          "success": true,
+          "turns": 17,
+          "avg_bits": 5.7367480643240025,
+          "fail_phase": null,
+          "fail_reason": null,
+          "fail_call": null
+        }
+      ]
+    }
+  ]
+}

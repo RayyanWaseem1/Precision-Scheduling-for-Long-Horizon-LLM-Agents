@@ -1,0 +1,16 @@
+[horizon] hops = 3 policy = uniform done
+[horizon] hops = 3 policy = adaptive done
+[horizon] hops = 4 policy = uniform done
+[horizon] hops = 4 policy = adaptive done
+[horizon] hops = 6 policy = uniform done
+[horizon] hops = 6 policy = adaptive done
+[horizon] hops = 8 policy = uniform done
+[horizon] hops = 8 policy = adaptive done
+ hops     n   S_adapt    S_unif  log_ratio  predicted    gain     bits a/u
+    3   300     0.500     0.913     -0.601      0.014  -0.413   5.59/6.00
+    4   300     0.983     0.987     -0.003      0.015  -0.003   5.98/6.00
+    6   300     0.987     0.963      0.024      0.028   0.023   5.82/6.00
+    8   300     0.990     0.983      0.007      0.029   0.007   5.72/6.00
+slope of log ratio per hop: 0.0944 95% CI [0.0786, 0.1136]
+largest absolute gain at hops = 6
+pre-registered slope: 0.0035 -> OUTSIDE the CI;  predicted peak-gain horizon H* = 84.0 hops

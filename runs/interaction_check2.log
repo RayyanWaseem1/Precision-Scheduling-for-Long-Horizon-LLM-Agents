@@ -1,0 +1,15 @@
+cell                             hops  sys/read/act/stop    success  95% CI          avg bits  failures by phase / kind
+instructions at 6                   3  6/8/8/8              30/30     [0.89, 1.00]     7.43    {} {}
+instructions and observations at 6    3  6/6/8/8              30/30     [0.89, 1.00]     6.51    {} {}
+all but submit at 6                 3  6/6/6/8              30/30     [0.89, 1.00]     6.04    {} {}
+3-hop table with calls and submit at 6    3  6/4/6/6              19/30     [0.46, 0.78]     5.08    {'stop': 11} {"expected tool 'submit', got 'read'": 10, "wrong value for 'count'": 1}
+                                     e.g. seed 200000: expected tool 'submit', got 'read'; called {"arguments": {"record_id": "END"}, "name": "read"}
+instructions 8, observations 4, calls 6    3  8/4/6/8              29/30     [0.83, 0.99]     5.69    {'stop': 1} {"expected tool 'submit', got 'read'": 1}
+                                     e.g. seed 200029: expected tool 'submit', got 'read'; called {"arguments": {"record_id": "END"}, "name": "read"}
+instructions 8, observations 4, calls 4    3  8/4/4/8               5/30     [0.07, 0.34]     5.91    {'act': 23, 'stop': 2} {"expected tool 'read', got 'submit'": 23, "expected tool 'submit', got 'read'": 1}
+                                     e.g. seed 200000: expected tool 'read', got 'submit'; called {"arguments": {"count": 2}, "name": "submit"}
+instructions at 6, 6 hops           6  6/8/8/8              30/30     [0.89, 1.00]     7.66    {} {}
+instructions at 4, 6 hops           6  4/8/8/8              29/30     [0.83, 0.99]     7.27    {'act': 1} {"expected tool 'update', got 'read'": 1}
+                                     e.g. seed 200003: expected tool 'update', got 'read'; called {"arguments": {"record_id": "r_4486"}, "name": "read"}
+
+written to runs/interaction-20261023-231355/interaction.json

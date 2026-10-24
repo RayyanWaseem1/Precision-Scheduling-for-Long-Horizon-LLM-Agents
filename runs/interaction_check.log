@@ -1,0 +1,22 @@
+cell                             hops  sys/read/act/stop    success  95% CI          avg bits  failures by phase / kind
+reference                           3  8/8/8/8              30/30     [0.89, 1.00]     8.00    {} {}
+uniform 6                           3  6/6/6/6              28/30     [0.79, 0.98]     6.00    {'stop': 2} {"wrong value for 'count'": 2}
+                                     e.g. seed 200003: wrong value for 'count'; called {"arguments": {"count": 4}, "name": "submit"}
+uniform 4                           3  4/4/4/4               0/30     [0.00, 0.11]     4.00    {'stop': 30} {"expected tool 'submit', got 'read'": 30}
+                                     e.g. seed 200000: expected tool 'submit', got 'read'; called {"arguments": {"record_id": "END"}, "name": "read"}
+system prompt at 4                  3  4/8/8/8               8/30     [0.14, 0.44]     6.81    {'stop': 21, 'act': 1} {"wrong value for 'count'": 15, "expected tool 'submit', got 'read'": 6}
+                                     e.g. seed 200000: wrong value for 'count'; called {"arguments": {"count": 4}, "name": "submit"}
+observations at 4                   3  8/4/8/8              29/30     [0.83, 0.99]     6.16    {'stop': 1} {"expected tool 'submit', got 'read'": 1}
+                                     e.g. seed 200029: expected tool 'submit', got 'read'; called {"arguments": {"record_id": "END"}, "name": "read"}
+read/update calls at 4              3  8/8/4/8              23/30     [0.59, 0.88]     7.07    {'stop': 7} {"wrong value for 'count'": 7}
+                                     e.g. seed 200003: wrong value for 'count'; called {"arguments": {"count": 4}, "name": "submit"}
+submit call at 4                    3  8/8/8/4              30/30     [0.89, 1.00]     7.91    {} {}
+everything but submit at 4          3  4/4/4/8               0/30     [0.00, 0.11]     4.10    {'stop': 30} {"expected tool 'submit', got 'read'": 30}
+                                     e.g. seed 200000: expected tool 'submit', got 'read'; called {"arguments": {"record_id": "r_1833"}, "name": "read"}
+pre-registered 3-hop table          3  6/4/8/8              19/30     [0.46, 0.78]     5.59    {'stop': 11} {"expected tool 'submit', got 'read'": 11}
+                                     e.g. seed 200000: expected tool 'submit', got 'read'; called {"arguments": {"record_id": "END"}, "name": "read"}
+pre-registered 4-hop table          4  8/4/8/6              30/30     [0.89, 1.00]     5.97    {} {}
+pre-registered 6-hop table          6  8/4/8/8              30/30     [0.89, 1.00]     5.82    {} {}
+pre-registered 8-hop table          8  8/4/8/8              30/30     [0.89, 1.00]     5.71    {} {}
+
+written to runs/interaction-20261023-220243/interaction.json
